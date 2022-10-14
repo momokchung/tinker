@@ -56,6 +56,7 @@ c
       use kurybr
       use kvdws
       use kvdwpr
+      use kxrepl
       use math
       use mplpot
       use polpot
@@ -69,6 +70,7 @@ c
       use units
       use uprior
       use vdwpot
+      use xrepel
       implicit none
       integer i,j
       character*3 blank3
@@ -219,6 +221,9 @@ c
       if (.not. allocated(prsiz))  allocate (prsiz(maxclass))
       if (.not. allocated(prdmp))  allocate (prdmp(maxclass))
       if (.not. allocated(prele))  allocate (prele(maxclass))
+      if (.not. allocated(pxrz))  allocate (pxrz(maxclass))
+      if (.not. allocated(pxrdmp))  allocate (pxrdmp(maxclass))
+      if (.not. allocated(pxrele))  allocate (pxrele(maxclass))
       if (.not. allocated(dspsix))  allocate (dspsix(maxclass))
       if (.not. allocated(dspdmp))  allocate (dspdmp(maxclass))
       if (.not. allocated(chg))  allocate (chg(maxtyp))
@@ -275,6 +280,9 @@ c
          prsiz(i) = 0.0d0
          prdmp(i) = 0.0d0
          prele(i) = 0.0d0
+         pxrz(i) = 0.0d0
+         pxrdmp(i) = 0.0d0
+         pxrele(i) = 0.0d0
          dspsix(i) = 0.0d0
          dspdmp(i) = 0.0d0
          cpele(i) = 0.0d0
@@ -351,6 +359,8 @@ c
 c
 c     set default control parameters for repulsion terms
 c
+      reptyp = 'PAULI'
+      xreptyp = 'DEFAULT'
       r2scale = 0.0d0
       r3scale = 0.0d0
       r4scale = 1.0d0

@@ -32,6 +32,7 @@ c
       use torpot
       use urypot
       use vdwpot
+      use xrepel
       implicit none
       integer next
       character*4 value
@@ -339,6 +340,10 @@ c
 c
 c     set control parameters for Pauli repulsion potential
 c
+      else if (keyword(1:8) .eq. 'REPTYPE ') then
+         call getword (record,reptyp,next)
+      else if (keyword(1:15) .eq. 'EXCH-REPULSION ') then
+          call getword (record,xreptyp,next)
       else if (keyword(1:13) .eq. 'REP-12-SCALE ') then
          read (string,*,err=10,end=10)  r2scale
          if (r2scale .gt. 1.0d0)  r2scale = 1.0d0 / r2scale

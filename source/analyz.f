@@ -28,7 +28,7 @@ c     aebt    stretch-torsion energy partitioned over atoms
 c     aeat    angle-torsion energy partitioned over atoms
 c     aett    torsion-torsion energy partitioned over atoms
 c     aev     van der Waals energy partitioned over atoms
-c     aer     Pauli repulsion energy partitioned over atoms
+c     aer     Pauli/exchange repulsion energy partitioned over atoms
 c     aedsp   damped dispersion energy partitioned over atoms
 c     aec     charge-charge energy partitioned over atoms
 c     aecd    charge-dipole energy partitioned over atoms

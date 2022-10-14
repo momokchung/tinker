@@ -28,7 +28,7 @@ c     ebt    stretch-torsion potential energy of the system
 c     eat    angle-torsion potential energy of the system
 c     ett    torsion-torsion potential energy of the system
 c     ev     van der Waals potential energy of the system
-c     er     Pauli repulsion potential energy of the system
+c     er     Pauli/exchange repulsion potential energy of the system
 c     edsp   dampled dispersion potential energy of the system
 c     ec     charge-charge potential energy of the system
 c     ecd    charge-dipole potential energy of the system

@@ -50,6 +50,7 @@ c
       use kurybr
       use kvdws
       use kvdwpr
+      use kxrepl
       use merck
       use params
       use solute
@@ -2003,6 +2004,20 @@ c
                mmffaromc(ia,if) = ic
             else if (ie .eq. 1) then
                mmffaroma(ia,if) = ic
+            end if
+c
+c     exchange repulsion parameters
+c
+         else if (keyword(1:11) .eq. 'XREPULSION ') then
+            ia = 0
+            spr = 0.0d0
+            apr = 0.0d0
+            string = record(next:240)
+            read (string,*,err=770,end=770)  ia,spr,apr
+  770       continue
+            if (ia .ne. 0) then
+               pxrz(ia) = spr
+               pxrdmp(ia) = apr
             end if
          end if
       end do

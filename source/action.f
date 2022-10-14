@@ -27,7 +27,7 @@ c     nebt    number of stretch-torsion energy terms computed
 c     neat    number of angle-torsion energy terms computed
 c     nett    number of torsion-torsion energy terms computed
 c     nev     number of van der Waals energy terms computed
-c     ner     number of Pauli repulsion energy terms computed
+c     ner     number of Pauli/exchange repulsion energy terms computed
 c     nedsp   number of dispersion energy terms computed
 c     nec     number of charge-charge energy terms computed
 c     necd    number of charge-dipole energy terms computed
