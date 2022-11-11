@@ -15,9 +15,7 @@ c
 c     zpxr       nuclear charge parameter value at each site
 c     dmppxr     exchange repulsion alpha damping value at each site
 c     elepxr     electron charge parameter value at each site
-c     crpxr      ratio of p/s orbital cofficients at each site
-c     cpxr       local coefficient for pseudo wavefunction at each site
-c     rcpxr      global coefficient for pseudo wavefunction at each site
+c     boysCoeff  Boys function Chebyshev coefficients
 c     xreptyp    exchange repulsion type
 c
 c
@@ -26,9 +24,7 @@ c
       real*8, allocatable :: zpxr(:)
       real*8, allocatable :: dmppxr(:)
       real*8, allocatable :: elepxr(:)
-      real*8, allocatable :: crpxr(:)
-      real*8, allocatable :: cpxr(:,:)
-      real*8, allocatable :: rcpxr(:,:)
+      real*8, allocatable :: boysCoeff(:)
       character*7 xreptyp
       save
       end

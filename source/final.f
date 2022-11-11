@@ -731,7 +731,6 @@ c
       if (allocated(pxrz))  deallocate (pxrz)
       if (allocated(pxrdmp))  deallocate (pxrdmp)
       if (allocated(pxrele))  deallocate (pxrele)
-      if (allocated(pxrcr))  deallocate (pxrcr)
 c
 c     deallocation of global arrays from module light
 c
@@ -1041,9 +1040,7 @@ c
       if (allocated(zpxr))  deallocate (zpxr)
       if (allocated(dmppxr))  deallocate (dmppxr)
       if (allocated(elepxr))  deallocate (elepxr)
-      if (allocated(crpxr))  deallocate (crpxr)
-      if (allocated(cpxr))  deallocate (cpxr)
-      if (allocated(rcpxr))  deallocate (rcpxr)
+      if (allocated(boysCoeff))  deallocate (boysCoeff)
 c
 c     deallocation of global arrays from module restrn
 c

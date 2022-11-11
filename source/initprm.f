@@ -224,7 +224,6 @@ c
       if (.not. allocated(pxrz))  allocate (pxrz(maxclass))
       if (.not. allocated(pxrdmp))  allocate (pxrdmp(maxclass))
       if (.not. allocated(pxrele))  allocate (pxrele(maxclass))
-      if (.not. allocated(pxrcr))  allocate (pxrcr(maxclass))
       if (.not. allocated(dspsix))  allocate (dspsix(maxclass))
       if (.not. allocated(dspdmp))  allocate (dspdmp(maxclass))
       if (.not. allocated(chg))  allocate (chg(maxtyp))
@@ -284,7 +283,6 @@ c
          pxrz(i) = 0.0d0
          pxrdmp(i) = 0.0d0
          pxrele(i) = 0.0d0
-         pxrcr(i) = 0.0d0
          dspsix(i) = 0.0d0
          dspdmp(i) = 0.0d0
          cpele(i) = 0.0d0

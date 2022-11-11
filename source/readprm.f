@@ -79,7 +79,6 @@ c
       real*8 wght,rd
       real*8 ep,rdn
       real*8 spr,apr,epr
-      real*8 xpr,cpr
       real*8 cdp,adp
       real*8 an1,an2,an3
       real*8 ba1,ba2
@@ -2011,16 +2010,14 @@ c     exchange repulsion parameters
 c
          else if (keyword(1:11) .eq. 'XREPULSION ') then
             ia = 0
-            xpr = 0.0d0
+            spr = 0.0d0
             apr = 0.0d0
-            cpr = 0.0d0
             string = record(next:240)
-            read (string,*,err=770,end=770)  ia,xpr,apr,cpr
+            read (string,*,err=770,end=770)  ia,spr,apr
   770       continue
             if (ia .ne. 0) then
-               pxrz(ia) = abs(xpr)
-               pxrdmp(ia) = abs(apr)
-               pxrcr(ia) = abs(cpr)
+               pxrz(ia) = spr
+               pxrdmp(ia) = apr
             end if
          end if
       end do

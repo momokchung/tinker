@@ -32,9 +32,11 @@ c
       use sizes
       implicit none
       integer i,k,ii
+      integer iboys
+      integer ncoeff
       integer freeunit
       integer ia,ic,next
-      real*8 zpr,apr,cpr
+      real*8 zpr,apr
       logical header
       character*20 keyword
       character*240 record
@@ -57,10 +59,9 @@ c
             k = 0
             zpr = 0.0d0
             apr = 0.0d0
-            cpr = 0.0d0
             call getnumb (record,k,next)
             string = record(next:240)
-            read (string,*,err=10,end=10)  zpr,apr,cpr
+            read (string,*,err=10,end=10)  zpr,apr
    10       continue
             if (k .gt. 0) then
                if (header .and. .not.silent) then
@@ -68,16 +69,14 @@ c
                   write (iout,20)
    20             format (/,' Additional Exchange Repulsion',
      &                       ' Parameters :',
-     &                    //,5x,'Atom Class',15x,'Core',11x,'Damp',
-     &                       8x,'P/S Ratio'/)
+     &                    //,5x,'Atom Class',15x,'Core',11x,'Damp',/)
                end if
                if (k .le. maxclass) then
-                  pxrz(k) = abs(zpr)
-                  pxrdmp(k) = abs(apr)
-                  pxrcr(k) = abs(cpr)
+                  pxrz(k) = zpr
+                  pxrdmp(k) = apr
                   if (.not. silent) then
-                     write (iout,30)  k,zpr,apr,cpr
-   30                format (6x,i6,7x,2f15.4,f15.3)
+                     write (iout,30)  k,zpr,apr
+   30                format (6x,i6,7x,2f15.4)
                   end if
                else
                   write (iout,40)
@@ -94,15 +93,11 @@ c
       if (allocated(zpxr))  deallocate (zpxr)
       if (allocated(dmppxr))  deallocate (dmppxr)
       if (allocated(elepxr))  deallocate (elepxr)
-      if (allocated(crpxr))  deallocate (crpxr)
-      if (allocated(cpxr))  deallocate (cpxr)
-      if (allocated(rcpxr))  deallocate (rcpxr)
+      if (allocated(boysCoeff))  deallocate (boysCoeff)
       allocate (zpxr(n))
       allocate (dmppxr(n))
       allocate (elepxr(n))
-      allocate (crpxr(n))
-      allocate (cpxr(4,n))
-      allocate (rcpxr(4,n))
+      allocate (boysCoeff(67999))
 c
 c     assign the core charge and alpha parameters 
 c
@@ -111,13 +106,11 @@ c
          zpxr(i) = 0.0d0
          dmppxr(i) = 0.0d0
          elepxr(i) = 0.0d0
-         crpxr(i) = 0.0d0
          ic = class(i)
          if (ic .ne. 0) then
             zpxr(i) = pxrz(ic)
             dmppxr(i) = pxrdmp(ic)
             elepxr(i) = pole(1,i) - zpxr(i)
-            crpxr(i) = pxrcr(ic)
          end if
       end do
 c
@@ -133,9 +126,8 @@ c
             ia = 0
             zpr = 0.0d0
             apr = 0.0d0
-            cpr = 0.0d0
             string = record(next:240)
-            read (string,*,err=70,end=70)  ia,zpr,apr,cpr
+            read (string,*,err=70,end=70)  ia,zpr,apr
             if (ia.lt.0 .and. ia.ge.-n) then
                ia = -ia
                if (header .and. .not.silent) then
@@ -143,17 +135,15 @@ c
                   write (iout,50)
    50             format (/,' Additional Exchange Repulsion Values',
      &                       ' for Specific Atoms :',
-     &                    //,8x,'Atom',17x,'Core',12x,'Damp',
-     &                       8x,'P/S Ratio'/)
+     &                    //,8x,'Atom',17x,'Core',12x,'Damp'/)
                end if
-               zpxr(ia) = abs(zpr)
-               dmppxr(ia) = abs(apr)
-               elepxr(ia) = pole(1,ia) - zpxr(ia)
-               crpxr(ia) = abs(cpr)
                if (.not. silent) then
-                  write (iout,60)  ia,zpr,apr,cpr
-   60             format (6x,i6,7x,2f15.4,f15.3)
+                  write (iout,60)  ia,zpr,apr
+   60             format (6x,i6,7x,2f15.4)
                end if
+               zpxr(ia) = zpr
+               dmppxr(ia) = apr
+               elepxr(ia) = pole(1,ia) - zpr
             end if
    70       continue
          end if
@@ -170,7 +160,6 @@ c
             zpxr(ii) = zpxr(i)
             dmppxr(ii) = dmppxr(i)
             elepxr(ii) = elepxr(i)
-            crpxr(ii) = crpxr(i)
          end do
       end if
 c
@@ -181,5 +170,25 @@ c
 c     change repulsion type
 c
       if (use_repuls) reptyp = 'EXCHANGE'
+c
+c     load Boys function Chebyshev coefficients
+c
+      if (use_repuls) then
+         ncoeff = 271996
+c
+c     perform dynamic allocation of some global arrays
+c
+         if (allocated(boysCoeff))  deallocate (boysCoeff)
+         allocate (boysCoeff(ncoeff))
+c
+c     read in coefficients
+c
+         iboys = freeunit ()
+         open (unit=iboys,file="/Users/moseschung/tmp/f00.bin",
+     &      form='unformatted',access='stream',status='old',
+     &      action='read')
+         read (iboys) boysCoeff
+         close (iboys)
+      end if
       return
       end
