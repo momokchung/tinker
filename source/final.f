@@ -1040,6 +1040,8 @@ c
       if (allocated(zpxr))  deallocate (zpxr)
       if (allocated(dmppxr))  deallocate (dmppxr)
       if (allocated(elepxr))  deallocate (elepxr)
+      if (allocated(stocoeff))  deallocate (stocoeff)
+      if (allocated(stoexp))  deallocate (stoexp)
       if (allocated(boysCoeff))  deallocate (boysCoeff)
 c
 c     deallocation of global arrays from module restrn

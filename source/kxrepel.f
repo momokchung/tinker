@@ -33,7 +33,6 @@ c
       implicit none
       integer i,k,ii
       integer iboys
-      integer ncoeff
       integer freeunit
       integer ia,ic,next
       real*8 zpr,apr
@@ -93,11 +92,9 @@ c
       if (allocated(zpxr))  deallocate (zpxr)
       if (allocated(dmppxr))  deallocate (dmppxr)
       if (allocated(elepxr))  deallocate (elepxr)
-      if (allocated(boysCoeff))  deallocate (boysCoeff)
       allocate (zpxr(n))
       allocate (dmppxr(n))
       allocate (elepxr(n))
-      allocate (boysCoeff(67999))
 c
 c     assign the core charge and alpha parameters 
 c
@@ -171,24 +168,119 @@ c     change repulsion type
 c
       if (use_repuls) reptyp = 'EXCHANGE'
 c
-c     load Boys function Chebyshev coefficients
+c     load Boys coefficients and STO-nG coefficients and exponents
 c
       if (use_repuls) then
          ncoeff = 271996
+         nsto = 3
+         if (stong .eq. 'STO-3G') then
+            nsto = 3
+         else if (stong .eq. 'STO-4G') then
+            nsto = 4
+         else if (stong .eq. 'STO-5G') then
+            nsto = 5
+         else if (stong .eq. 'STO-6G') then
+            nsto = 6
+         end if
+         n2sto = nsto * nsto
 c
 c     perform dynamic allocation of some global arrays
 c
          if (allocated(boysCoeff))  deallocate (boysCoeff)
-         allocate (boysCoeff(ncoeff))
+         allocate (boysCoeff(ncoeff * 7))
+         if (allocated(stocoeff))  deallocate (stocoeff)
+         allocate (stocoeff(2,nsto))
+         if (allocated(stoexp))  deallocate (stoexp)
+         allocate (stoexp(2,nsto))
 c
-c     read in coefficients
+c     read in boys coefficients
 c
          iboys = freeunit ()
-         open (unit=iboys,file="/Users/moseschung/tmp/f00.bin",
+         open (unit=iboys,file="/Users/moseschung/tmp/f0006.bin",
      &      form='unformatted',access='stream',status='old',
      &      action='read')
          read (iboys) boysCoeff
          close (iboys)
+c
+c     read in STO-nG coefficients and exponents
+c
+         if (nsto .eq. 3) then
+            stocoeff(1,1) = 0.444635d0
+            stocoeff(1,2) = 0.535328d0
+            stocoeff(1,3) = 0.154329d0
+            stocoeff(2,1) = 0.391957d0
+            stocoeff(2,2) = 0.607684d0
+            stocoeff(2,3) = 0.155916d0
+            stoexp(1,1) = 0.109818d0
+            stoexp(1,2) = 0.405771d0
+            stoexp(1,3) = 2.227660d0
+            stoexp(2,1) = 0.0751386d0
+            stoexp(2,2) = 0.231031d0
+            stoexp(2,3) = 0.994203d0
+         else if (nsto .eq. 4) then
+            stocoeff(1,1) = 0.291626d0
+            stocoeff(1,2) = 0.532846d0
+            stocoeff(1,3) = 0.260141d0
+            stocoeff(1,4) = 0.0567523d0
+            stocoeff(2,1) = 0.246313d0
+            stocoeff(2,2) = 0.583575d0
+            stocoeff(2,3) = 0.286379d0
+            stocoeff(2,4) = 0.0436843d0
+            stoexp(1,1) = 0.0880187d0
+            stoexp(1,2) = 0.265204d0
+            stoexp(1,3) = 0.954620d0
+            stoexp(1,4) = 5.21686d0
+            stoexp(2,1) = 0.0628104d0
+            stoexp(2,2) = 0.163541d0
+            stoexp(2,3) = 0.502989d0
+            stoexp(2,4) = 2.32350d0
+         else if (nsto .eq. 5) then
+            stocoeff(1,1) = 0.193572d0
+            stocoeff(1,2) = 0.482570d0
+            stocoeff(1,3) = 0.331816d0
+            stocoeff(1,4) = 0.113541d0
+            stocoeff(1,5) = 0.0221406d0
+            stocoeff(2,1) = 0.156828d0
+            stocoeff(2,2) = 0.510240d0
+            stocoeff(2,3) = 0.373598d0
+            stocoeff(2,4) = 0.107558d0
+            stocoeff(2,5) = 0.0125561d0
+            stoexp(1,1) = 0.0744527d0
+            stoexp(1,2) = 0.197572d0
+            stoexp(1,3) = 0.578648d0
+            stoexp(1,4) = 2.07173d0
+            stoexp(1,5) = 11.3056d0
+            stoexp(2,1) = 0.0544949d0
+            stoexp(2,2) = 0.127920d0
+            stoexp(2,3) = 0.329060d0
+            stoexp(2,4) = 1.03250d0
+            stoexp(2,5) = 5.03629d0
+         else if (nsto .eq. 6) then
+            stocoeff(1,1) = 0.130334d0
+            stocoeff(1,2) = 0.416492d0
+            stocoeff(1,3) = 0.370563d0
+            stocoeff(1,4) = 0.168538d0
+            stocoeff(1,5) = 0.0493615d0
+            stocoeff(1,6) = 0.00916360d0
+            stocoeff(2,1) = 0.101708d0
+            stocoeff(2,2) = 0.425860d0
+            stocoeff(2,3) = 0.418036d0
+            stocoeff(2,4) = 0.173897d0
+            stocoeff(2,5) = 0.0376794d0
+            stocoeff(2,6) = 0.00375970d0
+            stoexp(1,1) = 0.0651095d0
+            stoexp(1,2) = 0.158088d0
+            stoexp(1,3) = 0.407099d0
+            stoexp(1,4) = 1.18506d0
+            stoexp(1,5) = 4.23592d0
+            stoexp(1,6) = 23.1030d0
+            stoexp(2,1) = 0.0485690d0
+            stoexp(2,2) = 0.105960d0
+            stoexp(2,3) = 0.243977d0
+            stoexp(2,4) = 0.634142d0
+            stoexp(2,5) = 2.04036d0
+            stoexp(2,6) = 10.3087d0
+         end if
       end if
       return
       end
