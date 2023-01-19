@@ -78,7 +78,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 alphai2,alphaj2,alphak2,alphal2
       real*8 ni2,nj2,nk2,nl2
@@ -154,7 +154,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -163,8 +163,8 @@ c
       real*8 zij,zkl
       real*8 rij2,rkl2
       real*8 zp,zq,zpq,rpq2
-      real*8 pre, exp_term
-      real*8 fii, boysF
+      real*8 pre,exp_term
+      real*8 fii,boysF,u
       real*8 ssss(m,nsto,nsto,nsto,nsto)
 c
 c
@@ -202,8 +202,9 @@ c
                   pre = 2.0d0*pi**2.5d0 / (aiaj * akal * sqrt(aiajakal))
                   exp_term = exp(-(ai*aj/aiaj*rij2 + ak*al/akal*rkl2))
                   pre = pre * exp_term
+                  u = aiaj * akal / aiajakal * rpq2
                   do ii = ms, m
-                     fii = boysF(ii-1, aiaj * akal / aiajakal * rpq2)
+                     fii = boysF(ii-1, u)
                      ssss(ii,i,j,k,l) = pre * fii
                   end do
                end do
@@ -235,7 +236,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -339,7 +340,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -422,7 +423,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -503,7 +504,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -612,7 +613,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -719,7 +720,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -829,7 +830,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -933,7 +934,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -1013,7 +1014,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -1102,7 +1103,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -1188,7 +1189,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -1294,7 +1295,7 @@ c
       integer ni,nj,nk,nl
       integer nip,njp,nkp,nlp
       integer i,j,k,l,ii
-      integer n(*)
+      integer n(4)
       real*8 alphai,alphaj,alphak,alphal
       real*8 zi,zj,zk,zl
       real*8 alphai2,alphaj2,alphak2,alphal2
@@ -3926,6 +3927,9 @@ c
          coul = pre * (1.0d0 + term1 + term2)
          end if
       coulombSSPzS = -coul
+      if (z1 > z2) then
+         coulombSSPzS = -coulombSSPzS
+      end if
       return
       end
 c
@@ -4424,6 +4428,9 @@ c
          coul2 = pre * (1.0d0 + term1 + term2)
          end if
       coulombSPzPzPz = coul1 + 3.0d0 * coul2
+      if (z1 > z2) then
+         coulombSPzPzPz = -coulombSPzPzPz
+      end if
       return
       end
 c
@@ -4565,6 +4572,9 @@ c
          coul2 = pre * (1.0d0 + term1 + term2)
       end if
       coulombSPzPxPx = coul1 - 1.50d0 * coul2
+      if (z1 > z2) then
+         coulombSPzPxPx = -coulombSPzPxPx
+      end if
       return
       end
 c
@@ -4656,6 +4666,9 @@ c
          coul = pre * (1.0d0 + term1 + term2)
       end if
       coulombSPxPxPz = -1.5d0 * sqrt(3.0d0) * coul
+      if (z1 > z2) then
+         coulombSPxPxPz = -coulombSPxPxPz
+      end if
       return
       end
 c
@@ -5748,7 +5761,7 @@ c
       real*8 a,b,z1,z2
 c
 c
-      coulombSPzSS = -coulombSSSPz(b, a, z2, z1)
+      coulombSPzSS = coulombSSSPz(b, a, z2, z1)
       return
       end
 c
@@ -5811,7 +5824,7 @@ c
       real*8 a,b,z1,z2
 c
 c
-      coulombPzPzSPz = -coulombSPzPzPz(b, a, z2, z1)
+      coulombPzPzSPz = coulombSPzPzPz(b, a, z2, z1)
       return
       end
 c
@@ -5832,7 +5845,7 @@ c
       real*8 a,b,z1,z2
 c
 c
-      coulombPxPzSPx = -coulombSPxPxPz(b, a, z2, z1)
+      coulombPxPzSPx = coulombSPxPxPz(b, a, z2, z1)
       return
       end
 c
@@ -5853,7 +5866,7 @@ c
       real*8 a,b,z1,z2
 c
 c
-      coulombPxPxSPz = -coulombSPzPxPx(b, a, z2, z1)
+      coulombPxPxSPz = coulombSPzPxPx(b, a, z2, z1)
       return
       end
 c
@@ -5875,5 +5888,2966 @@ c
 c
 c
       coulombPzPzPxPx = coulombPxPxPzPz(b, a, z2, z1)
+      return
+      end
+c
+c
+c     ################################################################
+c     ##                                                            ##
+c     ##  subroutine contract1  --  1-electron overlap contraction  ##
+c     ##                                                            ##
+c     ################################################################
+c
+c
+c     "contract1" performs contraction over 1-electron overlap integrals
+c
+c
+      subroutine contract1 (n, ss, alphai, alphaj, result)
+      use math
+      use xrepel
+      implicit none
+      integer ni,nj
+      integer nip,njp
+      integer i,j
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 result
+      real*8 alphai2,alphaj2
+      real*8 ni2,nj2
+      real*8 ai,aj
+      real*8 ci,cj
+      real*8 corri,corrj,corr
+      real*8 ss(nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      ni2 = ni / 2.0d0
+      nj2 = nj / 2.0d0
+      nip = ni + 1
+      njp = nj + 1
+      result = 0.0d0
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         ci = stocoeff(nip,i)
+         corri = ci * (2.0d0 * ai / pi)**(0.75d0) * (4.0d0 * ai)**ni2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            cj = stocoeff(njp,j)
+            corrj = cj * (2.0d0 * aj / pi)**(0.75d0) * (4.0d0 * aj)**nj2
+            corr = corri*corrj
+            result = result + corr * ss(i,j)
+         end do
+      end do
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  subroutine contract1NE  --  1-electron NE contraction  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "contract1NE" performs contraction over 1-electron
+c     nuclear-electron integrals
+c
+c
+      subroutine contract1NE (n, ss, alphai, alphaj, result)
+      use math
+      use xrepel
+      implicit none
+      integer ni,nj
+      integer nip,njp
+      integer i,j
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 result
+      real*8 alphai2,alphaj2
+      real*8 ni2,nj2
+      real*8 ai,aj
+      real*8 ci,cj
+      real*8 corri,corrj,corr
+      real*8 ss(1,nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      ni2 = ni / 2.0d0
+      nj2 = nj / 2.0d0
+      nip = ni + 1
+      njp = nj + 1
+      result = 0.0d0
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         ci = stocoeff(nip,i)
+         corri = ci * (2.0d0 * ai / pi)**(0.75d0) * (4.0d0 * ai)**ni2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            cj = stocoeff(njp,j)
+            corrj = cj * (2.0d0 * aj / pi)**(0.75d0) * (4.0d0 * aj)**nj2
+            corr = corri*corrj
+            result = result + corr * ss(1,i,j)
+         end do
+      end do
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  subroutine buildSS  --  primitive SS overlap integral  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "buildSS" computes SS overlap integral over primitive basis
+c
+c
+      subroutine buildSS (n, alphai, alphaj, zi, zj, ss)
+      use math
+      use xrepel
+      implicit none
+      integer ni,nj
+      integer nip,njp
+      integer i,j
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 alphai2,alphaj2
+      real*8 ai,aj
+      real*8 aiaj
+      real*8 zr,r2
+      real*8 pre, exp_term
+      real*8 ss(nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      nip = ni + 1
+      njp = nj + 1
+      zr = zj - zi
+      r2 = zr * zr            
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            aiaj = ai + aj
+            pre = (pi / aiaj)**1.5d0
+            exp_term = exp(-ai*aj / aiaj * r2)
+            ss(i,j) = pre * exp_term
+         end do
+      end do
+      return
+      end
+c
+c
+c     ############################################################
+c     ##                                                        ##
+c     ##  subroutine overlapVRR1z  --  first overlap recursion  ##
+c     ##                                                        ##
+c     ############################################################
+c
+c
+c     "overlapVRR1z" is the first recursion relation for overlap
+c     integrals in the "z" direction from the OS recursion
+c
+c
+      subroutine overlapVRR1z (n, vn, alphai, alphaj, zi, zj, ss1, ss2)
+      use math
+      use xrepel
+      implicit none
+      integer vn
+      integer ni,nj
+      integer nip,njp
+      integer i,j
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 alphai2,alphaj2
+      real*8 ai,aj
+      real*8 aiaj
+      real*8 zz,zp
+      real*8 ss1(nsto,nsto)
+      real*8 ss2(nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      if (vn .eq. 1) then
+         zz = zi
+      else if (vn .eq. 2) then
+         zz = zj
+      end if
+      nip = ni + 1
+      njp = nj + 1
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            aiaj = ai + aj
+            zp = (ai * zi + aj * zj) / aiaj
+            ss2(i,j) = (zp - zz) * ss1(i,j)
+         end do
+      end do
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  subroutine overlapVRR2z  --  second overlap recursion  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "overlapVRR2z" is the second recursion relation for overlap
+c     integrals in the "z" direction from the OS recursion
+c
+c
+      subroutine overlapVRR2z (n, vn, alphai, alphaj, zi, zj,
+     &                                                    ss1, ss2, ss3)
+      use math
+      use xrepel
+      implicit none
+      integer vn
+      integer ni,nj
+      integer nip,njp
+      integer i,j
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 alphai2,alphaj2
+      real*8 ai,aj
+      real*8 aiaj
+      real*8 zz,zp
+      real*8 ss1(nsto,nsto)
+      real*8 ss2(nsto,nsto)
+      real*8 ss3(nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      if (vn .eq. 1) then
+         zz = zi
+      else if (vn .eq. 2) then
+         zz = zj
+      end if
+      nip = ni + 1
+      njp = nj + 1
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            aiaj = ai + aj
+            zp = (ai * zi + aj * zj) / aiaj
+            ss3(i,j) = (zp - zz) * ss2(i,j)
+     &               + 1.0d0 / (2.0d0 * aiaj) * ss1(i,j)
+         end do
+      end do
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  subroutine overlapVRR2x  --  second overlap recursion  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "overlapVRR2x" is the second recursion relation for overlap
+c     integrals in the "x" direction from the OS recursion
+c
+c
+      subroutine overlapVRR2x (n, alphai, alphaj, ss1, ss2)
+      use math
+      use xrepel
+      implicit none
+      integer ni,nj
+      integer nip,njp
+      integer i,j
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 alphai2,alphaj2
+      real*8 ai,aj
+      real*8 aiaj
+      real*8 ss1(nsto,nsto)
+      real*8 ss2(nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      nip = ni + 1
+      njp = nj + 1
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            aiaj = ai + aj
+            ss2(i,j) = 1.0d0 / (2.0d0 * aiaj) * ss1(i,j)
+         end do
+      end do
+      return
+      end
+c
+c
+c     ###########################################################
+c     ##                                                       ##
+c     ##  function stoOSS  --  SS overlap integral over STOnG  ##
+c     ##                                                       ##
+c     ###########################################################
+c
+c
+c     "stoOSS" computes SS overlap integral using STOnG basis set
+c
+c
+      function stoOSS (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer n(2)
+      real*8 stoOSS
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ss(nsto,nsto)
+c
+c
+      n(1) = 0
+      n(2) = 0
+      call buildSS (n, alphai, alphaj, zi, zj, ss)
+      call contract1 (n, ss, alphai, alphaj, result)
+      stoOSS = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoOSPz  --  SPz overlap integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoOSPz" computes SPz overlap integral using STOnG basis set
+c
+c
+      function stoOSPz (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer n(2)
+      real*8 stoOSPz
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ss(nsto,nsto)
+      real*8 sp(nsto,nsto)
+c
+c
+      n(1) = 0
+      n(2) = 1
+      call buildSS (n, alphai, alphaj, zi, zj, ss)
+      call overlapVRR1z (n, 2, alphai, alphaj, zi, zj, ss, sp)
+      call contract1 (n, sp, alphai, alphaj, result)
+      stoOSPz = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoOPzS  --  PzS overlap integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoOPzS" computes PzS overlap integral using STOnG basis set
+c
+c
+      function stoOPzS (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer n(2)
+      real*8 stoOPzS
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ss(nsto,nsto)
+      real*8 ps(nsto,nsto)
+c
+c
+      n(1) = 1
+      n(2) = 0
+      call buildSS (n, alphai, alphaj, zi, zj, ss)
+      call overlapVRR1z (n, 1, alphai, alphaj, zi, zj, ss, ps)
+      call contract1 (n, ps, alphai, alphaj, result)
+      stoOPzS = result
+      return
+      end
+c
+c
+c     ###############################################################
+c     ##                                                           ##
+c     ##  function stoOPzPz  --  PzPz overlap integral over STOnG  ##
+c     ##                                                           ##
+c     ###############################################################
+c
+c
+c     "stoOPzPz" computes PzPz overlap integral using STOnG basis set
+c
+c
+      function stoOPzPz (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer n(2)
+      real*8 stoOPzPz
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ss(nsto,nsto)
+      real*8 sp(nsto,nsto)
+      real*8 pp(nsto,nsto)
+c
+c
+      n(1) = 1
+      n(2) = 1
+      call buildSS (n, alphai, alphaj, zi, zj, ss)
+      call overlapVRR1z (n, 2, alphai, alphaj, zi, zj, ss, sp)
+      call overlapVRR2z (n, 1, alphai, alphaj, zi, zj, ss, sp, pp)
+      call contract1 (n, pp, alphai, alphaj, result)
+      stoOPzPz = result
+      return
+      end
+c
+c
+c     ###############################################################
+c     ##                                                           ##
+c     ##  function stoOPxPx  --  PxPx overlap integral over STOnG  ##
+c     ##                                                           ##
+c     ###############################################################
+c
+c
+c     "stoOPxPx" computes PxPx overlap integral using STOnG basis set
+c
+c
+      function stoOPxPx (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer n(2)
+      real*8 stoOPxPx
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ss(nsto,nsto)
+      real*8 pp(nsto,nsto)
+c
+c
+      n(1) = 1
+      n(2) = 1
+      call buildSS (n, alphai, alphaj, zi, zj, ss)
+      call overlapVRR2x (n, alphai, alphaj, ss, pp)
+      call contract1 (n, pp, alphai, alphaj, result)
+      stoOPxPx = result
+      return
+      end
+c
+c
+c     ###################################################
+c     ##                                               ##
+c     ##  function overlapSS  --  SS overlap integral  ##
+c     ##                                               ##
+c     ###################################################
+c
+c
+c     "overlapSS" computes the overlap integral
+c
+c
+      function overlapSS (a, b, z1, z2)
+      implicit none
+      real*8 overlapSS,over
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho,rho2
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 pre,term1,term2
+      real*8 kappam,kappap
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         rho2 = rho * rho
+         exp1 = exp(-rho)
+         over = (1.0d0 + rho + rho2 / 3.0d0) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         kappam = 1.0d0 - kappa
+         kappap = 1.0d0 + kappa
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = sqrt(1.0d0 - tau**2) / (tau * rho)
+         term1 =-kappam * (2.0d0 * kappap + rhoA) * expA
+         term2 = kappap * (2.0d0 * kappam + rhoB) * expB
+         over = pre * (term1 + term2)
+         end if
+      overlapSS = over
+      return
+      end
+c
+c
+c     #####################################################
+c     ##                                                 ##
+c     ##  function overlapSPz  --  SPz overlap integral  ##
+c     ##                                                 ##
+c     #####################################################
+c
+c
+c     "overlapSPz" computes the overlap integral
+c
+c
+      function overlapSPz (a, b, z1, z2)
+      implicit none
+      real*8 overlapSPz,over
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho,rho2
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 pre,term1,term2
+      real*8 rhoA2
+      real*8 rhoB2,rhoB3
+      real*8 kappam,kappam2
+      real*8 kappap,kappap2
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         rho2 = rho * rho
+         exp1 = exp(-rho)
+         over = 0.5d0 * rho * (1.0d0 + rho + rho2 / 3.0d0) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         rho2 = rho**2
+         rhoA2 = rhoA * rhoA
+         rhoB2 = rhoB * rhoB
+         rhoB3 = rhoB2 * rhoB
+         kappam = 1.0d0 - kappa
+         kappap = 1.0d0 + kappa
+         kappam2 = kappam**2
+         kappap2 = kappap**2
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = sqrt((1.0d0 + tau) / (1.0d0 - tau)) / (tau * rho2)
+         term1 =-kappam2 * (6.0d0 * kappap * (1.0d0 + rhoA)
+     &      + 2.0d0 * rhoA2) * expA
+         term2 = kappap * (6.0d0 * kappam2 * (1.0d0 + rhoB)
+     &      + 4.0d0 * kappam * rhoB2 + rhoB3) * expB
+         over = pre * (term1 + term2)
+         end if
+      overlapSPz = -over
+      if (z1 > z2) then
+         overlapSPz = -overlapSPz
+      end if
+      return
+      end
+c
+c
+c     #######################################################
+c     ##                                                   ##
+c     ##  function overlapPzPz  --  PzPz overlap integral  ##
+c     ##                                                   ##
+c     #######################################################
+c
+c
+c     "overlapPzPz" computes the overlap integral
+c
+c
+      function overlapPzPz (a, b, z1, z2)
+      implicit none
+      real*8 overlapPzPz,over
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho,rho2,rho3,rho4
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 pre,term1,term2
+      real*8 rhoA2,rhoA3,rhoA4
+      real*8 rhoB2,rhoB3,rhoB4
+      real*8 kappam,kappam2
+      real*8 kappap,kappap2
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         rho2 = rho * rho
+         rho3 = rho2 * rho
+         rho4 = rho3 * rho
+         exp1 = exp(-rho)
+         over = (-1.0d0 - rho - rho2 / 5.0d0 + 2.0d0/15.0d0 * rho3
+     &                                           + rho4 / 15.0d0) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         rho3 = rho**3
+         rhoA2 = rhoA * rhoA
+         rhoA3 = rhoA2 * rhoA
+         rhoA4 = rhoA3 * rhoA
+         rhoB2 = rhoB * rhoB
+         rhoB3 = rhoB2 * rhoB
+         rhoB4 = rhoB3 * rhoB
+         kappam = 1.0d0 - kappa
+         kappap = 1.0d0 + kappa
+         kappam2 = kappam**2
+         kappap2 = kappap**2
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = 1.0d0 / (sqrt(1. - tau**2) * tau * rho3)
+         term1 =-kappam2 * (48.0d0 * kappap2 * (1.0d0 + rhoA
+     &      + 0.5d0 * rhoA2) + 2.0d0 * (5.0d0 + 6.0d0 * kappa) * rhoA3
+     &      + 2.0d0 * rhoA4) * expA
+         term2 = kappap2 * (48.0d0 * kappam2 * (1.0d0 + rhoB
+     &      + 0.5d0 * rhoB2) + 2.0d0 * (5.0d0 - 6.0d0 * kappa) * rhoB3
+     &      + 2.0d0 * rhoB4) * expB
+         over = pre * (term1 + term2)
+         end if
+      overlapPzPz = -over
+      return
+      end
+c
+c
+c     #######################################################
+c     ##                                                   ##
+c     ##  function overlapPxPx  --  PxPx overlap integral  ##
+c     ##                                                   ##
+c     #######################################################
+c
+c
+c     "overlapPxPx" computes the overlap integral
+c
+c
+      function overlapPxPx (a, b, z1, z2)
+      implicit none
+      real*8 overlapPxPx,over
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho,rho2,rho3
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 pre,term1,term2
+      real*8 rhoA2,rhoA3
+      real*8 rhoB2,rhoB3
+      real*8 kappam,kappam2
+      real*8 kappap,kappap2
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         rho2 = rho * rho
+         rho3 = rho2 * rho
+         exp1 = exp(-rho)
+         over = (1.0d0 + rho + 2.0d0/5.0d0 * rho2 + rho3/15.0d0) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         rho3 = rho**3
+         rhoA2 = rhoA * rhoA
+         rhoA3 = rhoA2 * rhoA
+         rhoB2 = rhoB * rhoB
+         rhoB3 = rhoB2 * rhoB
+         kappam = 1.0d0 - kappa
+         kappap = 1.0d0 + kappa
+         kappam2 = kappam**2
+         kappap2 = kappap**2
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = 1.0d0 / (sqrt(1.0d0 - tau**2) * tau * rho3)
+         term1 =-kappam2 * (24.0d0 * kappap2 * (1.0d0 + rhoA)
+     &      + 12.0d0 * kappap * rhoA2 + 2.0d0 * rhoA3) * expA
+         term2 = kappap2 * (24.0d0 * kappam2 * (1.0d0 + rhoB)
+     &      + 12.0d0 * kappam * rhoB2 + 2.0d0 * rhoB3) * expB
+         over = pre * (term1 + term2)
+         end if
+      overlapPxPx = over
+      return
+      end
+c
+c
+c     #####################################################
+c     ##                                                 ##
+c     ##  function overlapPzS  --  PzS overlap integral  ##
+c     ##                                                 ##
+c     #####################################################
+c
+c
+c     "overlapPzS" computes the overlap integral
+c
+c
+      function overlapPzS (a, b, z1, z2)
+      implicit none
+      real*8 overlapPzS,overlapSPz
+      real*8 a,b,z1,z2
+c
+c
+      overlapPzS = overlapSPz(b,a,z2,z1)
+      return
+      end
+c
+c
+c     ##########################################################
+c     ##                                                      ##
+c     ##  subroutine buildNESS  --  primitive SS NE integral  ##
+c     ##                                                      ##
+c     ##########################################################
+c
+c
+c     "buildNESS" computes SS nuclear-electron integral over
+c     primitive basis
+c
+c
+      subroutine buildNESS (ms, m, n, alphai, alphaj, zi, zj, zc, ss)
+      use math
+      use xrepel
+      implicit none
+      integer m,ms
+      integer ni,nj
+      integer nip,njp
+      integer i,j,ii
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 zi,zj, zc
+      real*8 alphai2,alphaj2
+      real*8 ai,aj
+      real*8 aiaj
+      real*8 zij,rij2
+      real*8 zp,u
+      real*8 pre,over,pre_over
+      real*8 fii, boysF
+      real*8 ss(m,nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      nip = ni + 1
+      njp = nj + 1
+      zij = zi - zj
+      rij2 = zij**2
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            aiaj = ai + aj
+            zp = (ai * zi + aj * zj) / aiaj
+            pre = 2.0d0 * sqrt(aiaj / pi)
+            over = (pi / aiaj)**1.5d0 * exp(-ai*aj / aiaj * rij2)
+            pre_over = pre * over
+            u = aiaj * (zp - zc)**2
+            do ii = ms, m
+               fii = boysF(ii-1, u)
+               ss(ii,i,j) = pre_over * fii
+            end do
+         end do
+      end do
+      return
+      end
+c
+c
+c     ##########################################################
+c     ##                                                      ##
+c     ##  subroutine NEVRR1  --  first NE vertical recursion  ##
+c     ##                                                      ##
+c     ##########################################################
+c
+c
+c     "NEVRR1" is the first vertical recursion relation from OS
+c     recursion for NE integrals
+c
+c
+      subroutine NEVRR1 (ms, m, n, zz, alphai, alphaj, zi, zj, zc,
+     &                                         nei1n, nei2n, nei1, nei2)
+      use math
+      use xrepel
+      implicit none
+      integer m,ms
+      integer nei1n,nei2n
+      integer ni,nj
+      integer nip,njp
+      integer i,j,ii
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 zi,zj,zc,zz
+      real*8 alphai2,alphaj2
+      real*8 ai,aj
+      real*8 aiaj
+      real*8 zp
+      real*8 nei1(nei1n,nsto,nsto)
+      real*8 nei2(nei2n,nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      nip = ni + 1
+      njp = nj + 1
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            aiaj = ai + aj
+            zp = (ai * zi + aj * zj) / aiaj
+            do ii = ms, m
+               nei2(ii,i,j) = (zp - zz) * nei1(ii,i,j)
+     &                      - (zp - zc) * nei1(ii+1,i,j)
+            end do
+         end do
+      end do
+      return
+      end
+c
+c
+c     ################################################################
+c     ##                                                            ##
+c     ##  subroutine NEVRR2z  --  second "z" NE vertical recursion  ##
+c     ##                                                            ##
+c     ################################################################
+c
+c
+c     "NEVRR2z" is the second vertical recursion relation from OS
+c     recursion for NE integrals in the "z" direction
+c
+c
+      subroutine NEVRR2z (ms, m, n, zz, alphai, alphaj, zi, zj, zc,
+     &                            nei1n, nei2n, nei3n, nei1, nei2, nei3)
+      use math
+      use xrepel
+      implicit none
+      integer m,ms
+      integer nei1n,nei2n,nei3n
+      integer ni,nj
+      integer nip,njp
+      integer i,j,ii
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 zi,zj,zc,zz
+      real*8 alphai2,alphaj2
+      real*8 ai,aj
+      real*8 aiaj
+      real*8 zp
+      real*8 nei1(nei1n,nsto,nsto)
+      real*8 nei2(nei2n,nsto,nsto)
+      real*8 nei3(nei3n,nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      nip = ni + 1
+      njp = nj + 1
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            aiaj = ai + aj
+            zp = (ai * zi + aj * zj) / aiaj
+            do ii = ms, m
+               nei3(ii,i,j) = (zp - zz) * nei2(ii,i,j)
+     &                      - (zp - zc) * nei2(ii+1,i,j)
+     &                      + 1.0d0 / (2.0d0 * aiaj)
+     &                      * (nei1(ii,i,j) - nei1(ii+1,i,j))
+            end do
+         end do
+      end do
+      return
+      end
+c
+c
+c     ################################################################
+c     ##                                                            ##
+c     ##  subroutine NEVRR2x  --  second "x" NE vertical recursion  ##
+c     ##                                                            ##
+c     ################################################################
+c
+c
+c     "NEVRR2x" is the second vertical recursion relation from OS
+c     recursion for NE integrals in the "x" direction
+c
+c
+      subroutine NEVRR2x (ms, m, n, alphai, alphaj, nei1n, nei2n, 
+     &                                                       nei1, nei2)
+      use math
+      use xrepel
+      implicit none
+      integer m,ms
+      integer nei1n,nei2n
+      integer ni,nj
+      integer nip,njp
+      integer i,j,ii
+      integer n(2)
+      real*8 alphai,alphaj
+      real*8 alphai2,alphaj2
+      real*8 ai,aj
+      real*8 aiaj
+      real*8 nei1(nei1n,nsto,nsto)
+      real*8 nei2(nei2n,nsto,nsto)
+c
+c
+      alphai2 = alphai * alphai
+      alphaj2 = alphaj * alphaj
+      ni = n(1)
+      nj = n(2)
+      nip = ni + 1
+      njp = nj + 1
+      do i = 1, nsto
+         ai = stoexp(nip,i) * alphai2
+         do j = 1, nsto
+            aj = stoexp(njp,j) * alphaj2
+            aiaj = ai + aj
+            do ii = ms, m
+               nei2(ii,i,j) = 1.0d0 / (2.0d0 * aiaj)
+     &                      * (nei1(ii,i,j) - nei1(ii+1,i,j))
+            end do
+         end do
+      end do
+      return
+      end
+c
+c
+c     #########################################################
+c     ##                                                     ##
+c     ##  function stoNESaS  --  SaS NE integral over STOnG  ##
+c     ##                                                     ##
+c     #########################################################
+c
+c
+c     "stoNESaS" computes SaS nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNESaS (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNESaS
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sas(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 0
+      n(2) = 0
+      call buildNESS (1, m, n, alphai, alphaj, zi, zj, zi, sas)
+      call contract1NE (n, sas, alphai, alphaj, result)
+      stoNESaS = result
+      return
+      end
+c
+c
+c     #########################################################
+c     ##                                                     ##
+c     ##  function stoNESbS  --  SbS NE integral over STOnG  ##
+c     ##                                                     ##
+c     #########################################################
+c
+c
+c     "stoNESbS" computes SbS nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNESbS (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNESbS
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sbs(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 0
+      n(2) = 0
+      call buildNESS (1, m, n, alphai, alphaj, zi, zj, zj, sbs)
+      call contract1NE (n, sbs, alphai, alphaj, result)
+      stoNESbS = result
+      return
+      end
+c
+c
+c     #########################################################
+c     ##                                                     ##
+c     ##  function stoNEaSS  --  aSS NE integral over STOnG  ##
+c     ##                                                     ##
+c     #########################################################
+c
+c
+c     "stoNEaSS" computes aSS nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEaSS (alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEaSS
+      real*8 alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ass(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 0
+      n(2) = 0
+      call buildNESS (1, m, n, alphaj, alphaj, zj, zj, zi, ass)
+      call contract1NE (n, ass, alphaj, alphaj, result)
+      stoNEaSS = result
+      return
+      end
+c
+c
+c     #########################################################
+c     ##                                                     ##
+c     ##  function stoNESSb  --  SSb NE integral over STOnG  ##
+c     ##                                                     ##
+c     #########################################################
+c
+c
+c     "stoNESSb" computes SSb nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNESSb (alphai, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNESSb
+      real*8 alphai
+      real*8 zi,zj
+      real*8 result
+      real*8 ssb(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 0
+      n(2) = 0
+      call buildNESS (1, m, n, alphai, alphai, zi, zi, zj, ssb)
+      call contract1NE (n, ssb, alphai, alphai, result)
+      stoNESSb = result
+      return
+      end
+c
+c
+c     ###########################################################
+c     ##                                                       ##
+c     ##  function stoNESaPz  --  SaPz NE integral over STOnG  ##
+c     ##                                                       ##
+c     ###########################################################
+c
+c
+c     "stoNESaPz" computes SaPz nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNESaPz (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNESaPz
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sas(2,nsto,nsto)
+      real*8 sapz(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 0
+      n(2) = 1
+      call buildNESS (1, m+1, n, alphai, alphaj, zi, zj, zi, sas)
+      call NEVRR1 (1, m, n, zj, alphai, alphaj, zi, zj, zi,
+     &                                                  2, 1, sas, sapz)
+      call contract1NE (n, sapz, alphai, alphaj, result)
+      stoNESaPz = result
+      return
+      end
+c
+c
+c     ###########################################################
+c     ##                                                       ##
+c     ##  function stoNESbPz  --  SbPz NE integral over STOnG  ##
+c     ##                                                       ##
+c     ###########################################################
+c
+c
+c     "stoNESbPz" computes SbPz nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNESbPz (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNESbPz
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sbs(2,nsto,nsto)
+      real*8 sbpz(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 0
+      n(2) = 1
+      call buildNESS (1, m+1, n, alphai, alphaj, zi, zj, zj, sbs)
+      call NEVRR1 (1, m, n, zj, alphai, alphaj, zi, zj, zj,
+     &                                                  2, 1, sbs, sbpz)
+      call contract1NE (n, sbpz, alphai, alphaj, result)
+      stoNESbPz = result
+      return
+      end
+c
+c
+c     ###########################################################
+c     ##                                                       ##
+c     ##  function stoNEaSPz  --  aSPz NE integral over STOnG  ##
+c     ##                                                       ##
+c     ###########################################################
+c
+c
+c     "stoNEaSPz" computes aSPz nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEaSPz (alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEaSPz
+      real*8 alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ass(2,nsto,nsto)
+      real*8 aspz(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 0
+      n(2) = 1
+      call buildNESS (1, m+1, n, alphaj, alphaj, zj, zj, zi, ass)
+      call NEVRR1 (1, m, n, zj, alphaj, alphaj, zj, zj, zi,
+     &                                                  2, 1, ass, aspz)
+      call contract1NE (n, aspz, alphaj, alphaj, result)
+      stoNEaSPz = result
+      return
+      end
+c
+c
+c     ###########################################################
+c     ##                                                       ##
+c     ##  function stoNESPzb  --  SPzb NE integral over STOnG  ##
+c     ##                                                       ##
+c     ###########################################################
+c
+c
+c     "stoNESPzb" computes SPzb nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNESPzb (alphai, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNESPzb
+      real*8 alphai
+      real*8 zi,zj
+      real*8 result
+      real*8 ssb(2,nsto,nsto)
+      real*8 spzb(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 0
+      n(2) = 1
+      call buildNESS (1, m+1, n, alphai, alphai, zi, zi, zj, ssb)
+      call NEVRR1 (1, m, n, zi, alphai, alphai, zi, zi, zj,
+     &                                                  2, 1, ssb, spzb)
+      call contract1NE (n, spzb, alphai, alphai, result)
+      stoNESPzb = result
+      return
+      end
+c
+c
+c     ###########################################################
+c     ##                                                       ##
+c     ##  function stoNEPzaS  --  PzaS NE integral over STOnG  ##
+c     ##                                                       ##
+c     ###########################################################
+c
+c
+c     "stoNEPzaS" computes PzaS nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEPzaS (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEPzaS
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sas(2,nsto,nsto)
+      real*8 pzas(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 0
+      call buildNESS (1, m+1, n, alphai, alphaj, zi, zj, zi, sas)
+      call NEVRR1 (1, m, n, zi, alphai, alphaj, zi, zj, zi,
+     &                                                  2, 1, sas, pzas)
+      call contract1NE (n, pzas, alphai, alphaj, result)
+      stoNEPzaS = result
+      return
+      end
+c
+c
+c     ###########################################################
+c     ##                                                       ##
+c     ##  function stoNEPzbS  --  PzbS NE integral over STOnG  ##
+c     ##                                                       ##
+c     ###########################################################
+c
+c
+c     "stoNEPzbS" computes PzbS nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEPzbS (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEPzbS
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sbs(2,nsto,nsto)
+      real*8 pzbs(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 0
+      call buildNESS (1, m+1, n, alphai, alphaj, zi, zj, zj, sbs)
+      call NEVRR1 (1, m, n, zi, alphai, alphaj, zi, zj, zj,
+     &                                                  2, 1, sbs, pzbs)
+      call contract1NE (n, pzbs, alphai, alphaj, result)
+      stoNEPzbS = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoNEPzaPz  --  PzaPz NE integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoNEPzaPz" computes PzaPz nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEPzaPz (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEPzaPz
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sas(3,nsto,nsto)
+      real*8 sapz(2,nsto,nsto)
+      real*8 pzapz(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 1
+      call buildNESS (1, m+2, n, alphai, alphaj, zi, zj, zi, sas)
+      call NEVRR1 (1, m+1, n, zj, alphai, alphaj, zi, zj, zi,
+     &                                                  3, 2, sas, sapz)
+      call NEVRR2z (1, m, n, zi, alphai, alphaj, zi, zj, zi,
+     &                                        3, 2, 1, sas, sapz, pzapz)
+      call contract1NE (n, pzapz, alphai, alphaj, result)
+      stoNEPzaPz = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoNEPzbPz  --  PzbPz NE integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoNEPzbPz" computes PzbPz nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEPzbPz (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEPzbPz
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sbs(3,nsto,nsto)
+      real*8 sbpz(2,nsto,nsto)
+      real*8 pzbpz(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 1
+      call buildNESS (1, m+2, n, alphai, alphaj, zi, zj, zj, sbs)
+      call NEVRR1 (1, m+1, n, zj, alphai, alphaj, zi, zj, zj,
+     &                                                  3, 2, sbs, sbpz)
+      call NEVRR2z (1, m, n, zi, alphai, alphaj, zi, zj, zj,
+     &                                        3, 2, 1, sbs, sbpz, pzbpz)
+      call contract1NE (n, pzbpz, alphai, alphaj, result)
+      stoNEPzbPz = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoNEaPzPz  --  aPzPz NE integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoNEaPzPz" computes aPzPz nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEaPzPz (alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEaPzPz
+      real*8 alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ass(3,nsto,nsto)
+      real*8 aspz(2,nsto,nsto)
+      real*8 apzpz(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 1
+      call buildNESS (1, m+2, n, alphaj, alphaj, zj, zj, zi, ass)
+      call NEVRR1 (1, m+1, n, zj, alphaj, alphaj, zj, zj, zi,
+     &                                                  3, 2, ass, aspz)
+      call NEVRR2z (1, m, n, zj, alphaj, alphaj, zj, zj, zi,
+     &                                        3, 2, 1, ass, aspz, apzpz)
+      call contract1NE (n, apzpz, alphaj, alphaj, result)
+      stoNEaPzPz = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoNEPzPzb  --  PzPzb NE integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoNEPzPzb" computes PzPzb nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEPzPzb (alphai, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEPzPzb
+      real*8 alphai
+      real*8 zi,zj
+      real*8 result
+      real*8 ssb(3,nsto,nsto)
+      real*8 spzb(2,nsto,nsto)
+      real*8 pzpzb(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 1
+      call buildNESS (1, m+2, n, alphai, alphai, zi, zi, zj, ssb)
+      call NEVRR1 (1, m+1, n, zi, alphai, alphai, zi, zi, zj,
+     &                                                  3, 2, ssb, spzb)
+      call NEVRR2z (1, m, n, zi, alphai, alphai, zi, zi, zj,
+     &                                        3, 2, 1, ssb, spzb, pzpzb)
+      call contract1NE (n, pzpzb, alphai, alphai, result)
+      stoNEPzPzb = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoNEPxaPx  --  PxaPx NE integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoNEPxaPx" computes PxaPx nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEPxaPx (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEPxaPx
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sas(2,nsto,nsto)
+      real*8 pxapx(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 1
+      call buildNESS (1, m+1, n, alphai, alphaj, zi, zj, zi, sas)
+      call NEVRR2x (1, m, n, alphai, alphaj, 2, 1, sas, pxapx)
+      call contract1NE (n, pxapx, alphai, alphaj, result)
+      stoNEPxaPx = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoNEPxbPx  --  PxbPx NE integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoNEPxbPx" computes PxbPx nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEPxbPx (alphai, alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEPxbPx
+      real*8 alphai,alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 sbs(2,nsto,nsto)
+      real*8 pxbpx(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 1
+      call buildNESS (1, m+1, n, alphai, alphaj, zi, zj, zj, sbs)
+      call NEVRR2x (1, m, n, alphai, alphaj, 2, 1, sbs, pxbpx)
+      call contract1NE (n, pxbpx, alphai, alphaj, result)
+      stoNEPxbPx = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoNEaPxPx  --  aPxPx NE integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoNEaPxPx" computes aPxPx nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEaPxPx (alphaj, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEaPxPx
+      real*8 alphaj
+      real*8 zi,zj
+      real*8 result
+      real*8 ass(2,nsto,nsto)
+      real*8 apxpx(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 1
+      call buildNESS (1, m+1, n, alphaj, alphaj, zj, zj, zi, ass)
+      call NEVRR2x (1, m, n, alphaj, alphaj, 2, 1, ass, apxpx)
+      call contract1NE (n, apxpx, alphaj, alphaj, result)
+      stoNEaPxPx = result
+      return
+      end
+c
+c
+c     #############################################################
+c     ##                                                         ##
+c     ##  function stoNEPxPxb  --  PxPxb NE integral over STOnG  ##
+c     ##                                                         ##
+c     #############################################################
+c
+c
+c     "stoNEPxPxb" computes PxPxb nuclear-electron integral using STOnG
+c     basis set
+c
+c
+      function stoNEPxPxb (alphai, zi, zj)
+      use xrepel
+      implicit none
+      integer m
+      integer n(2)
+      real*8 stoNEPxPxb
+      real*8 alphai
+      real*8 zi,zj
+      real*8 result
+      real*8 ssb(2,nsto,nsto)
+      real*8 pxpxb(1,nsto,nsto)
+c
+c
+      m = 1
+      n(1) = 1
+      n(2) = 1
+      call buildNESS (1, m+1, n, alphai, alphai, zi, zi, zj, ssb)
+      call NEVRR2x (1, m, n, alphai, alphai, 2, 1, ssb, pxpxb)
+      call contract1NE (n, pxpxb, alphai, alphai, result)
+      stoNEPxPxb = result
+      return
+      end
+c
+c
+c     ##########################################
+c     ##                                      ##
+c     ##  function NESaS  --  SaS NEintegral  ##
+c     ##                                      ##
+c     ##########################################
+c
+c
+c     "NESaS" computes the SaS nuclear-electron integral
+c
+c
+      function NESaS (a, b, z1, z2)
+      implicit none
+      real*8 NESaS,ne
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 pre,term1,term2
+      real*8 kappam
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         exp1 = exp(-rho)
+         ne = a * (1.0d0 + rho) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         kappam = 1.0d0 - kappa
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = alpha*(1.0d0 + tau) * sqrt(1.0d0 - tau**2) / (tau * rho)
+         term1 = -kappam * expA
+         term2 = (kappam + rhoB) * expB
+         ne = pre * (term1 + term2)
+         end if
+      NESaS = ne
+      return
+      end
+c
+c
+c     ##########################################
+c     ##                                      ##
+c     ##  function NEaSS  --  aSS NEintegral  ##
+c     ##                                      ##
+c     ##########################################
+c
+c
+c     "NEaSS" computes the aSS nuclear-electron integral
+c
+c
+      function NEaSS (b, z1, z2)
+      implicit none
+      real*8 NEaSS
+      real*8 b,z1,z2
+      real*8 zr,r
+      real*8 rho
+      real*8 exp2
+c
+c
+      zr = z2 - z1
+      r = abs(zr)
+      rho = b * r
+      exp2 = exp(-2.0d0 * rho)
+      NEaSS = 1.0d0 / r * (1.0d0 - (1.0d0 + rho) * exp2)
+      return
+      end
+c
+c
+c     ############################################
+c     ##                                        ##
+c     ##  function NESaPz  --  SaPz NEintegral  ##
+c     ##                                        ##
+c     ############################################
+c
+c
+c     "NESaPz" computes the SaPz nuclear-electron integral
+c
+c
+      function NESaPz (a, b, z1, z2)
+      implicit none
+      real*8 NESaPz,ne
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho,rho2
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 rhoB2,rhoB3
+      real*8 pre,term1,term2
+      real*8 kappam,kappam2
+      real*8 kappap,kappap2
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         exp1 = exp(-rho)
+         ne = a * 2.0d0/3.0d0 * rho * (1.0d0 + rho) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         rho2 = rho**2
+         rhoB2 = rhoB * rhoB
+         rhoB3 = rhoB2 * rhoB
+         kappam = 1.0d0 - kappa
+         kappap = 1.0d0 + kappa
+         kappam2 = kappam**2
+         kappap2 = kappap**2
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = alpha * (1.0d0 + tau) * sqrt((1.0d0 + tau)
+     &      / (1.0d0 - tau)) / (tau * rho2)
+         term1 = -2.0d0 * kappam2 * (1.0d0 + rhoA) * expA
+         term2 = (2.0d0 * kappam2 * (1.0d0 + rhoB)
+     &      + 2.0d0 * kappam * rhoB2 + rhoB3) * expB
+         ne = pre * (term1 + term2)
+         end if
+      NESaPz = -ne
+      if (z1 > z2) then
+         NESaPz = -NESaPz
+      end if
+      return
+      end
+c
+c
+c     ############################################
+c     ##                                        ##
+c     ##  function NEaSPz  --  aSPz NEintegral  ##
+c     ##                                        ##
+c     ############################################
+c
+c
+c     "NEaSPz" computes the aSPz nuclear-electron integral
+c
+c
+      function NEaSPz (b, z1, z2)
+      implicit none
+      real*8 NEaSPz
+      real*8 b,z1,z2
+      real*8 zr,r
+      real*8 rho,rho2,rho3
+      real*8 exp2
+c
+c
+      zr = z2 - z1
+      r = abs(zr)
+      rho = b * r
+      rho2 = rho * rho
+      rho3 = rho2 * rho
+      exp2 = exp(-2.0d0 * rho)
+      NEaSPz = -b / rho2 * (1.0d0 - (1.0d0 + 2.0d0 * rho
+     &       + 2.0d0 * rho2 + rho3) * exp2)
+      if (z1 > z2) then
+         NEaSPz = -NEaSPz
+      end if
+      return
+      end
+c
+c
+c     ############################################
+c     ##                                        ##
+c     ##  function NEPzaS  --  PzaS NEintegral  ##
+c     ##                                        ##
+c     ############################################
+c
+c
+c     "NEPzaS" computes the PzaS nuclear-electron integral
+c
+c
+      function NEPzaS (a, b, z1, z2)
+      implicit none
+      real*8 NEPzaS,ne
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho,rho2
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 rhoA2
+      real*8 rhoB2
+      real*8 pre,term1,term2
+      real*8 kappam
+      real*8 kappap
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         exp1 = exp(-rho)
+         ne = a / 3.0d0 * rho * (1.0d0 + rho) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         rho2 = rho**2
+         rhoA2 = rhoA * rhoA
+         rhoB2 = rhoB * rhoB
+         kappam = 1.0d0 - kappa
+         kappap = 1.0d0 + kappa
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = alpha * sqrt(1.0d0 - tau**2) / (tau * rho2)
+         term1 =-kappam * (2.0d0 * kappap * (1.0d0 + rhoA) + rhoA2)
+     &         * expA
+         term2 = kappap * (2.0d0 * kappam * (1.0d0 + rhoB) + rhoB2)
+     &         * expB
+         ne = pre * (term1 + term2)
+         end if
+      NEPzaS = ne
+      if (z1 > z2) then
+         NEPzaS = -NEPzaS
+      end if
+      return
+      end
+c
+c
+c     ##############################################
+c     ##                                          ##
+c     ##  function NEPzaPz  --  PzaPz NEintegral  ##
+c     ##                                          ##
+c     ##############################################
+c
+c
+c     "NEPzaPz" computes the PzaPz nuclear-electron integral
+c
+c
+      function NEPzaPz (a, b, z1, z2)
+      implicit none
+      real*8 NEPzaPz,ne
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho,rho2,rho3
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 rhoA2,rhoA3
+      real*8 rhoB2,rhoB3,rhoB4
+      real*8 pre,term1,term2
+      real*8 kappam,kappam2
+      real*8 kappap
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         rho2 = rho * rho
+         rho3 = rho2 * rho
+         exp1 = exp(-rho)
+         ne = a / 2.0d0 * (-1.0d0 - rho + rho3 / 3.0d0) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         rho3 = rho**3
+         rhoA2 = rhoA * rhoA
+         rhoA3 = rhoA2 * rhoA
+         rhoB2 = rhoB * rhoB
+         rhoB3 = rhoB2 * rhoB
+         rhoB4 = rhoB3 * rhoB
+         kappam = 1.0d0 - kappa
+         kappap = 1.0d0 + kappa
+         kappam2 = kappam**2
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = alpha*(1.0d0 + tau) / (sqrt(1.0d0 - tau**2) * tau * rho3)
+        term1 = -kappam2 * (12.0d0 * kappap * (1.0d0 + rhoA + rhoA2
+     &     / 2.0d0) + 2.0d0 * rhoA3) * expA
+        term2 = kappap * (12.0d0 * kappam2 * (1.0d0 + rhoB + rhoB2
+     &     / 2.0d0) + (3.0d0 - 4.0d0 * kappa) * rhoB3 + rhoB4) * expB
+         ne = pre * (term1 + term2)
+         end if
+      NEPzaPz = -ne
+      return
+      end
+c
+c
+c     ##############################################
+c     ##                                          ##
+c     ##  function NEaPzPz  --  aPzPz NEintegral  ##
+c     ##                                          ##
+c     ##############################################
+c
+c
+c     "NEaPzPz" computes the aPzPz nuclear-electron integral
+c
+c
+      function NEaPzPz (b, z1, z2)
+      implicit none
+      real*8 NEaPzPz
+      real*8 b,z1,z2
+      real*8 zr,r
+      real*8 rho,rho2,rho3,rho4,rho5
+      real*8 exp2
+      real*8 ne1,ne2
+c
+c
+      zr = z2 - z1
+      r = abs(zr)
+      rho = b * r
+      rho2 = rho * rho
+      rho3 = rho2 * rho
+      rho4 = rho3 * rho
+      rho5 = rho4 * rho
+      exp2 = exp(-2.0d0 * rho)
+      ne1 = 1. / r * (1.0d0 - (1.0d0 + 1.5d0 * rho + rho2
+     &    + rho3 / 3.0d0) * exp2)
+      ne2 = b / rho3 * (1.0d0 - (1.0d0 + 2.0d0 * rho + 2.0d0 * rho2
+     &    + 4.0d0/3.0d0 * rho3 + 2.0d0/3.0d0 * rho4 + 2.0d0/9.0d0
+     &    * rho5) * exp2)
+      NEaPzPz = ne1 + 3.0d0 * ne2
+      return
+      end
+c
+c
+c     ##############################################
+c     ##                                          ##
+c     ##  function NEPxaPx  --  PxaPx NEintegral  ##
+c     ##                                          ##
+c     ##############################################
+c
+c
+c     "NEPxaPx" computes the PxaPx nuclear-electron integral
+c
+c
+      function NEPxaPx (a, b, z1, z2)
+      implicit none
+      real*8 NEPxaPx,ne
+      real*8 a,b,z1,z2
+      real*8 diff,eps,zr,r
+      real*8 rho,rho2,rho3
+      real*8 exp1
+      real*8 alpha,tau,rhoA,rhoB
+      real*8 a2,b2,kappa
+      real*8 rhoA2,rhoA3
+      real*8 rhoB2,rhoB3,rhoB4
+      real*8 pre,term1,term2
+      real*8 kappam,kappam2
+      real*8 kappap
+      real*8 expA,expB
+c
+c
+      diff = abs(a - b)
+      eps = 0.01d0
+      zr = z2 - z1
+      r = abs(zr)
+      if (diff .lt. eps) then
+         rho = a * r
+         rho2 = rho * rho
+         exp1 = exp(-rho)
+         ne = a * 0.5d0 * (1.0d0 + rho + rho2 / 3.0d0) * exp1
+      else
+         alpha = 1.0d0 / 2.0d0 * (a + b)
+         tau = (a - b) / (a + b)
+         rho = alpha * r
+         rhoA = a * r
+         rhoB = b * r
+         a2 = a * a
+         b2 = b * b
+         kappa = (a2 + b2) / (a2 - b2)
+         rho3 = rho**3
+         rhoA2 = rhoA * rhoA
+         rhoA3 = rhoA2 * rhoA
+         rhoB2 = rhoB * rhoB
+         rhoB3 = rhoB2 * rhoB
+         rhoB4 = rhoB3 * rhoB
+         kappam = 1.0d0 - kappa
+         kappap = 1.0d0 + kappa
+         kappam2 = kappam**2
+         expA = exp(-rhoA)
+         expB = exp(-rhoB)
+         pre = alpha*(1.0d0 + tau) / (sqrt(1.0d0 - tau**2) * tau * rho3)
+         term1 = -kappam2 * (6.0d0 * kappap * (1.0d0 + rhoA)
+     &      + 2.0d0 * rhoA2) * expA
+         term2 = kappap * (6.0d0 * kappam2 * (1.0d0 + rhoB)
+     &      + 4.0d0 * kappam * rhoB2 + rhoB3) * expB
+         ne = pre * (term1 + term2)
+         end if
+      NEPxaPx = ne
+      return
+      end
+c
+c
+c     ##############################################
+c     ##                                          ##
+c     ##  function NEaPxPx  --  aPxPx NEintegral  ##
+c     ##                                          ##
+c     ##############################################
+c
+c
+c     "NEaPxPx" computes the aPxPx nuclear-electron integral
+c
+c
+      function NEaPxPx (b, z1, z2)
+      implicit none
+      real*8 NEaPxPx
+      real*8 b,z1,z2
+      real*8 zr,r
+      real*8 rho,rho2,rho3,rho4,rho5
+      real*8 exp2
+      real*8 ne1,ne2
+c
+c
+      zr = z2 - z1
+      r = abs(zr)
+      rho = b * r
+      rho2 = rho * rho
+      rho3 = rho2 * rho
+      rho4 = rho3 * rho
+      rho5 = rho4 * rho
+      exp2 = exp(-2.0d0 * rho)
+      ne1 = 1. / r * (1.0d0 - (1.0d0 + 1.5d0 * rho + rho2
+     &    + rho3 / 3.0d0) * exp2)
+      ne2 = b / rho3 * (1.0d0 - (1.0d0 + 2.0d0 * rho + 2.0d0 * rho2
+     &    + 4.0d0/3.0d0 * rho3 + 2.0d0/3.0d0 * rho4
+     &    + 2.0d0/9.0d0 * rho5) * exp2)
+      NEaPxPx = ne1 - 1.5d0 * ne2
+      return
+      end
+c
+c
+c     ##########################################
+c     ##                                      ##
+c     ##  function NESbS  --  SbS NEintegral  ##
+c     ##                                      ##
+c     ##########################################
+c
+c
+c     "NESbS" computes the SbS nuclear-electron integral
+c
+c
+      function NESbS (a, b, z1, z2)
+      implicit none
+      real*8 NESbS,NESaS
+      real*8 a,b,z1,z2
+c
+c
+      NESbS = NESaS(b,a,z2,z1)
+      return
+      end
+c
+c
+c     ##########################################
+c     ##                                      ##
+c     ##  function NESSb  --  SSb NEintegral  ##
+c     ##                                      ##
+c     ##########################################
+c
+c
+c     "NESSb" computes the SbS nuclear-electron integral
+c
+c
+      function NESSb (a, z1, z2)
+      implicit none
+      real*8 NESSb,NEaSS
+      real*8 a,z1,z2
+c
+c
+      NESSb = NEaSS(a,z2,z1)
+      return
+      end
+c
+c
+c     ############################################
+c     ##                                        ##
+c     ##  function NESbPz  --  SbPz NEintegral  ##
+c     ##                                        ##
+c     ############################################
+c
+c
+c     "NESbPz" computes the SbPz nuclear-electron integral
+c
+c
+      function NESbPz (a, b, z1, z2)
+      implicit none
+      real*8 NESbPz,NEPzaS
+      real*8 a,b,z1,z2
+c
+c
+      NESbPz = NEPzaS(b,a,z2,z1)
+      return
+      end
+c
+c
+c     ############################################
+c     ##                                        ##
+c     ##  function NESPzb  --  SPzb NEintegral  ##
+c     ##                                        ##
+c     ############################################
+c
+c
+c     "NESPzb" computes the SPzS nuclear-electron integral
+c
+c
+      function NESPzb (a, z1, z2)
+      implicit none
+      real*8 NESPzb,NEaSPz
+      real*8 a,z1,z2
+c
+c
+      NESPzb = NEaSPz(a,z2,z1)
+      return
+      end
+c
+c
+c     ############################################
+c     ##                                        ##
+c     ##  function NEPzbS  --  PzbS NEintegral  ##
+c     ##                                        ##
+c     ############################################
+c
+c
+c     "NEPzbS" computes the PzbS nuclear-electron integral
+c
+c
+      function NEPzbS (a, b, z1, z2)
+      implicit none
+      real*8 NEPzbS,NESaPz
+      real*8 a,b,z1,z2
+c
+c
+      NEPzbS = NESaPz(b,a,z2,z1)
+      return
+      end
+c
+c
+c     ##############################################
+c     ##                                          ##
+c     ##  function NEPzbPz  --  PzbPz NEintegral  ##
+c     ##                                          ##
+c     ##############################################
+c
+c
+c     "NEPzbPz" computes the PzbPz nuclear-electron integral
+c
+c
+      function NEPzbPz (a, b, z1, z2)
+      implicit none
+      real*8 NEPzbPz,NEPzaPz
+      real*8 a,b,z1,z2
+c
+c
+      NEPzbPz = NEPzaPz(b,a,z2,z1)
+      return
+      end
+c
+c
+c     ##############################################
+c     ##                                          ##
+c     ##  function NEPzPzb  --  PzPzb NEintegral  ##
+c     ##                                          ##
+c     ##############################################
+c
+c
+c     "NEPzPzb" computes the PzPzS nuclear-electron integral
+c
+c
+      function NEPzPzb (a, z1, z2)
+      implicit none
+      real*8 NEPzPzb,NEaPzPz
+      real*8 a,z1,z2
+c
+c
+      NEPzPzb = NEaPzPz(a,z2,z1)
+      return
+      end
+c
+c
+c     ##############################################
+c     ##                                          ##
+c     ##  function NEPxbPx  --  PxbPx NEintegral  ##
+c     ##                                          ##
+c     ##############################################
+c
+c
+c     "NEPxbPx" computes the PxbPx nuclear-electron integral
+c
+c
+      function NEPxbPx (a, b, z1, z2)
+      implicit none
+      real*8 NEPxbPx,NEPxaPx
+      real*8 a,b,z1,z2
+c
+c
+      NEPxbPx = NEPxaPx(b,a,z2,z1)
+      return
+      end
+c
+c
+c     ##############################################
+c     ##                                          ##
+c     ##  function NEPxPxb  --  PxPxb NEintegral  ##
+c     ##                                          ##
+c     ##############################################
+c
+c
+c     "NEPxPxb" computes the PxPxS nuclear-electron integral
+c
+c
+      function NEPxPxb (a, z1, z2)
+      implicit none
+      real*8 NEPxPxb,NEaPxPx
+      real*8 a,z1,z2
+c
+c
+      NEPxPxb = NEaPxPx(a,z2,z1)
+      return
+      end
+c
+c
+c     #########################################################
+c     ##                                                     ##
+c     ##  function overlapTotal  --  total overlap integral  ##
+c     ##                                                     ##
+c     #########################################################
+c
+c
+c     "overlapTotal" computes the total overlap integral
+c
+c
+      function overlapTotal (coeff1, coeff2, a, b, z1, z2, exact)
+      implicit none
+      real*8 overlapTotal
+      real*8 a,b,z1,z2
+      real*8 cscs,cxcx,cycy
+      real*8 czcz,cscz,czcs
+      real*8 SS,SPz,PzS
+      real*8 PxPx,PyPy,PzPz
+      real*8 stoOSS,stoOSPz,stoOPzS
+      real*8 stoOPxPx,stoOPzPz
+      real*8 overlapSS,overlapSPz,overlapPzS
+      real*8 overlapPxPx,overlapPzPz
+      real*8 coeff1(4),coeff2(4)
+      logical exact
+c
+c
+      cscs = coeff1(1) * coeff2(1)
+      cxcx = coeff1(2) * coeff2(2)
+      cycy = coeff1(3) * coeff2(3)
+      czcz = coeff1(4) * coeff2(4)
+      cscz = coeff1(1) * coeff2(4)
+      czcs = coeff1(4) * coeff2(1)
+      if (exact) then
+         SS = overlapSS(a, b, z1, z2)
+         SPz = overlapSPz(a, b, z1, z2)
+         PzS = overlapPzS(a, b, z1, z2)
+         PxPx = overlapPxPx(a, b, z1, z2)
+         PyPy = PxPx
+         PzPz = overlapPzPz(a, b, z1, z2)
+      else
+         SS = stoOSS(a, b, z1, z2)
+         SPz = stoOSPz(a, b, z1, z2)
+         PzS = stoOPzS(a, b, z1, z2)
+         PxPx = stoOPxPx(a, b, z1, z2)
+         PyPy = PxPx
+         PzPz = stoOPzPz(a, b, z1, z2)
+      end if
+      overlapTotal = cscs * SS + cxcx * PxPx + cycy * PyPy + czcz * PzPz
+     &        + cscz * SPz + czcs * PzS
+      return
+      end
+c
+c
+c     #####################################################
+c     ##                                                 ##
+c     ##  function NEbAbTotal  --  total NEbAb integral  ##
+c     ##                                                 ##
+c     #####################################################
+c
+c
+c     "NEbAbTotal" computes the total bAb nuclear-electron integral
+c
+c
+      function NEbAbTotal (coeff2, b, z1, z2, exact)
+      implicit none
+      real*8 NEbAbTotal
+      real*8 b,z1,z2
+      real*8 cscs,cxcx,cycy
+      real*8 czcz,cscz,czcs
+      real*8 aSS,aSPz,aPzS
+      real*8 aPxPx,aPyPy,aPzPz
+      real*8 stoNEaSS,stoNEaSPz
+      real*8 stoNEaPxPx,stoNEaPzPz
+      real*8 NEaSS,NEaSPz
+      real*8 NEaPxPx,NEaPzPz
+      real*8 coeff2(4)
+      logical exact
+c
+c
+      cscs = coeff2(1) * coeff2(1)
+      cxcx = coeff2(2) * coeff2(2)
+      cycy = coeff2(3) * coeff2(3)
+      czcz = coeff2(4) * coeff2(4)
+      cscz = coeff2(1) * coeff2(4)
+      czcs = coeff2(4) * coeff2(1)
+      if (exact) then
+         aSS = NEaSS(b, z1, z2)
+         aSPz = NEaSPz(b, z1, z2)
+         aPzS = aSPz
+         aPxPx = NEaPxPx(b, z1, z2)
+         aPyPy = aPxPx
+         aPzPz = NEaPzPz(b, z1, z2)
+      else
+         aSS = stoNEaSS(b, z1, z2)
+         aSPz = stoNEaSPz(b, z1, z2)
+         aPzS = aSPz
+         aPxPx = stoNEaPxPx(b, z1, z2)
+         aPyPy = aPxPx
+         aPzPz = stoNEaPzPz(b, z1, z2)
+      end if
+      NEbAbTotal = cscs * aSS + cxcx * aPxPx + cycy * aPyPy
+     &        + czcz * aPzPz + cscz * aSPz + czcs * aPzS
+      return
+      end
+c
+c
+c     #####################################################
+c     ##                                                 ##
+c     ##  function NEaBaTotal  --  total NEaBa integral  ##
+c     ##                                                 ##
+c     #####################################################
+c
+c
+c     "NEaBaTotal" computes the total aBa nuclear-electron integral
+c
+c
+      function NEaBaTotal (coeff1, a, z1, z2, exact)
+      implicit none
+      real*8 NEaBaTotal
+      real*8 a,z1,z2
+      real*8 cscs,cxcx,cycy
+      real*8 czcz,cscz,czcs
+      real*8 SSb,SPzb,PzSb
+      real*8 PxPxb,PyPyb,PzPzb
+      real*8 stoNESSb,stoNESPzb
+      real*8 stoNEPxPxb,stoNEPzPzb
+      real*8 NESSb,NESPzb
+      real*8 NEPxPxb,NEPzPzb
+      real*8 coeff1(4)
+      logical exact
+c
+c
+      cscs = coeff1(1) * coeff1(1)
+      cxcx = coeff1(2) * coeff1(2)
+      cycy = coeff1(3) * coeff1(3)
+      czcz = coeff1(4) * coeff1(4)
+      cscz = coeff1(1) * coeff1(4)
+      czcs = coeff1(4) * coeff1(1)
+      if (exact) then
+         SSb = NESSb(a, z1, z2)
+         SPzb = NESPzb(a, z1, z2)
+         PzSb = SPzb
+         PxPxb = NEPxPxb(a, z1, z2)
+         PyPyb = PxPxb
+         PzPzb = NEPzPzb(a, z1, z2)
+      else
+         SSb = stoNESSb(a, z1, z2)
+         SPzb = stoNESPzb(a, z1, z2)
+         PzSb = SPzb
+         PxPxb = stoNEPxPxb(a, z1, z2)
+         PyPyb = PxPxb
+         PzPzb = stoNEPzPzb(a, z1, z2)
+      end if
+      NEaBaTotal = cscs * SSb + cxcx * PxPxb + cycy * PyPyb
+     &        + czcz * PzPzb + cscz * SPzb + czcs * PzSb
+      return
+      end
+c
+c
+c     #####################################################
+c     ##                                                 ##
+c     ##  function NEaAbTotal  --  total NEaAb integral  ##
+c     ##                                                 ##
+c     #####################################################
+c
+c
+c     "NEaAbTotal" computes the total aAb nuclear-electron integral
+c
+c
+      function NEaAbTotal (coeff1, coeff2, a, b, z1, z2, exact)
+      implicit none
+      real*8 NEaAbTotal
+      real*8 a,b,z1,z2
+      real*8 cscs,cxcx,cycy
+      real*8 czcz,cscz,czcs
+      real*8 SaS,SaPz,PzaS
+      real*8 PxaPx,PyaPy,PzaPz
+      real*8 stoNESaS,stoNESaPz,stoNEPzaS
+      real*8 stoNEPxaPx,stoNEPzaPz
+      real*8 NESaS,NESaPz,NEPzaS
+      real*8 NEPxaPx,NEPzaPz
+      real*8 coeff1(4),coeff2(4)
+      logical exact
+c
+c
+      cscs = coeff1(1) * coeff2(1)
+      cxcx = coeff1(2) * coeff2(2)
+      cycy = coeff1(3) * coeff2(3)
+      czcz = coeff1(4) * coeff2(4)
+      cscz = coeff1(1) * coeff2(4)
+      czcs = coeff1(4) * coeff2(1)
+      if (exact) then
+         SaS = NESaS(a, b, z1, z2)
+         SaPz = NESaPz(a, b, z1, z2)
+         PzaS = NEPzaS(a, b, z1, z2)
+         PxaPx = NEPxaPx(a, b, z1, z2)
+         PyaPy = PxaPx
+         PzaPz = NEPzaPz(a, b, z1, z2)
+      else
+         SaS = stoNESaS(a, b, z1, z2)
+         SaPz = stoNESaPz(a, b, z1, z2)
+         PzaS = stoNEPzaS(a, b, z1, z2)
+         PxaPx = stoNEPxaPx(a, b, z1, z2)
+         PyaPy = PxaPx
+         PzaPz = stoNEPzaPz(a, b, z1, z2)
+      end if
+      NEaAbTotal = cscs * SaS + cxcx * PxaPx + cycy * PyaPy
+     &        + czcz * PzaPz + cscz * SaPz + czcs * PzaS
+      return
+      end
+c
+c
+c     #####################################################
+c     ##                                                 ##
+c     ##  function NEaBbTotal  --  total NEaBb integral  ##
+c     ##                                                 ##
+c     #####################################################
+c
+c
+c     "NEaBbTotal" computes the total aBb nuclear-electron integral
+c
+c
+      function NEaBbTotal (coeff1, coeff2, a, b, z1, z2, exact)
+      implicit none
+      real*8 NEaBbTotal
+      real*8 a,b,z1,z2
+      real*8 cscs,cxcx,cycy
+      real*8 czcz,cscz,czcs
+      real*8 SbS,SbPz,PzbS
+      real*8 PxbPx,PybPy,PzbPz
+      real*8 stoNESbS,stoNESbPz,stoNEPzbS
+      real*8 stoNEPxbPx,stoNEPzbPz
+      real*8 NESbS,NESbPz,NEPzbS
+      real*8 NEPxbPx,NEPzbPz
+      real*8 coeff1(4),coeff2(4)
+      logical exact
+c
+c
+      cscs = coeff1(1) * coeff2(1)
+      cxcx = coeff1(2) * coeff2(2)
+      cycy = coeff1(3) * coeff2(3)
+      czcz = coeff1(4) * coeff2(4)
+      cscz = coeff1(1) * coeff2(4)
+      czcs = coeff1(4) * coeff2(1)
+      if (exact) then
+         SbS = NESbS(a, b, z1, z2)
+         SbPz = NESbPz(a, b, z1, z2)
+         PzbS = NEPzbS(a, b, z1, z2)
+         PxbPx = NEPxbPx(a, b, z1, z2)
+         PybPy = PxbPx
+         PzbPz = NEPzbPz(a, b, z1, z2)
+      else
+         SbS = stoNESbS(a, b, z1, z2)
+         SbPz = stoNESbPz(a, b, z1, z2)
+         PzbS = stoNEPzbS(a, b, z1, z2)
+         PxbPx = stoNEPxbPx(a, b, z1, z2)
+         PybPy = PxbPx
+         PzbPz = stoNEPzbPz(a, b, z1, z2)
+      end if
+      NEaBbTotal = cscs * SbS + cxcx * PxbPx + cycy * PybPy
+     &        + czcz * PzbPz + cscz * SbPz + czcs * PzbS
+      return
+      end
+c
+c
+c     #########################################################
+c     ##                                                     ##
+c     ##  function coulombTotal  --  total coulomb integral  ##
+c     ##                                                     ##
+c     #########################################################
+c
+c
+c     "coulombTotal" computes the total coulomb e-e integral
+c
+c
+      function coulombTotal (coeff1, coeff2, a, b, z1, z2, exact)
+      implicit none
+      integer i,l
+      real*8 coulombTotal
+      real*8 a,b,z1,z2
+      real*8 ssA,sxA,syA,szA,xxA
+      real*8 xyA,xzA,yyA,yzA,zzA
+      real*8 ssB,sxB,syB,szB,xxB
+      real*8 xyB,xzB,yyB,yzB,zzB
+      real*8 cssss,csssz,cssxx,cssyy,csszz
+      real*8 csxsx,csxxz,csysy,csyyz,cszss
+      real*8 cszsz,cszxx,cszyy,cszzz,cxxss
+      real*8 cxxsz,cxxxx,cxxyy,cxxzz,cyyss
+      real*8 cyysz,cyyyy,cyyxx,cyyzz,cxyxy
+      real*8 cxzsx,cxzxz,cyzsy,cyzyz,czzss
+      real*8 czzsz,czzxx,czzyy,czzzz
+      real*8 issss,isssz,issxx,issyy,isszz
+      real*8 isxsx,isxxz,isysy,isyyz,iszss
+      real*8 iszsz,iszxx,iszyy,iszzz,ixxss
+      real*8 ixxsz,ixxxx,ixxyy,ixxzz,iyyss
+      real*8 iyysz,iyyyy,iyyxx,iyyzz,ixyxy
+      real*8 ixzsx,ixzxz,iyzsy,iyzyz,izzss
+      real*8 izzsz,izzxx,izzyy,izzzz
+      real*8 coulombSSSS,coulombSSSPz,coulombSSPxPx
+      real*8 coulombSSPzPz,coulombSPxSPx,coulombSPxPxPz
+      real*8 coulombSPzSS,coulombSPzSPz,coulombSPzPxPx
+      real*8 coulombSPzPzPz,coulombPxPxSS,coulombPxPxSPz
+      real*8 coulombPxPxPxPx,coulombPxPxPyPy,coulombPxPxPzPz
+      real*8 coulombPxPyPxPy,coulombPxPzSPx,coulombPxPzPxPz
+      real*8 coulombPzPzSS,coulombPzPzSPz,coulombPzPzPxPx
+      real*8 coulombPzPzPzPz
+      real*8 SSSS,SSSPz,SSPxPx,SSPzPz
+      real*8 SPxSPx,SPxPxPz,SPzSS,SPzSPz
+      real*8 SPzPxPx,SPzPzPz,PxPxSS,PxPxSPz
+      real*8 PxPxPxPx,PxPxPyPy,PxPxPzPz,PxPyPxPy
+      real*8 PxPzSPx,PxPzPxPz,PzPzSS,PzPzSPz
+      real*8 PzPzPxPx,PzPzPzPz
+      real*8 coeffArray(34)
+      real*8 coulombArray(34)
+      real*8 coeff1(4),coeff2(4)
+      logical exch,exact
+c
+c
+      exch = .false.
+      l = 34
+      ssA = coeff1(1) * coeff1(1)
+      sxA = coeff1(1) * coeff1(2) * 2.0d0
+      syA = coeff1(1) * coeff1(3) * 2.0d0
+      szA = coeff1(1) * coeff1(4) * 2.0d0
+      xxA = coeff1(2) * coeff1(2)
+      xyA = coeff1(2) * coeff1(3) * 2.0d0
+      xzA = coeff1(2) * coeff1(4) * 2.0d0
+      yyA = coeff1(3) * coeff1(3)
+      yzA = coeff1(3) * coeff1(4) * 2.0d0
+      zzA = coeff1(4) * coeff1(4)
+      ssB = coeff2(1) * coeff2(1)
+      sxB = coeff2(1) * coeff2(2) * 2.0d0
+      syB = coeff2(1) * coeff2(3) * 2.0d0
+      szB = coeff2(1) * coeff2(4) * 2.0d0
+      xxB = coeff2(2) * coeff2(2)
+      xyB = coeff2(2) * coeff2(3) * 2.0d0
+      xzB = coeff2(2) * coeff2(4) * 2.0d0
+      yyB = coeff2(3) * coeff2(3)
+      yzB = coeff2(3) * coeff2(4) * 2.0d0
+      zzB = coeff2(4) * coeff2(4)
+      cssss = ssA * ssB
+      csssz = ssA * szB
+      cssxx = ssA * xxB
+      cssyy = ssA * yyB
+      csszz = ssA * zzB
+      csxsx = sxA * sxB
+      csxxz = sxA * xzB
+      csysy = syA * syB
+      csyyz = syA * yzB
+      cszss = szA * ssB
+      cszsz = szA * szB
+      cszxx = szA * xxB
+      cszyy = szA * yyB
+      cszzz = szA * zzB
+      cxxss = xxA * ssB
+      cxxsz = xxA * szB
+      cxxxx = xxA * xxB
+      cxxyy = xxA * yyB
+      cxxzz = xxA * zzB
+      cyyss = yyA * ssB
+      cyysz = yyA * szB
+      cyyyy = yyA * yyB
+      cyyxx = yyA * xxB
+      cyyzz = yyA * zzB
+      cxyxy = xyA * xyB
+      cxzsx = xzA * sxB
+      cxzxz = xzA * xzB
+      cyzsy = yzA * syB
+      cyzyz = yzA * yzB
+      czzss = zzA * ssB
+      czzsz = zzA * szB
+      czzxx = zzA * xxB
+      czzyy = zzA * yyB
+      czzzz = zzA * zzB
+      coeffArray = (/ cssss,csssz,cssxx,cssyy,csszz,csxsx,csxxz,csysy,
+     &                csyyz,cszss,cszsz,cszxx,cszyy,cszzz,cxxss,cxxsz,
+     &                cxxxx,cxxyy,cxxzz,cyyss,cyysz,cyyyy,cyyxx,cyyzz,
+     &                cxyxy,cxzsx,cxzxz,cyzsy,cyzyz,czzss,czzsz,czzxx,
+     &                czzyy,czzzz /)
+      if (exact) then
+         issss = coulombSSSS(a, b, z1, z2)
+         isssz = coulombSSSPz(a, b, z1, z2)
+         issxx = coulombSSPxPx(a, b, z1, z2)
+         issyy = issxx
+         isszz = coulombSSPzPz(a, b, z1, z2)
+         isxsx = coulombSPxSPx(a, b, z1, z2)
+         isxxz = coulombSPxPxPz(a, b, z1, z2)
+         isysy = isxsx
+         isyyz = isxxz
+         iszss = coulombSPzSS(a, b, z1, z2)
+         iszsz = coulombSPzSPz(a, b, z1, z2)
+         iszxx = coulombSPzPxPx(a, b, z1, z2)
+         iszyy = iszxx
+         iszzz = coulombSPzPzPz(a, b, z1, z2)
+         ixxss = coulombPxPxSS(a, b, z1, z2)
+         ixxsz = coulombPxPxSPz(a, b, z1, z2)
+         ixxxx = coulombPxPxPxPx(a, b, z1, z2)
+         ixxyy = coulombPxPxPyPy(a, b, z1, z2)
+         ixxzz = coulombPxPxPzPz(a, b, z1, z2)
+         iyyss = ixxss
+         iyysz = ixxsz
+         iyyyy = ixxxx
+         iyyxx = ixxyy
+         iyyzz = ixxzz
+         ixyxy = coulombPxPyPxPy(a, b, z1, z2)
+         ixzsx = coulombPxPzSPx(a, b, z1, z2)
+         ixzxz = coulombPxPzPxPz(a, b, z1, z2)
+         iyzsy = ixzsx
+         iyzyz = ixzxz
+         izzss = coulombPzPzSS(a, b, z1, z2)
+         izzsz = coulombPzPzSPz(a, b, z1, z2)
+         izzxx = coulombPzPzPxPx(a, b, z1, z2)
+         izzyy = izzxx
+         izzzz = coulombPzPzPzPz(a, b, z1, z2)
+      else
+         issss = SSSS(a, b, z1, z2, exch)
+         isssz = SSSPz(a, b, z1, z2, exch)
+         issxx = SSPxPx(a, b, z1, z2, exch)
+         issyy = issxx
+         isszz = SSPzPz(a, b, z1, z2, exch)
+         isxsx = SPxSPx(a, b, z1, z2, exch)
+         isxxz = SPxPxPz(a, b, z1, z2, exch)
+         isysy = isxsx
+         isyyz = isxxz
+         iszss = SPzSS(a, b, z1, z2, exch)
+         iszsz = SPzSPz(a, b, z1, z2, exch)
+         iszxx = SPzPxPx(a, b, z1, z2, exch)
+         iszyy = iszxx
+         iszzz = SPzPzPz(a, b, z1, z2, exch)
+         ixxss = PxPxSS(a, b, z1, z2, exch)
+         ixxsz = PxPxSPz(a, b, z1, z2, exch)
+         ixxxx = PxPxPxPx(a, b, z1, z2, exch)
+         ixxyy = PxPxPyPy(a, b, z1, z2, exch)
+         ixxzz = PxPxPzPz(a, b, z1, z2, exch)
+         iyyss = ixxss
+         iyysz = ixxsz
+         iyyyy = ixxxx
+         iyyxx = ixxyy
+         iyyzz = ixxzz
+         ixyxy = PxPyPxPy(a, b, z1, z2, exch)
+         ixzsx = PxPzSPx(a, b, z1, z2, exch)
+         ixzxz = PxPzPxPz(a, b, z1, z2, exch)
+         iyzsy = ixzsx
+         iyzyz = ixzxz
+         izzss = PzPzSS(a, b, z1, z2, exch)
+         izzsz = PzPzSPz(a, b, z1, z2, exch)
+         izzxx = PzPzPxPx(a, b, z1, z2, exch)
+         izzyy = izzxx
+         izzzz = PzPzPzPz(a, b, z1, z2, exch)
+      end if
+      coulombArray = (/ issss,isssz,issxx,issyy,isszz,isxsx,isxxz,isysy,
+     &                  isyyz,iszss,iszsz,iszxx,iszyy,iszzz,ixxss,ixxsz,
+     &                  ixxxx,ixxyy,ixxzz,iyyss,iyysz,iyyyy,iyyxx,iyyzz,
+     &                  ixyxy,ixzsx,ixzxz,iyzsy,iyzyz,izzss,izzsz,izzxx,
+     &                  izzyy,izzzz /)
+      coulombTotal = 0.0d0
+      do i = 1, l
+         coulombTotal = coulombTotal + coeffArray(i) * coulombArray(i)
+      end do
+      return
+      end
+c
+c
+c     ###########################################################
+c     ##                                                       ##
+c     ##  function exchangeTotal  --  total exchange integral  ##
+c     ##                                                       ##
+c     ###########################################################
+c
+c
+c     "exchangeTotal" computes the total exchange e-e integral
+c
+c
+      function exchangeTotal (coeff1, coeff2, a, b, z1, z2)
+      implicit none
+      integer i,l
+      real*8 exchangeTotal
+      real*8 a,b,z1,z2
+      real*8 coeffArray(44)
+      real*8 exchangeArray(44)
+      real*8 coeff1(4),coeff2(4)
+      logical exch
+      real*8 ss,sx,sy,sz,xs,ys
+      real*8 zs,xx,xy,xz,yx,yy
+      real*8 yz,zx,zy,zz
+      real*8 cssss,csssz,csszs,cssxx,cssyy,csszz
+      real*8 csxsx,csxxs,csxxz,csxzx,csysy,csyys
+      real*8 csyyz,csyzy,cszsz,cszzs,cszxx,cszyy
+      real*8 cszzz,cxsxs,cxsxz,cxszx,cysys,cysyz
+      real*8 cyszy,czszs,czsxx,czsyy,czszz,cxxxx
+      real*8 cxxyy,cxxzz,cyyyy,cyyzz,cxyxy,cxyyx
+      real*8 cyxyx,cxzxz,cxzzx,cyzyz,cyzzy,czxzx
+      real*8 czyzy,czzzz
+      real*8 essss,esssz,esszs,essxx,essyy,esszz
+      real*8 esxsx,esxxs,esxxz,esxzx,esysy,esyys
+      real*8 esyyz,esyzy,eszsz,eszzs,eszxx,eszyy
+      real*8 eszzz,exsxs,exsxz,exszx,eysys,eysyz
+      real*8 eyszy,ezszs,ezsxx,ezsyy,ezszz,exxxx
+      real*8 exxyy,exxzz,eyyyy,eyyzz,exyxy,exyyx
+      real*8 eyxyx,exzxz,exzzx,eyzyz,eyzzy,ezxzx
+      real*8 ezyzy,ezzzz
+      real*8 SSSS,SSSPz,SSPzS,SSPxPx,SSPzPz
+      real*8 SPxSPx,SPxPxS,SPxPxPz,SPxPzPx,SPzSPz
+      real*8 SPzPzS,SPzPxPx,SPzPzPz,PxSPxS,PxSPxPz
+      real*8 PxSPzPx,PzSPzS,PzSPxPx,PzSPzPz,PxPxPxPx
+      real*8 PxPxPyPy,PxPxPzPz,PxPyPxPy,PxPyPyPx,PxPzPxPz
+      real*8 PxPzPzPx,PzPxPzPx,PzPzPzPz
+c
+c
+      exch = .true.
+      l = 44
+      ss = coeff1(1) * coeff2(1)
+      sx = coeff1(1) * coeff2(2)
+      sy = coeff1(1) * coeff2(3)
+      sz = coeff1(1) * coeff2(4)
+      xs = coeff1(2) * coeff2(1)
+      ys = coeff1(3) * coeff2(1)
+      zs = coeff1(4) * coeff2(1)
+      xx = coeff1(2) * coeff2(2)
+      xy = coeff1(2) * coeff2(3)
+      xz = coeff1(2) * coeff2(4)
+      yx = coeff1(3) * coeff2(2)
+      yy = coeff1(3) * coeff2(3)
+      yz = coeff1(3) * coeff2(4)
+      zx = coeff1(4) * coeff2(2)
+      zy = coeff1(4) * coeff2(3)
+      zz = coeff1(4) * coeff2(4)
+      cssss = ss * ss
+      csssz = ss * sz * 2.0d0
+      csszs = ss * zs * 2.0d0
+      cssxx = ss * xx * 2.0d0
+      cssyy = ss * yy * 2.0d0
+      csszz = ss * zz * 2.0d0
+      csxsx = sx * sx
+      csxxs = sx * xs * 2.0d0
+      csxxz = sx * xz * 2.0d0
+      csxzx = sx * zx * 2.0d0
+      csysy = sy * sy
+      csyys = sy * ys * 2.0d0
+      csyyz = sy * yz * 2.0d0
+      csyzy = sy * zy * 2.0d0
+      cszsz = sz * sz
+      cszzs = sz * zs * 2.0d0
+      cszxx = sz * xx * 2.0d0
+      cszyy = sz * yy * 2.0d0
+      cszzz = sz * zz * 2.0d0
+      cxsxs = xs * xs
+      cxsxz = xs * xz * 2.0d0
+      cxszx = xs * zx * 2.0d0
+      cysys = ys * ys
+      cysyz = ys * yz * 2.0d0
+      cyszy = ys * zy * 2.0d0
+      czszs = zs * zs
+      czsxx = zs * xx * 2.0d0
+      czsyy = zs * yy * 2.0d0
+      czszz = zs * zz * 2.0d0
+      cxxxx = xx * xx
+      cxxyy = xx * yy * 2.0d0
+      cxxzz = xx * zz * 2.0d0
+      cyyyy = yy * yy
+      cyyzz = yy * zz * 2.0d0
+      cxyxy = xy * xy
+      cxyyx = xy * yx * 2.0d0
+      cyxyx = yx * yx
+      cxzxz = xz * xz
+      cxzzx = xz * zx * 2.0d0
+      cyzyz = yz * yz
+      cyzzy = yz * zy * 2.0d0
+      czxzx = zx * zx
+      czyzy = zy * zy
+      czzzz = zz * zz
+      coeffArray = (/ cssss,csssz,csszs,cssxx,cssyy,csszz,csxsx,csxxs,
+     &                csxxz,csxzx,csysy,csyys,csyyz,csyzy,cszsz,cszzs,
+     &                cszxx,cszyy,cszzz,cxsxs,cxsxz,cxszx,cysys,cysyz,
+     &                cyszy,czszs,czsxx,czsyy,czszz,cxxxx,cxxyy,cxxzz,
+     &                cyyyy,cyyzz,cxyxy,cxyyx,cyxyx,cxzxz,cxzzx,cyzyz,
+     &                cyzzy,czxzx,czyzy,czzzz /)
+      essss = SSSS(a, b, z1, z2, exch)
+      esssz = SSSPz(a, b, z1, z2, exch)
+      esszs = SSPzS(a, b, z1, z2, exch)
+      essxx = SSPxPx(a, b, z1, z2, exch)
+      essyy = essxx
+      esszz = SSPzPz(a, b, z1, z2, exch)
+      esxsx = SPxSPx(a, b, z1, z2, exch)
+      esxxs = SPxPxS(a, b, z1, z2, exch)
+      esxxz = SPxPxPz(a, b, z1, z2, exch)
+      esxzx = SPxPzPx(a, b, z1, z2, exch)
+      esysy = esxsx
+      esyys = esxxs
+      esyyz = esxxz
+      esyzy = esxzx
+      eszsz = SPzSPz(a, b, z1, z2, exch)
+      eszzs = SPzPzS(a, b, z1, z2, exch)
+      eszxx = SPzPxPx(a, b, z1, z2, exch)
+      eszyy = eszxx
+      eszzz = SPzPzPz(a, b, z1, z2, exch)
+      exsxs = PxSPxS(a, b, z1, z2, exch)
+      exsxz = PxSPxPz(a, b, z1, z2, exch)
+      exszx = PxSPzPx(a, b, z1, z2, exch)
+      eysys = exsxs
+      eysyz = exsxz
+      eyszy = exszx
+      ezszs = PzSPzS(a, b, z1, z2, exch)
+      ezsxx = PzSPxPx(a, b, z1, z2, exch)
+      ezsyy = ezsxx
+      ezszz = PzSPzPz(a, b, z1, z2, exch)
+      exxxx = PxPxPxPx(a, b, z1, z2, exch)
+      exxyy = PxPxPyPy(a, b, z1, z2, exch)
+      exxzz = PxPxPzPz(a, b, z1, z2, exch)
+      eyyyy = exxxx
+      eyyzz = exxzz
+      exyxy = PxPyPxPy(a, b, z1, z2, exch)
+      exyyx = PxPyPyPx(a, b, z1, z2, exch)
+      eyxyx = exyxy
+      exzxz = PxPzPxPz(a, b, z1, z2, exch)
+      exzzx = PxPzPzPx(a, b, z1, z2, exch)
+      eyzyz = exzxz
+      eyzzy = exzzx
+      ezxzx = PzPxPzPx(a, b, z1, z2, exch)
+      ezyzy = ezxzx
+      ezzzz = PzPzPzPz(a, b, z1, z2, exch)
+c      print*, "essss: ", essss
+c      print*, "esssz: ", esssz
+c      print*, "esszs: ", esszs
+c      print*, "essxx: ", essxx
+c      print*, "essyy: ", essyy
+c      print*, "esszz: ", esszz
+c      print*, "esxsx: ", esxsx
+c      print*, "esxxs: ", esxxs
+c      print*, "esxxz: ", esxxz
+c      print*, "esxzx: ", esxzx
+c      print*, "esysy: ", esysy
+c      print*, "esyys: ", esyys
+c      print*, "esyyz: ", esyyz
+c      print*, "esyzy: ", esyzy
+c      print*, "eszsz: ", eszsz
+c      print*, "eszzs: ", eszzs
+c      print*, "eszxx: ", eszxx
+c      print*, "eszyy: ", eszyy
+c      print*, "eszzz: ", eszzz
+c      print*, "exsxs: ", exsxs
+c      print*, "exsxz: ", exsxz
+c      print*, "exszx: ", exszx
+c      print*, "eysys: ", eysys
+c      print*, "eysyz: ", eysyz
+c      print*, "eyszy: ", eyszy
+c      print*, "ezszs: ", ezszs
+c      print*, "ezsxx: ", ezsxx
+c      print*, "ezsyy: ", ezsyy
+c      print*, "ezszz: ", ezszz
+c      print*, "exxxx: ", exxxx
+c      print*, "exxyy: ", exxyy
+c      print*, "exxzz: ", exxzz
+c      print*, "eyyyy: ", eyyyy
+c      print*, "eyyzz: ", eyyzz
+c      print*, "exyxy: ", exyxy
+c      print*, "exyyx: ", exyyx
+c      print*, "eyxyx: ", eyxyx
+c      print*, "exzxz: ", exzxz
+c      print*, "exzzx: ", exzzx
+c      print*, "eyzyz: ", eyzyz
+c      print*, "eyzzy: ", eyzzy
+c      print*, "ezxzx: ", ezxzx
+c      print*, "ezyzy: ", ezyzy
+c      print*, "ezzzz: ", ezzzz
+      exchangeArray = (/ essss,esssz,esszs,essxx,essyy,esszz,esxsx,
+     &                   esxxs,esxxz,esxzx,esysy,esyys,esyyz,esyzy,
+     &                   eszsz,eszzs,eszxx,eszyy,eszzz,exsxs,exsxz,
+     &                   exszx,eysys,eysyz,eyszy,ezszs,ezsxx,ezsyy,
+     &                   ezszz,exxxx,exxyy,exxzz,eyyyy,eyyzz,exyxy,
+     &                   exyyx,eyxyx,exzxz,exzzx,eyzyz,eyzzy,ezxzx,
+     &                   ezyzy,ezzzz /)
+      exchangeTotal = 0.0d0
+      do i = 1, l
+         exchangeTotal = exchangeTotal + coeffArray(i)*exchangeArray(i)
+      end do
       return
       end

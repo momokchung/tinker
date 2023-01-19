@@ -93,9 +93,20 @@ c
 c
 c     zero out the repulsion energy and partitioning terms
 c
-      call testcoulomb()
-      call testcoulombsto()
-      call testexchange()
+c      call testcoulomb()
+c      call testcoulombflip()
+c      call testcoulombsto()
+c      call testexchange()
+c      call teststooverlap()
+c      call testoverlap()
+c      call testoverlapflip()
+c      call teststoNE()
+c      call testNE()
+c      call testNEflip()
+c      call testoverlapsum()
+c      call testNEsumbAb()
+c      call testcoulombsum()
+c      call testexchangesum()
       ner = 0
       er = 0.0d0
       do i = 1, n
@@ -368,11 +379,13 @@ c
       real*8 coulombPzPzPxPx, cPzPzPxPx
       real*8 coulombPxPxPyPy, cPxPxPyPy
       real*8 coulombPxPyPxPy, cPxPyPxPy
+c
+c
       a = 3.5
       b = 3.0
       z1 = -0.5
       z2 = 1.5
-      print*, ""
+      print*, "Coulomb"
 c
 c     coulombSSSS
 c
@@ -597,6 +610,263 @@ c
       end
 c
 c
+      subroutine testcoulombflip()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 coulombSSSS, cSSSS
+      real*8 coulombSSPzS, cSSPzS
+      real*8 coulombSSSPz, cSSSPz
+      real*8 coulombSSPzPz, cSSPzPz
+      real*8 coulombSPzSS, cSPzSS
+      real*8 coulombSPzSPz, cSPzSPz
+      real*8 coulombSPzPzPz, cSPzPzPz
+      real*8 coulombPzPzSS, cPzPzSS
+      real*8 coulombPzPzSPz, cPzPzSPz
+      real*8 coulombPzPzPzPz, cPzPzPzPz
+      real*8 coulombSSPxPx, cSSPxPx
+      real*8 coulombSPxSPx, cSPxSPx
+      real*8 coulombPxPxSS, cPxPxSS
+      real*8 coulombPxPxPxPx, cPxPxPxPx
+      real*8 coulombSPxPxPz, cSPxPxPz
+      real*8 coulombSPzPxPx, cSPzPxPx
+      real*8 coulombPxPxSPz, cPxPxSPz
+      real*8 coulombPxPxPzPz, cPxPxPzPz
+      real*8 coulombPxPzSPx, cPxPzSPx
+      real*8 coulombPxPzPxPz, cPxPzPxPz
+      real*8 coulombPzPzPxPx, cPzPzPxPx
+      real*8 coulombPxPxPyPy, cPxPxPyPy
+      real*8 coulombPxPyPxPy, cPxPyPxPy
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = 1.5
+      z2 = -0.5
+      print*, "Coulomb flip z1 and z2"
+c
+c     coulombSSSS
+c
+      cSSSS = coulombSSSS(a,b,z1,z2) - (0.49988666809518023d0)
+      print*, "cSSSS a != b", cSSSS
+      cSSSS = coulombSSSS(a,a,z1,z2) - (0.49995653530091183d0)
+      print*, "cSSSS a = b", cSSSS
+      cSSSS = coulombSSSS(b,a,z1,z2) - (0.49988666809518023d0)
+      print*, "cSSSS b != a", cSSSS
+      print*, ""
+c
+c     coulombSSSPz
+c
+      cSSSPz = coulombSSSPz(a,b,z1,z2) - (0.0828085932448284d0)
+      print*, "cSSSPz a != b", cSSSPz
+      cSSSPz = coulombSSSPz(a,a,z1,z2) - (0.07124826952203973d0)
+      print*, "cSSSPz a = b", cSSSPz
+      cSSSPz = coulombSSSPz(b,a,z1,z2) - (0.07108221554866272d0)
+      print*, "cSSSPz b != a", cSSSPz
+      print*, ""
+c
+c     coulombSSPzPz
+c
+      cSSPzPz = coulombSSPzPz(a,b,z1,z2) - (0.5388382815880638d0)
+      print*, "cSSPzPz a != b", cSSPzPz
+      cSSPzPz = coulombSSPzPz(a,a,z1,z2) - (0.5296597904077978d0)
+      print*, "cSSPzPz a = b", cSSPzPz
+      cSSPzPz = coulombSSPzPz(b,a,z1,z2) - (0.5290770985691252d0)
+      print*, "cSSPzPz b != a", cSSPzPz
+      print*, ""
+c
+c     coulombSPzSS
+c
+      cSPzSS = coulombSPzSS(a,b,z1,z2) - (-0.07108221554866272d0)
+      print*, "cSPzSS a != b", cSPzSS
+      cSPzSS = coulombSPzSS(a,a,z1,z2) - (-0.07124826952203973d0)
+      print*, "cSPzSS a = b", cSPzSS
+      cSPzSS = coulombSPzSS(b,a,z1,z2) - (-0.0828085932448284d0)
+      print*, "cSPzSS b != a", cSPzSS
+      print*, ""
+c
+c     coulombSPzSPz
+c
+      cSPzSPz = coulombSPzSPz(a,b,z1,z2) - (-0.02258336207207723d0)
+      print*, "cSPzSPz a != b", cSPzSPz
+      cSPzSPz = coulombSPzSPz(a,a,z1,z2) - (-0.019844056886855845d0)
+      print*, "cSPzSPz a = b", cSPzSPz
+      cSPzSPz = coulombSPzSPz(b,a,z1,z2) - (-0.02258336207207723d0)
+      print*, "cSPzSPz b != a", cSPzSPz
+      print*, ""
+c
+c     coulombSPzPzPz
+c
+      cSPzPzPz = coulombSPzPzPz(a,b,z1,z2) - (-0.08387741384927963d0)
+      print*, "cSPzPzPz a != b", cSPzPzPz
+      cSPzPzPz = coulombSPzPzPz(a,a,z1,z2) - (-0.0821342383420232d0)
+      print*, "cSPzPzPz a = b", cSPzPzPz
+      cSPzPzPz = coulombSPzPzPz(b,a,z1,z2) - (-0.09418948144354163d0)
+      print*, "cSPzPzPz b != a", cSPzPzPz
+      print*, ""
+c
+c     coulombPzPzSS
+c
+      cPzPzSS = coulombPzPzSS(a,b,z1,z2) - (0.5290770985691252d0)
+      print*, "cPzPzSS a != b", cPzPzSS
+      cPzPzSS = coulombPzPzSS(a,a,z1,z2) - (0.5296597904077978d0)
+      print*, "cPzPzSS a = b", cPzPzSS
+      cPzPzSS = coulombPzPzSS(b,a,z1,z2) - (0.5388382815880638d0)
+      print*, "cPzPzSS b != a", cPzPzSS
+      print*, ""
+c
+c     coulombPzPzSPz
+c
+      cPzPzSPz = coulombPzPzSPz(a,b,z1,z2) - (0.09418948144354163d0)
+      print*, "cPzPzSPz a != b", cPzPzSPz
+      cPzPzSPz = coulombPzPzSPz(a,a,z1,z2) - (0.0821342383420232d0)
+      print*, "cPzPzSPz a = b", cPzPzSPz
+      cPzPzSPz = coulombPzPzSPz(b,a,z1,z2) - (0.08387741384927963d0)
+      print*, "cPzPzSPz b != a", cPzPzSPz
+      print*, ""
+c
+c     coulombPzPzPzPz
+c
+      cPzPzPzPz = coulombPzPzPzPz(a,b,z1,z2) - (0.5703689519863779d0)
+      print*, "cPzPzPzPz a != b", cPzPzPzPz
+      cPzPzPzPz = coulombPzPzPzPz(a,a,z1,z2) - (0.5635236359648949d0)
+      print*, "cPzPzPzPz a = b", cPzPzPzPz
+      cPzPzPzPz = coulombPzPzPzPz(b,a,z1,z2) - (0.5703689519863779d0)
+      print*, "cPzPzPzPz b != a", cPzPzPzPz
+      print*, ""
+c
+c     coulombSSPxPx
+c
+      cSSPxPx = coulombSSPxPx(a,b,z1,z2) - (0.47912883137076784d0)
+      print*, "cSSPxPx a != b", cSSPxPx
+      cSSPxPx = coulombSSPxPx(a,a,z1,z2) - (0.48466391688540134d0)
+      print*, "cSSPxPx a = b", cSSPxPx
+      cSSPxPx = coulombSSPxPx(b,a,z1,z2) - (0.4845990763501186d0)
+      print*, "cSSPxPx b != a", cSSPxPx
+      print*, ""
+c
+c     coulombSPxSPx
+c
+      cSPxSPx = coulombSPxSPx(a,b,z1,z2) - (0.01178206610937095d0)
+      print*, "cSPxSPx a != b", cSPxSPx
+      cSPxSPx = coulombSPxSPx(a,a,z1,z2) - (0.01015319212807509d0)
+      print*, "cSPxSPx a = b", cSPxSPx
+      cSPxSPx = coulombSPxSPx(b,a,z1,z2) - (0.01178206610937095d0)
+      print*, "cSPxSPx b != a", cSPxSPx
+      print*, ""
+c
+c     coulombPxPxSS
+c
+      cPxPxSS = coulombPxPxSS(a,b,z1,z2) - (0.4845990763501186d0)
+      print*, "cPxPxSS a != b", cPxPxSS
+      cPxPxSS = coulombPxPxSS(a,a,z1,z2) - (0.48466391688540134d0)
+      print*, "cPxPxSS a = b", cPxPxSS
+      cPxPxSS = coulombPxPxSS(b,a,z1,z2) - (0.47912883137076784d0)
+      print*, "cPxPxSS b != a", cPxPxSS
+      print*, ""
+c
+c     coulombPxPxPxPx
+c
+      cPxPxPxPx = coulombPxPxPxPx(a,b,z1,z2) - (0.4692241032238778d0)
+      print*, "cPxPxPxPx a != b", cPxPxPxPx
+      cPxPxPxPx = coulombPxPxPxPx(a,a,z1,z2) - (0.47343555297830386d0)
+      print*, "cPxPxPxPx a = b", cPxPxPxPx
+      cPxPxPxPx = coulombPxPxPxPx(b,a,z1,z2) - (0.46922410322387775d0)
+      print*, "cPxPxPxPx b != a", cPxPxPxPx
+      print*, ""
+c
+c     coulombSPxPxPz
+c
+      cSPxPxPz = coulombSPxPxPz(a,b,z1,z2) - (0.008359792145233679d0)
+      print*, "cSPxPxPz a != b", cSPxPxPz
+      cSPxPxPz = coulombSPxPxPz(a,a,z1,z2) - (0.0063400196190138685d0)
+      print*, "cSPxPxPz a = b", cSPxPxPz
+      cSPxPxPz = coulombSPxPxPz(b,a,z1,z2) - (0.007228374045474331d0)
+      print*, "cSPxPxPz b != a", cSPxPxPz
+      print*, ""
+c
+c     coulombSPzPxPx
+c
+      cSPzPxPx = coulombSPzPxPx(a,b,z1,z2) - (-0.062332604510992d0)
+      print*, "cSPzPxPx a != b", cSPzPxPx
+      cSPzPxPx = coulombSPzPxPx(a,a,z1,z2) - (-0.06473232527751177d0)
+      print*, "cSPzPxPx a = b", cSPzPxPx
+      cSPzPxPx = coulombSPzPxPx(b,a,z1,z2) - (-0.07524608872012231d0)
+      print*, "cSPzPxPx b != a", cSPzPxPx
+      print*, ""
+c
+c     coulombPxPxSPz
+c
+      cPxPxSPz = coulombPxPxSPz(a,b,z1,z2) - (0.07524608872012231d0)
+      print*, "cPxPxSPz a != b", cPxPxSPz
+      cPxPxSPz = coulombPxPxSPz(a,a,z1,z2) - (0.06473232527751177d0)
+      print*, "cPxPxSPz a = b", cPxPxSPz
+      cPxPxSPz = coulombPxPxSPz(b,a,z1,z2) - (0.062332604510992d0)
+      print*, "cPxPxSPz b != a", cPxPxSPz
+      print*, ""
+c
+c     coulombPxPxPzPz
+c
+      cPxPxPzPz = coulombPxPxPzPz(a,b,z1,z2) - (0.5164642045478991d0)
+      print*, "cPxPxPzPz a != b", cPxPxPzPz
+      cPxPxPzPz = coulombPxPxPzPz(a,a,z1,z2) - (0.5089658284234035d0)
+      print*, "cPxPxPzPz a = b", cPxPxPzPz
+      cPxPxPzPz = coulombPxPxPzPz(b,a,z1,z2) - (0.5013159038041091d0)
+      print*, "cPxPxPzPz b != a", cPxPxPzPz
+      print*, ""
+c
+c     coulombPxPzSPx
+c
+      cPxPzSPx = coulombPxPzSPx(a,b,z1,z2) - (-0.007228374045474331d0)
+      print*, "cPxPzSPx a != b", cPxPzSPx
+      cPxPzSPx = coulombPxPzSPx(a,a,z1,z2) - (-0.0063400196190138685d0)
+      print*, "cPxPzSPx a = b", cPxPzSPx
+      cPxPzSPx = coulombPxPzSPx(b,a,z1,z2) - (-0.008359792145233679d0)
+      print*, "cPxPzSPx b != a", cPxPzSPx
+      print*, ""
+c
+c     coulombPxPzPxPz
+c
+      cPxPzPxPz = coulombPxPzPxPz(a,b,z1,z2) - (-0.006034801127456413d0)
+      print*, "cPxPzPxPz a != b", cPxPzPxPz
+      cPxPzPxPz = coulombPxPzPxPz(a,a,z1,z2) - (-0.004848437602982191d0)
+      print*, "cPxPzPxPz a = b", cPxPzPxPz
+      cPxPzPxPz = coulombPxPzPxPz(b,a,z1,z2) - (-0.006034801127456413d0)
+      print*, "cPxPzPxPz b != a", cPxPzPxPz
+      print*, ""
+c
+c     coulombPzPzPxPx
+c
+      cPzPzPxPx = coulombPzPzPxPx(a,b,z1,z2) - (0.5013159038041091d0)
+      print*, "cPzPzPxPx a != b", cPzPzPxPx
+      cPzPzPxPx = coulombPzPzPxPx(a,a,z1,z2) - (0.5089658284234035d0)
+      print*, "cPzPzPxPx a = b", cPzPzPxPx
+      cPzPzPxPx = coulombPzPzPxPx(b,a,z1,z2) - (0.5164642045478991d0)
+      print*, "cPzPzPxPx b != a", cPzPzPxPx
+      print*, ""
+c
+c     coulombPxPxPyPy
+c
+      cPxPxPyPy = coulombPxPxPyPy(a,b,z1,z2) - (0.46572834151377246d0)
+      print*, "cPxPxPyPy a != b", cPxPxPyPy
+      cPxPxPyPy = coulombPxPxPyPy(a,a,z1,z2) - (0.47076793678829376d0)
+      print*, "cPxPxPyPy a = b", cPxPxPyPy
+      cPxPxPyPy = coulombPxPxPyPy(b,a,z1,z2) - (0.4657283415137724d0)
+      print*, "cPxPxPyPy b != a", cPxPxPyPy
+      print*, ""
+c
+c     coulombPxPyPxPy
+c
+      cPxPyPxPy = coulombPxPyPxPy(a,b,z1,z2) - (0.0017478808550526867d0)
+      print*, "cPxPyPxPy a != b", cPxPyPxPy
+      cPxPyPxPy = coulombPxPyPxPy(a,a,z1,z2) - (0.001333808095005061d0)
+      print*, "cPxPyPxPy a = b", cPxPyPxPy
+      cPxPyPxPy = coulombPxPyPxPy(b,a,z1,z2) - (0.0017478808550526867d0)
+      print*, "cPxPyPxPy b != a", cPxPyPxPy
+      print*, ""
+      return
+      end
+c
+c
       subroutine testcoulombsto()
       implicit none
       real*8 a,b,z1,z2
@@ -623,6 +893,8 @@ c
       real*8 PxPxPyPy,sPxPxPyPy
       real*8 PxPyPxPy,sPxPyPxPy
       logical exch
+c
+c
       a = 3.5
       b = 3.0
       z1 = -0.5
@@ -885,6 +1157,8 @@ c
       real*8 PxPyPxPy, ePxPyPxPy
       real*8 PxPyPyPx, ePxPyPyPx
       logical exch
+c
+c
       a = 3.5
       b = 3.0
       z1 = -0.5
@@ -1171,5 +1445,1071 @@ c
       ePxPyPyPx = PxPyPyPx(b,a,z1,z2,exch) - (0.00018955163233119366d0)
       print*, "ePxPyPyPx b != a", ePxPyPyPx
       print*, ""
+      return
+      end
+c
+c
+      subroutine teststooverlap()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 stoOSS, sSS
+      real*8 stoOSPz, sSPz
+      real*8 stoOPzS, sPzS
+      real*8 stoOPzPz, sPzPz
+      real*8 stoOPxPx, sPxPx
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = -0.5
+      z2 = 1.5
+      print*, "STO Overlap"
+c
+c     stoOSS
+c
+      sSS = stoOSS(a,b,z1,z2) - (0.03259146113402994d0)
+      print*, "sSS a != b", sSS
+      sSS = stoOSS(a,a,z1,z2) - (0.02136399226329799d0)
+      print*, "sSS a = a", sSS
+      sSS = stoOSS(b,a,z1,z2) - (0.03259146113402994d0)
+      print*, "sSS b != a", sSS
+      print*, ""
+c
+c     stoOSPz
+c
+      sSPz = stoOSPz(a,b,z1,z2) - (-0.11491683162998949d0)
+      print*, "sSPz a != b", sSPz
+      sSPz = stoOSPz(a,a,z1,z2) - (-0.07850320352440002d0)
+      print*, "sSPz a = a", sSPz
+      sSPz = stoOSPz(b,a,z1,z2) - (-0.09952502840177815d0)
+      print*, "sSPz b != a", sSPz
+      print*, ""
+c
+c     stoOPzS
+c
+      sPzS = stoOPzS(a,b,z1,z2) - (0.09952502840177814d0)
+      print*, "sPzS a != b", sPzS
+      sPzS = stoOPzS(a,a,z1,z2) - (0.07850320352440004d0)
+      print*, "sPzS a = a", sPzS
+      sPzS = stoOPzS(b,a,z1,z2) - (0.1149168316299895d0)
+      print*, "sPzS b != a", sPzS
+      print*, ""
+c
+c     stoOPzPz
+c
+      sPzPz = stoOPzPz(a,b,z1,z2) - (-0.2079653261681678d0)
+      print*, "sPzPz a != b", sPzPz
+      sPzPz = stoOPzPz(a,a,z1,z2) - (-0.17110584149438524d0)
+      print*, "sPzPz a = a", sPzPz
+      sPzPz = stoOPzPz(b,a,z1,z2) - (-0.20796532616816776d0)
+      print*, "sPzPz b != a", sPzPz
+      print*, ""
+c
+c     stoOPxPx
+c
+      sPxPx = stoOPxPx(a,b,z1,z2) - (0.06483001236088108d0)
+      print*, "sPxPx a != b", sPxPx
+      sPxPx = stoOPxPx(a,a,z1,z2) - (0.04629809464396494d0)
+      print*, "sPxPx a = a", sPxPx
+      sPxPx = stoOPxPx(b,a,z1,z2) - (0.06483001236088104d0)
+      print*, "sPxPx b != a", sPxPx
+      print*, ""
+      return
+      end
+c
+c
+      subroutine testoverlap()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 overlapSS, oSS
+      real*8 overlapSPz, oSPz
+      real*8 overlapPzS, oPzS
+      real*8 overlapPzPz, oPzPz
+      real*8 overlapPxPx, oPxPx
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = -0.5
+      z2 = 1.5
+      print*, "Overlap"
+c
+c     overlapSS
+c
+      oSS = overlapSS(a,b,z1,z2) - (0.03316251188725393d0)
+      print*, "oSS a != b", oSS
+      oSS = overlapSS(a,a,z1,z2) - (0.02218912782849323d0)
+      print*, "oSS a = a", oSS
+      oSS = overlapSS(b,a,z1,z2) - (0.03316251188725393d0)
+      print*, "oSS b != a", oSS
+      print*, ""
+c
+c     overlapSPz
+c
+      oSPz = overlapSPz(a,b,z1,z2) - (-0.11449159982005137d0)
+      print*, "oSPz a != b", oSPz
+      oSPz = overlapSPz(a,a,z1,z2) - (-0.07766194739972629d0)
+      print*, "oSPz a = a", oSPz
+      oSPz = overlapSPz(b,a,z1,z2) - (-0.09856405008738535d0)
+      print*, "oSPz b != a", oSPz
+      print*, ""
+c
+c     overlapPzS
+c
+      oPzS = overlapPzS(a,b,z1,z2) - (0.09856405008738535d0)
+      print*, "oPzS a != b", oPzS
+      oPzS = overlapPzS(a,a,z1,z2) - (0.07766194739972629d0)
+      print*, "oPzS a = a", oPzS
+      oPzS = overlapPzS(b,a,z1,z2) - (0.11449159982005137d0)
+      print*, "oPzS b != a", oPzS
+      print*, ""
+c
+c     overlapPzPz
+c
+      oPzPz = overlapPzPz(a,b,z1,z2) - (-0.20875548850469805d0)
+      print*, "oPzPz a != b", oPzPz
+      oPzPz = overlapPzPz(a,a,z1,z2) - (-0.17143380952424905d0)
+      print*, "oPzPz a = a", oPzPz
+      oPzPz = overlapPzPz(b,a,z1,z2) - (-0.20875548850469805d0)
+      print*, "oPzPz b != a", oPzPz
+      print*, ""
+c
+c     overlapPxPx
+c
+      oPxPx = overlapPxPx(a,b,z1,z2) - (0.06463289175879093d0)
+      print*, "oPxPx a != b", oPxPx
+      oPxPx = overlapPxPx(a,a,z1,z2) - (0.04601964319498459d0)
+      print*, "oPxPx a = a", oPxPx
+      oPxPx = overlapPxPx(b,a,z1,z2) - (0.06463289175879093d0)
+      print*, "oPxPx b != a", oPxPx
+      print*, ""
+      return
+      end
+c
+c
+      subroutine testoverlapflip()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 overlapSS, oSS
+      real*8 overlapSPz, oSPz
+      real*8 overlapPzS, oPzS
+      real*8 overlapPzPz, oPzPz
+      real*8 overlapPxPx, oPxPx
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = 1.5
+      z2 = -0.5
+      print*, "Overlap flip z1 and z2"
+c
+c     overlapSS
+c
+      oSS = overlapSS(a,b,z1,z2) - (0.03316251188725393d0)
+      print*, "oSS a != b", oSS
+      oSS = overlapSS(a,a,z1,z2) - (0.02218912782849323d0)
+      print*, "oSS a = a", oSS
+      oSS = overlapSS(b,a,z1,z2) - (0.03316251188725393d0)
+      print*, "oSS b != a", oSS
+      print*, ""
+c
+c     overlapSPz
+c
+      oSPz = overlapSPz(a,b,z1,z2) - (0.11449159982005137d0)
+      print*, "oSPz a != b", oSPz
+      oSPz = overlapSPz(a,a,z1,z2) - (0.07766194739972629d0)
+      print*, "oSPz a = a", oSPz
+      oSPz = overlapSPz(b,a,z1,z2) - (0.09856405008738535d0)
+      print*, "oSPz b != a", oSPz
+      print*, ""
+c
+c     overlapPzS
+c
+      oPzS = overlapPzS(a,b,z1,z2) - (-0.09856405008738535d0)
+      print*, "oPzS a != b", oPzS
+      oPzS = overlapPzS(a,a,z1,z2) - (-0.07766194739972629d0)
+      print*, "oPzS a = a", oPzS
+      oPzS = overlapPzS(b,a,z1,z2) - (-0.11449159982005137d0)
+      print*, "oPzS b != a", oPzS
+      print*, ""
+c
+c     overlapPzPz
+c
+      oPzPz = overlapPzPz(a,b,z1,z2) - (-0.20875548850469805d0)
+      print*, "oPzPz a != b", oPzPz
+      oPzPz = overlapPzPz(a,a,z1,z2) - (-0.17143380952424905d0)
+      print*, "oPzPz a = a", oPzPz
+      oPzPz = overlapPzPz(b,a,z1,z2) - (-0.20875548850469805d0)
+      print*, "oPzPz b != a", oPzPz
+      print*, ""
+c
+c     overlapPxPx
+c
+      oPxPx = overlapPxPx(a,b,z1,z2) - (0.06463289175879093d0)
+      print*, "oPxPx a != b", oPxPx
+      oPxPx = overlapPxPx(a,a,z1,z2) - (0.04601964319498459d0)
+      print*, "oPxPx a = a", oPxPx
+      oPxPx = overlapPxPx(b,a,z1,z2) - (0.06463289175879093d0)
+      print*, "oPxPx b != a", oPxPx
+      print*, ""
+      return
+      end
+c
+c
+      subroutine teststoNE()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 stoNESaS, NESaS
+      real*8 stoNESaPz, NESaPz
+      real*8 stoNEPzaS, NEPzaS
+      real*8 stoNEPzaPz, NEPzaPz
+      real*8 stoNEPxaPx, NEPxaPx
+      real*8 stoNESbS, NESbS
+      real*8 stoNESbPz, NESbPz
+      real*8 stoNEPzbS, NEPzbS
+      real*8 stoNEPzbPz, NEPzbPz
+      real*8 stoNEPxbPx, NEPxbPx
+      real*8 stoNEaSS, NEaSS
+      real*8 stoNEaSPz, NEaSPz
+      real*8 stoNEaPzPz, NEaPzPz
+      real*8 stoNEaPxPx, NEaPxPx
+      real*8 stoNESSb, NESSb
+      real*8 stoNESPzb, NESPzb
+      real*8 stoNEPzPzb, NEPzPzb
+      real*8 stoNEPxPxb, NEPxPxb
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = -0.5
+      z2 = 1.5
+      print*, "STO NE"
+c
+c     NESaS
+c
+      NESaS = stoNESaS(a,b,z1,z2) - (0.04309604354339577d0)
+      print*, "NESaS a != b", NESaS
+      NESaS = stoNESaS(a,a,z1,z2) - (0.024414302419061208d0)
+      print*, "NESaS a = a", NESaS
+      NESaS = stoNESaS(b,a,z1,z2) - (0.031508944525227636d0)
+      print*, "NESaS b != a", NESaS
+      print*, ""
+c
+c     NESaPz
+c
+      NESaPz = stoNESaPz(a,b,z1,z2) - (-0.1905029299553451d0)
+      print*, "NESaPz a != b", NESaPz
+      NESaPz = stoNESaPz(a,a,z1,z2) - (-0.12087413033035013d0)
+      print*, "NESaPz a = a", NESaPz
+      NESaPz = stoNESaPz(b,a,z1,z2) - (-0.13536642810481384d0)
+      print*, "NESaPz b != a", NESaPz
+      print*, ""
+c
+c     NEPzaS
+c
+      NEPzaS = stoNEPzaS(a,b,z1,z2) - (0.081221901783265d0)
+      print*, "NEPzaS a != b", NEPzaS
+      NEPzaS = stoNEPzaS(a,a,z1,z2) - (0.06042771221408536d0)
+      print*, "NEPzaS a = a", NEPzaS
+      NEPzaS = stoNEPzaS(b,a,z1,z2) - (0.0807931008266918d0)
+      print*, "NEPzaS b != a", NEPzaS
+      print*, ""
+c
+c     NEPzaPz
+c
+      NEPzaPz = stoNEPzaPz(a,b,z1,z2) - (-0.2134639646520742d0)
+      print*, "NEPzaPz a != b", NEPzaPz
+      NEPzaPz = stoNEPzaPz(a,a,z1,z2) - (-0.16899389944110002d0)
+      print*, "NEPzaPz a = a", NEPzaPz
+      NEPzaPz = stoNEPzaPz(b,a,z1,z2) - (-0.19366613504699962d0)
+      print*, "NEPzaPz b != a", NEPzaPz
+      print*, ""
+c
+c     NEPxaPx
+c
+      NEPxaPx = stoNEPxaPx(a,b,z1,z2) - (0.057328228552561d0)
+      print*, "NEPxaPx a != b", NEPxaPx
+      NEPxaPx = stoNEPxaPx(a,a,z1,z2) - (0.039106906279815196d0)
+      print*, "NEPxaPx a = a", NEPxaPx
+      NEPxaPx = stoNEPxaPx(b,a,z1,z2) - (0.04949516342206589d0)
+      print*, "NEPxaPx b != a", NEPxaPx
+      print*, ""
+c
+c     NESbS
+c
+      NESbS = stoNESbS(a,b,z1,z2) - (0.03150894452522763d0)
+      print*, "NESbS a != b", NESbS
+      NESbS = stoNESbS(a,a,z1,z2) - (0.02441430241906121d0)
+      print*, "NESbS a = a", NESbS
+      NESbS = stoNESbS(b,a,z1,z2) - (0.043096043543395766d0)
+      print*, "NESbS b != a", NESbS
+      print*, ""
+c
+c     NESbPz
+c
+      NESbPz = stoNESbPz(a,b,z1,z2) - (-0.08079310082669183d0)
+      print*, "NESbPz a != b", NESbPz
+      NESbPz = stoNESbPz(a,a,z1,z2) - (-0.06042771221408537d0)
+      print*, "NESbPz a = a", NESbPz
+      NESbPz = stoNESbPz(b,a,z1,z2) - (-0.08122190178326498d0)
+      print*, "NESbPz b != a", NESbPz
+      print*, ""
+c
+c     NEPzbS
+c
+      NEPzbS = stoNEPzbS(a,b,z1,z2) - (0.13536642810481386d0)
+      print*, "NEPzbS a != b", NEPzbS
+      NEPzbS = stoNEPzbS(a,a,z1,z2) - (0.12087413033035013d0)
+      print*, "NEPzbS a = a", NEPzbS
+      NEPzbS = stoNEPzbS(b,a,z1,z2) - (0.1905029299553451d0)
+      print*, "NEPzbS b != a", NEPzbS
+      print*, ""
+c
+c     NEPzbPz
+c
+      NEPzbPz = stoNEPzbPz(a,b,z1,z2) - (-0.19366613504699964d0)
+      print*, "NEPzbPz a != b", NEPzbPz
+      NEPzbPz = stoNEPzbPz(a,a,z1,z2) - (-0.1689938994411d0)
+      print*, "NEPzbPz a = a", NEPzbPz
+      NEPzbPz = stoNEPzbPz(b,a,z1,z2) - (-0.21346396465207423d0)
+      print*, "NEPzbPz b != a", NEPzbPz
+      print*, ""
+c
+c     NEPxbPx
+c
+      NEPxbPx = stoNEPxbPx(a,b,z1,z2) - (0.049495163422065884d0)
+      print*, "NEPxbPx a != b", NEPxbPx
+      NEPxbPx = stoNEPxbPx(a,a,z1,z2) - (0.039106906279815196d0)
+      print*, "NEPxbPx a = a", NEPxbPx
+      NEPxbPx = stoNEPxbPx(b,a,z1,z2) - (0.05732822855256101d0)
+      print*, "NEPxbPx b != a", NEPxbPx
+      print*, ""
+c
+c     NEaSS
+c
+      NEaSS = stoNEaSS(a,z1,z2) - (0.4999985446647136d0)
+      print*, "NEaSS a", NEaSS
+      NEaSS = stoNEaSS(b,z1,z2) - (0.49998411943117493d0)
+      print*, "NEaSS b", NEaSS
+      print*, ""
+c
+c     NEaSPz
+c
+      NEaSPz = stoNEaSPz(a,z1,z2) - (-0.07138902598070776d0)
+      print*, "NEaSPz a", NEaSPz
+      NEaSPz = stoNEaSPz(b,z1,z2) - (-0.08317633408219458d0)
+      print*, "NEaSPz b", NEaSPz
+      print*, ""
+c
+c     NEaPzPz
+c
+      NEaPzPz = stoNEaPzPz(a,z1,z2) - (0.5303903982086646d0)
+      print*, "NEaPzPz a", NEaPzPz
+      NEaPzPz = stoNEaPzPz(b,z1,z2) - (0.5404919821032068d0)
+      print*, "NEaPzPz b", NEaPzPz
+      print*, ""
+c
+c     NEaPxPx
+c
+      NEaPxPx = stoNEaPxPx(a,z1,z2) - (0.48468907742221023d0)
+      print*, "NEaPxPx a", NEaPxPx
+      NEaPxPx = stoNEaPxPx(b,z1,z2) - (0.47917468722489526d0)
+      print*, "NEaPxPx b", NEaPxPx
+      print*, ""
+c
+c     NESSb
+c
+      NESSb = stoNESSb(a,z1,z2) - (0.4999985446647136d0)
+      print*, "NESSb a", NESSb
+      NESSb = stoNESSb(b,z1,z2) - (0.499984119431175d0)
+      print*, "NESSb b", NESSb
+      print*, ""
+c
+c     NESPzb
+c
+      NESPzb = stoNESPzb(a,z1,z2) - (0.07138902598070769d0)
+      print*, "NESPzb a", NESPzb
+      NESPzb = stoNESPzb(b,z1,z2) - (0.08317633408219449d0)
+      print*, "NESPzb b", NESPzb
+      print*, ""
+c
+c     NEPzPzb
+c
+      NEPzPzb = stoNEPzPzb(a,z1,z2) - (0.5303903982086646d0)
+      print*, "NEPzPzb a", NEPzPzb
+      NEPzPzb = stoNEPzPzb(b,z1,z2) - (0.5404919821032068d0)
+      print*, "NEPzPzb b", NEPzPzb
+      print*, ""
+c
+c     NEPxPxb
+c
+      NEPxPxb = stoNEPxPxb(a,z1,z2) - (0.48468907742221023d0)
+      print*, "NEPxPxb a", NEPxPxb
+      NEPxPxb = stoNEPxPxb(b,z1,z2) - (0.47917468722489526d0)
+      print*, "NEPxPxb b", NEPxPxb
+      print*, ""
+      return
+      end
+c
+c
+      subroutine testNE()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 NESaS, nNESaS
+      real*8 NESaPz, nNESaPz
+      real*8 NEPzaS, nNEPzaS
+      real*8 NEPzaPz, nNEPzaPz
+      real*8 NEPxaPx, nNEPxaPx
+      real*8 NESbS, nNESbS
+      real*8 NESbPz, nNESbPz
+      real*8 NEPzbS, nNEPzbS
+      real*8 NEPzbPz, nNEPzbPz
+      real*8 NEPxbPx, nNEPxbPx
+      real*8 NEaSS, nNEaSS
+      real*8 NEaSPz, nNEaSPz
+      real*8 NEaPzPz, nNEaPzPz
+      real*8 NEaPxPx, nNEaPxPx
+      real*8 NESSb, nNESSb
+      real*8 NESPzb, nNESPzb
+      real*8 NEPzPzb, nNEPzPzb
+      real*8 NEPxPxb, nNEPxPxb
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = -0.5
+      z2 = 1.5
+      print*, "Nuclear-Electron"
+c
+c     nNESaS
+c
+      nNESaS = NESaS(a,b,z1,z2) - (0.043232760593498634d0)
+      print*, "nNESaS a != b", nNESaS
+      nNESaS = NESaS(a,a,z1,z2) - (0.025532695035526454d0)
+      print*, "nNESaS a = a", nNESaS
+      nNESaS = NESaS(b,a,z1,z2) - (0.03247519342015251d0)
+      print*, "nNESaS b != a", nNESaS
+      print*, ""
+c
+c     nNESaPz
+c
+      nNESaPz = NESaPz(a,b,z1,z2) - (-0.1906499804413834d0)
+      print*, "nNESaPz a != b", nNESaPz
+      nNESaPz = NESaPz(a,a,z1,z2) - (-0.11915257683245681d0)
+      print*, "nNESaPz a = a", nNESaPz
+      nNESaPz = NESaPz(b,a,z1,z2) - (-0.1337546158060454d0)
+      print*, "nNESaPz b != a", nNESaPz
+      print*, ""
+c
+c     nNEPzaS
+c
+      nNEPzaS = NEPzaS(a,b,z1,z2) - (0.08020434697287639d0)
+      print*, "nNEPzaS a != b", nNEPzaS
+      nNEPzaS = NEPzaS(a,a,z1,z2) - (0.059576288416228404d0)
+      print*, "nNEPzaS a = a", nNEPzaS
+      nNEPzaS = NEPzaS(b,a,z1,z2) - (0.08020434697287639d0)
+      print*, "nNEPzaS b != a", nNEPzaS
+      print*, ""
+c
+c     nNEPzaPz
+c
+      nNEPzaPz = NEPzaPz(a,b,z1,z2) - (-0.2150998208606128d0)
+      print*, "nNEPzaPz a != b", nNEPzaPz
+      nNEPzaPz = NEPzaPz(a,a,z1,z2) - (-0.16968603575693622d0)
+      print*, "nNEPzaPz a = a", nNEPzaPz
+      nNEPzaPz = NEPzaPz(b,a,z1,z2) - (-0.19441184620070445d0)
+      print*, "nNEPzaPz b != a", nNEPzaPz
+      print*, ""
+c
+c     nNEPxaPx
+c
+      nNEPxaPx = NEPxaPx(a,b,z1,z2) - (0.057245799910025694d0)
+      print*, "nNEPxaPx a != b", nNEPxaPx
+      nNEPxaPx = NEPxaPx(a,a,z1,z2) - (0.038830973699863144d0)
+      print*, "nNEPxaPx a = a", nNEPxaPx
+      nNEPxaPx = NEPxaPx(b,a,z1,z2) - (0.049282025043692675d0)
+      print*, "nNEPxaPx b != a", nNEPxaPx
+      print*, ""
+c
+c     nNESbS
+c
+      nNESbS = NESbS(a,b,z1,z2) - (0.03247519342015251d0)
+      print*, "nNESbS a != b", nNESbS
+      nNESbS = NESbS(a,a,z1,z2) - (0.025532695035526454d0)
+      print*, "nNESbS a = a", nNESbS
+      nNESbS = NESbS(b,a,z1,z2) - (0.043232760593498634d0)
+      print*, "nNESbS b != a", nNESbS
+      print*, ""
+c
+c     nNESbPz
+c
+      nNESbPz = NESbPz(a,b,z1,z2) - (-0.08020434697287639d0)
+      print*, "nNESbPz a != b", nNESbPz
+      nNESbPz = NESbPz(a,a,z1,z2) - (-0.059576288416228404d0)
+      print*, "nNESbPz a = a", nNESbPz
+      nNESbPz = NESbPz(b,a,z1,z2) - (-0.08020434697287639d0)
+      print*, "nNESbPz b != a", nNESbPz
+      print*, ""
+c
+c     nNEPzbS
+c
+      nNEPzbS = NEPzbS(a,b,z1,z2) - (0.1337546158060454d0)
+      print*, "nNEPzbS a != b", nNEPzbS
+      nNEPzbS = NEPzbS(a,a,z1,z2) - (0.11915257683245681d0)
+      print*, "nNEPzbS a = a", nNEPzbS
+      nNEPzbS = NEPzbS(b,a,z1,z2) - (0.1906499804413834d0)
+      print*, "nNEPzbS b != a", nNEPzbS
+      print*, ""
+c
+c     nNEPzbPz
+c
+      nNEPzbPz = NEPzbPz(a,b,z1,z2) - (-0.19441184620070445d0)
+      print*, "nNEPzbPz a != b", nNEPzbPz
+      nNEPzbPz = NEPzbPz(a,a,z1,z2) - (-0.16968603575693622d0)
+      print*, "nNEPzbPz a = a", nNEPzbPz
+      nNEPzbPz = NEPzbPz(b,a,z1,z2) - (-0.2150998208606128d0)
+      print*, "nNEPzbPz b != a", nNEPzbPz
+      print*, ""
+c
+c     nNEPxbPx
+c
+      nNEPxbPx = NEPxbPx(a,b,z1,z2) - (0.049282025043692675d0)
+      print*, "nNEPxbPx a != b", nNEPxbPx
+      nNEPxbPx = NEPxbPx(a,a,z1,z2) - (0.038830973699863144d0)
+      print*, "nNEPxbPx a = a", nNEPxbPx
+      nNEPxbPx = NEPxbPx(b,a,z1,z2) - (0.057245799910025694d0)
+      print*, "nNEPxbPx b != a", nNEPxbPx
+      print*, ""
+c
+c     nNEaSS
+c
+      nNEaSS = NEaSS(a,z1,z2) - (0.4999966738851236d0)
+      print*, "nNEaSS a", nNEaSS
+      nNEaSS = NEaSS(b,z1,z2) - (0.49997849525676336d0)
+      print*, "nNEaSS b", nNEaSS
+      print*, ""
+c
+c     nNEaSPz
+c
+      nNEaSPz = NEaSPz(a,z1,z2) - (-0.07140148735029206d0)
+      print*, "nNEaSPz a", nNEaSPz
+      nNEaSPz = NEaSPz(b,z1,z2) - (-0.08317921600680402d0)
+      print*, "nNEaSPz b", nNEaSPz
+      print*, ""
+c
+c     nNEaPzPz
+c
+      nNEaPzPz = NEaPzPz(a,z1,z2) - (0.5303892212590073d0)
+      print*, "nNEaPzPz a", nNEaPzPz
+      nNEaPzPz = NEaPzPz(b,z1,z2) - (0.5405450919033362d0)
+      print*, "nNEaPzPz b", nNEaPzPz
+      print*, ""
+c
+c     nNEaPxPx
+c
+      nNEaPxPx = NEaPxPx(a,z1,z2) - (0.4846963551672039d0)
+      print*, "nNEaPxPx a", nNEaPxPx
+      nNEaPxPx = NEaPxPx(b,z1,z2) - (0.4791836912550624d0)
+      print*, "nNEaPxPx b", nNEaPxPx
+      print*, ""
+c
+c     nNESSb
+c
+      nNESSb = NESSb(a,z1,z2) - (0.4999966738851236d0)
+      print*, "nNESSb a", nNESSb
+      nNESSb = NESSb(b,z1,z2) - (0.49997849525676336d0)
+      print*, "nNESSb b", nNESSb
+      print*, ""
+c
+c     nNESPzb
+c
+      nNESPzb = NESPzb(a,z1,z2) - (0.07140148735029206d0)
+      print*, "nNESPzb a", nNESPzb
+      nNESPzb = NESPzb(b,z1,z2) - (0.08317921600680402d0)
+      print*, "nNESPzb b", nNESPzb
+      print*, ""
+c
+c     nNEPzPzb
+c
+      nNEPzPzb = NEPzPzb(a,z1,z2) - (0.5303892212590073d0)
+      print*, "nNEPzPzb a", nNEPzPzb
+      nNEPzPzb = NEPzPzb(b,z1,z2) - (0.5405450919033362d0)
+      print*, "nNEPzPzb b", nNEPzPzb
+      print*, ""
+c
+c     nNEPxPxb
+c
+      nNEPxPxb = NEPxPxb(a,z1,z2) - (0.4846963551672039d0)
+      print*, "nNEPxPxb a", nNEPxPxb
+      nNEPxPxb = NEPxPxb(b,z1,z2) - (0.4791836912550624d0)
+      print*, "nNEPxPxb b", nNEPxPxb
+      print*, ""
+      return
+      end
+c
+c
+      subroutine testNEflip()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 NESaS, nNESaS
+      real*8 NESaPz, nNESaPz
+      real*8 NEPzaS, nNEPzaS
+      real*8 NEPzaPz, nNEPzaPz
+      real*8 NEPxaPx, nNEPxaPx
+      real*8 NESbS, nNESbS
+      real*8 NESbPz, nNESbPz
+      real*8 NEPzbS, nNEPzbS
+      real*8 NEPzbPz, nNEPzbPz
+      real*8 NEPxbPx, nNEPxbPx
+      real*8 NEaSS, nNEaSS
+      real*8 NEaSPz, nNEaSPz
+      real*8 NEaPzPz, nNEaPzPz
+      real*8 NEaPxPx, nNEaPxPx
+      real*8 NESSb, nNESSb
+      real*8 NESPzb, nNESPzb
+      real*8 NEPzPzb, nNEPzPzb
+      real*8 NEPxPxb, nNEPxPxb
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = 1.5
+      z2 = -0.5
+      print*, "Nuclear-Electron flip z1 and z2"
+c
+c     nNESaS
+c
+      nNESaS = NESaS(a,b,z1,z2) - (0.043232760593498634d0)
+      print*, "nNESaS a != b", nNESaS
+      nNESaS = NESaS(a,a,z1,z2) - (0.025532695035526454d0)
+      print*, "nNESaS a = a", nNESaS
+      nNESaS = NESaS(b,a,z1,z2) - (0.03247519342015251d0)
+      print*, "nNESaS b != a", nNESaS
+      print*, ""
+c
+c     nNESaPz
+c
+      nNESaPz = NESaPz(a,b,z1,z2) - (0.1906499804413834d0)
+      print*, "nNESaPz a != b", nNESaPz
+      nNESaPz = NESaPz(a,a,z1,z2) - (0.11915257683245681d0)
+      print*, "nNESaPz a = a", nNESaPz
+      nNESaPz = NESaPz(b,a,z1,z2) - (0.1337546158060454d0)
+      print*, "nNESaPz b != a", nNESaPz
+      print*, ""
+c
+c     nNEPzaS
+c
+      nNEPzaS = NEPzaS(a,b,z1,z2) - (-0.08020434697287639d0)
+      print*, "nNEPzaS a != b", nNEPzaS
+      nNEPzaS = NEPzaS(a,a,z1,z2) - (-0.059576288416228404d0)
+      print*, "nNEPzaS a = a", nNEPzaS
+      nNEPzaS = NEPzaS(b,a,z1,z2) - (-0.08020434697287639d0)
+      print*, "nNEPzaS b != a", nNEPzaS
+      print*, ""
+c
+c     nNEPzaPz
+c
+      nNEPzaPz = NEPzaPz(a,b,z1,z2) - (-0.2150998208606128d0)
+      print*, "nNEPzaPz a != b", nNEPzaPz
+      nNEPzaPz = NEPzaPz(a,a,z1,z2) - (-0.16968603575693622d0)
+      print*, "nNEPzaPz a = a", nNEPzaPz
+      nNEPzaPz = NEPzaPz(b,a,z1,z2) - (-0.19441184620070445d0)
+      print*, "nNEPzaPz b != a", nNEPzaPz
+      print*, ""
+c
+c     nNEPxaPx
+c
+      nNEPxaPx = NEPxaPx(a,b,z1,z2) - (0.057245799910025694d0)
+      print*, "nNEPxaPx a != b", nNEPxaPx
+      nNEPxaPx = NEPxaPx(a,a,z1,z2) - (0.038830973699863144d0)
+      print*, "nNEPxaPx a = a", nNEPxaPx
+      nNEPxaPx = NEPxaPx(b,a,z1,z2) - (0.049282025043692675d0)
+      print*, "nNEPxaPx b != a", nNEPxaPx
+      print*, ""
+c
+c     nNESbS
+c
+      nNESbS = NESbS(a,b,z1,z2) - (0.03247519342015251d0)
+      print*, "nNESbS a != b", nNESbS
+      nNESbS = NESbS(a,a,z1,z2) - (0.025532695035526454d0)
+      print*, "nNESbS a = a", nNESbS
+      nNESbS = NESbS(b,a,z1,z2) - (0.043232760593498634d0)
+      print*, "nNESbS b != a", nNESbS
+      print*, ""
+c
+c     nNESbPz
+c
+      nNESbPz = NESbPz(a,b,z1,z2) - (0.08020434697287639d0)
+      print*, "nNESbPz a != b", nNESbPz
+      nNESbPz = NESbPz(a,a,z1,z2) - (0.059576288416228404d0)
+      print*, "nNESbPz a = a", nNESbPz
+      nNESbPz = NESbPz(b,a,z1,z2) - (0.08020434697287639d0)
+      print*, "nNESbPz b != a", nNESbPz
+      print*, ""
+c
+c     nNEPzbS
+c
+      nNEPzbS = NEPzbS(a,b,z1,z2) - (-0.1337546158060454d0)
+      print*, "nNEPzbS a != b", nNEPzbS
+      nNEPzbS = NEPzbS(a,a,z1,z2) - (-0.11915257683245681d0)
+      print*, "nNEPzbS a = a", nNEPzbS
+      nNEPzbS = NEPzbS(b,a,z1,z2) - (-0.1906499804413834d0)
+      print*, "nNEPzbS b != a", nNEPzbS
+      print*, ""
+c
+c     nNEPzbPz
+c
+      nNEPzbPz = NEPzbPz(a,b,z1,z2) - (-0.19441184620070445d0)
+      print*, "nNEPzbPz a != b", nNEPzbPz
+      nNEPzbPz = NEPzbPz(a,a,z1,z2) - (-0.16968603575693622d0)
+      print*, "nNEPzbPz a = a", nNEPzbPz
+      nNEPzbPz = NEPzbPz(b,a,z1,z2) - (-0.2150998208606128d0)
+      print*, "nNEPzbPz b != a", nNEPzbPz
+      print*, ""
+c
+c     nNEPxbPx
+c
+      nNEPxbPx = NEPxbPx(a,b,z1,z2) - (0.049282025043692675d0)
+      print*, "nNEPxbPx a != b", nNEPxbPx
+      nNEPxbPx = NEPxbPx(a,a,z1,z2) - (0.038830973699863144d0)
+      print*, "nNEPxbPx a = a", nNEPxbPx
+      nNEPxbPx = NEPxbPx(b,a,z1,z2) - (0.057245799910025694d0)
+      print*, "nNEPxbPx b != a", nNEPxbPx
+      print*, ""
+c
+c     nNEaSS
+c
+      nNEaSS = NEaSS(a,z1,z2) - (0.4999966738851236d0)
+      print*, "nNEaSS a", nNEaSS
+      nNEaSS = NEaSS(b,z1,z2) - (0.49997849525676336d0)
+      print*, "nNEaSS b", nNEaSS
+      print*, ""
+c
+c     nNEaSPz
+c
+      nNEaSPz = NEaSPz(a,z1,z2) - (0.07140148735029206d0)
+      print*, "nNEaSPz a", nNEaSPz
+      nNEaSPz = NEaSPz(b,z1,z2) - (0.08317921600680402d0)
+      print*, "nNEaSPz b", nNEaSPz
+      print*, ""
+c
+c     nNEaPzPz
+c
+      nNEaPzPz = NEaPzPz(a,z1,z2) - (0.5303892212590073d0)
+      print*, "nNEaPzPz a", nNEaPzPz
+      nNEaPzPz = NEaPzPz(b,z1,z2) - (0.5405450919033362d0)
+      print*, "nNEaPzPz b", nNEaPzPz
+      print*, ""
+c
+c     nNEaPxPx
+c
+      nNEaPxPx = NEaPxPx(a,z1,z2) - (0.4846963551672039d0)
+      print*, "nNEaPxPx a", nNEaPxPx
+      nNEaPxPx = NEaPxPx(b,z1,z2) - (0.4791836912550624d0)
+      print*, "nNEaPxPx b", nNEaPxPx
+      print*, ""
+c
+c     nNESSb
+c
+      nNESSb = NESSb(a,z1,z2) - (0.4999966738851236d0)
+      print*, "nNESSb a", nNESSb
+      nNESSb = NESSb(b,z1,z2) - (0.49997849525676336d0)
+      print*, "nNESSb b", nNESSb
+      print*, ""
+c
+c     nNESPzb
+c
+      nNESPzb = NESPzb(a,z1,z2) - (-0.07140148735029206d0)
+      print*, "nNESPzb a", nNESPzb
+      nNESPzb = NESPzb(b,z1,z2) - (-0.08317921600680402d0)
+      print*, "nNESPzb b", nNESPzb
+      print*, ""
+c
+c     nNEPzPzb
+c
+      nNEPzPzb = NEPzPzb(a,z1,z2) - (0.5303892212590073d0)
+      print*, "nNEPzPzb a", nNEPzPzb
+      nNEPzPzb = NEPzPzb(b,z1,z2) - (0.5405450919033362d0)
+      print*, "nNEPzPzb b", nNEPzPzb
+      print*, ""
+c
+c     nNEPxPxb
+c
+      nNEPxPxb = NEPxPxb(a,z1,z2) - (0.4846963551672039d0)
+      print*, "nNEPxPxb a", nNEPxPxb
+      nNEPxPxb = NEPxPxb(b,z1,z2) - (0.4791836912550624d0)
+      print*, "nNEPxPxb b", nNEPxPxb
+      print*, ""
+      return
+      end
+c
+c
+      subroutine testoverlapsum()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 overlap,overlapTotal
+      real*8 coeff1(4),coeff2(4)
+      logical exact
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = -0.5
+      z2 = 1.5
+      coeff1(1) = 0.5345224838248488d0
+      coeff1(2) = 0.25210259d0
+      coeff1(3) = 0.31686303d0
+      coeff1(4) = 0.74184083d0
+      coeff2(1) = 0.7071067811865475d0
+      coeff2(2) = 0.22280876d0
+      coeff2(3) = 0.14315011d0
+      coeff2(4) = 0.65564038d0
+      z1 = -0.5
+      z2 = 1.5
+      print*, "Overlap Sum"
+      exact = .true.
+      overlap = overlapTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "Exact: ", overlap - (-0.0708595303952499d0)
+      exact = .false.
+      overlap = overlapTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "STO: ", overlap - (-0.07031596688785882d0)
+      exact = .true.
+      overlap = overlapTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "Exact: ", overlap - (-0.09401698262812486d0)
+      exact = .false.
+      overlap = overlapTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "STO: ", overlap - (-0.09418355317621996d0)
+      print*, "Flip z1 and z2"
+      z1 = 1.5
+      z2 = -0.5
+      print*, "Overlap Sum"
+      exact = .true.
+      overlap = overlapTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "Exact: ", overlap - (-0.09401698262812484d0)
+      exact = .false.
+      overlap = overlapTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "STO: ", overlap - (-0.09418355317621999d0)
+      exact = .true.
+      overlap = overlapTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "Exact: ", overlap - (-0.0708595303952499d0)
+      exact = .false.
+      overlap = overlapTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "STO: ", overlap - (-0.07031596688785881d0)
+      return
+      end
+c
+c
+      subroutine testNEsumbAb()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 NEbAb,NEbAbTotal
+      real*8 NEaBa,NEaBaTotal
+      real*8 NEaAb,NEaAbTotal
+      real*8 NEaBb,NEaBbTotal
+      real*8 coeff1(4),coeff2(4)
+      logical exact
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = -0.5
+      z2 = 1.5
+      coeff1(1) = 0.5345224838248488d0
+      coeff1(2) = 0.25210259d0
+      coeff1(3) = 0.31686303d0
+      coeff1(4) = 0.74184083d0
+      coeff2(1) = 0.7071067811865475d0
+      coeff2(2) = 0.22280876d0
+      coeff2(3) = 0.14315011d0
+      coeff2(4) = 0.65564038d0
+      print*, "NE bAb Sum"
+      z1 = -0.5
+      z2 = 1.5
+      exact = .true.
+      NEbAb = NEbAbTotal(coeff2, b, z1, z2, exact)
+      print*, "Exact: ", NEbAb - (0.4388331120603912d0)
+      exact = .false.
+      NEbAb = NEbAbTotal(coeff2, b, z1, z2, exact)
+      print*, "STO: ", NEbAb - (0.4388151348014041d0)
+      print*, "Flip z1 and z2"
+      z1 = 1.5
+      z2 = -0.5
+      exact = .true.
+      NEbAb = NEbAbTotal(coeff2, b, z1, z2, exact)
+      print*, "Exact: ", NEbAb - (0.5930832316796388d0)
+      exact = .false.
+      NEbAb = NEbAbTotal(coeff2, b, z1, z2, exact)
+      print*, "STO: ", NEbAb - (0.5930599100902159d0)
+      print*, "NE aBa Sum"
+      z1 = -0.5
+      z2 = 1.5
+      exact = .true.
+      NEaBa = NEaBaTotal(coeff1, a, z1, z2, exact)
+      print*, "Exact: ", NEaBa - (0.5708396789695409d0)
+      exact = .false.
+      NEaBa = NEaBaTotal(coeff1, a, z1, z2, exact)
+      print*, "STO: ", NEaBa - (0.570829785313584d0)
+      print*, "Flip z1 and z2"
+      z1 = 1.5
+      z2 = -0.5
+      exact = .true.
+      NEaBa = NEaBaTotal(coeff1, a, z1, z2, exact)
+      print*, "Exact: ", NEaBa - (0.45758817961760334d0)
+      exact = .false.
+      NEaBa = NEaBaTotal(coeff1, a, z1, z2, exact)
+      print*, "STO: ", NEaBa - (0.45759805121923114d0)
+      print*, "NE aAb Sum"
+      z1 = -0.5
+      z2 = 1.5
+      exact = .true.
+      NEaAb = NEaAbTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "Exact: ", NEaAb - (-0.10720993185653073d0)
+      exact = .false.
+      NEaAb = NEaAbTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "STO: ", NEaAb - (-0.10587228428335016d0)
+      exact = .true.
+      NEaAb = NEaAbTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "Exact: ", NEaAb - (-0.11933457036134326d0)
+      exact = .false.
+      NEaAb = NEaAbTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "STO: ", NEaAb - (-0.1199546005679584d0)
+      print*, "Flip z1 and z2"
+      z1 = 1.5
+      z2 = -0.5
+      exact = .true.
+      NEaAb = NEaAbTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "Exact: ", NEaAb - (-0.057725729213826155d0)
+      exact = .false.
+      NEaAb = NEaAbTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "STO: ", NEaAb - (-0.05755868914645285d0)
+      exact = .true.
+      NEaAb = NEaAbTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "Exact: ", NEaAb - (-0.035225698080198105d0)
+      exact = .false.
+      NEaAb = NEaAbTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "STO: ", NEaAb - (-0.0345674044748482d0)
+      print*, "NE aBb Sum"
+      z1 = -0.5
+      z2 = 1.5
+      exact = .true.
+      NEaBb = NEaBbTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "Exact: ", NEaBb - (-0.0352256980801981d0)
+      exact = .false.
+      NEaBb = NEaBbTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "STO: ", NEaBb - (-0.03456740447484821d0)
+      exact = .true.
+      NEaBb = NEaBbTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "Exact: ", NEaBb - (-0.057725729213826155d0)
+      exact = .false.
+      NEaBb = NEaBbTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "STO: ", NEaBb - (-0.05755868914645283d0)
+      print*, "Flip z1 and z2"
+      z1 = 1.5
+      z2 = -0.5
+      exact = .true.
+      NEaBb = NEaBbTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "Exact: ", NEaBb - (-0.11933457036134326d0)
+      exact = .false.
+      NEaBb = NEaBbTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "STO: ", NEaBb - (-0.11995460056795842d0)
+      exact = .true.
+      NEaBb = NEaBbTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "Exact: ", NEaBb - (-0.10720993185653074d0)
+      exact = .false.
+      NEaBb = NEaBbTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "STO: ", NEaBb - (-0.1058722842833502d0)
+      return
+      end
+c
+c
+      subroutine testcoulombsum()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 coulomb,coulombTotal
+      real*8 coeff1(4),coeff2(4)
+      logical exact
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = -0.5
+      z2 = 1.5
+      coeff1(1) = 0.5345224838248488d0
+      coeff1(2) = 0.25210259d0
+      coeff1(3) = 0.31686303d0
+      coeff1(4) = 0.74184083d0
+      coeff2(1) = 0.7071067811865475d0
+      coeff2(2) = 0.22280876d0
+      coeff2(3) = 0.14315011d0
+      coeff2(4) = 0.65564038d0
+      z1 = -0.5
+      z2 = 1.5
+      print*, "Coulomb Sum"
+      exact = .true.
+      coulomb = coulombTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "Exact: ", coulomb - (0.49174301620966243d0)
+      exact = .false.
+      coulomb = coulombTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "STO: ", coulomb - (0.4917333207032612d0)
+      exact = .true.
+      coulomb = coulombTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "Exact: ", coulomb - (0.5334252923825443d0)
+      exact = .false.
+      coulomb = coulombTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "STO: ", coulomb - (0.5334069433534098d0)
+      print*, "Flip z1 and z2"
+      z1 = 1.5
+      z2 = -0.5
+      print*, "Coulomb Sum"
+      exact = .true.
+      coulomb = coulombTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "Exact: ", coulomb - (0.5334252923825444d0)
+      exact = .false.
+      coulomb = coulombTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      print*, "STO: ", coulomb - (0.5334069433534099d0)
+      exact = .true.
+      coulomb = coulombTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "Exact: ", coulomb - (0.49174301620966254d0)
+      exact = .false.
+      coulomb = coulombTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      print*, "STO: ", coulomb - (0.4917333207032608d0)
+      return
+      end
+c
+c
+      subroutine testexchangesum()
+      implicit none
+      real*8 a,b,z1,z2
+      real*8 exchange,exchangeTotal
+      real*8 coeff1(4),coeff2(4)
+c
+c
+      a = 3.5
+      b = 3.0
+      z1 = -0.5
+      z2 = 1.5
+      coeff1(1) = 0.5345224838248488d0
+      coeff1(2) = 0.25210259d0
+      coeff1(3) = 0.31686303d0
+      coeff1(4) = 0.74184083d0
+      coeff2(1) = 0.7071067811865475d0
+      coeff2(2) = 0.22280876d0
+      coeff2(3) = 0.14315011d0
+      coeff2(4) = 0.65564038d0
+      z1 = -0.5
+      z2 = 1.5
+      print*, "Exchange Sum"
+      exchange = exchangeTotal(coeff1, coeff2, a, b, z1, z2)
+      print*, "STO: ", exchange - (0.008989681212052883d0)
+      exchange = exchangeTotal(coeff2, coeff1, b, a, z1, z2)
+      print*, "STO: ", exchange - (0.014931157864616185d0)
+      print*, "Flip z1 and z2"
+      z1 = 1.5
+      z2 = -0.5
+      print*, "Exchange Sum"
+      exchange = exchangeTotal(coeff1, coeff2, a, b, z1, z2)
+      print*, "STO: ", exchange - (0.01493115786461617d0)
+      exchange = exchangeTotal(coeff2, coeff1, b, a, z1, z2)
+      print*, "STO: ", exchange - (0.008989681212052885d0)
       return
       end
