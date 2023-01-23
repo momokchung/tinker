@@ -69,29 +69,61 @@ c
       implicit none
       integer i,j,k
       integer ii,kk
+      integer ind1,ind2,ind3
       real*8 e,eterm
       real*8 fgrp,taper
       real*8 xi,yi,zi
       real*8 xk,yk,zk
       real*8 xr,yr,zr
       real*8 r,r2
+      real*8 normi
       real*8 zxri,zxrk
       real*8 vali,valk,valik
       real*8 dmpi,dmpk
+      real*8 cis,cks
+      real*8 cix,ckx
+      real*8 ciy,cky
+      real*8 ciz,ckz
+      real*8 rcix,rckx
+      real*8 rciy,rcky
+      real*8 rciz,rckz
       real*8 intS,intS2
       real*8 intK,intJ
       real*8 intaAb,intbBa
       real*8 intbAb,intaBa
-      real*8 termS0,termS1
-      real*8 termS2
+      real*8 overlapTotal
+      real*8 NEaAbTotal,NEaBbTotal,NEbAbTotal,NEaBaTotal
+      real*8 coulombTotal,exchangeTotal
+      real*8 pre,termS0
+      real*8 termS1,termS2
+      real*8 bi(3)
+      real*8 bj(3)
+      real*8 bk(3)
+      real*8 coeffi(4),coeffk(4)
       real*8, allocatable :: rscale(:)
       logical proceed,usei
       logical muti,mutk,mutik
       logical header,huge
+      logical exact
       character*6 mode
+      character*8 example
+      real*8 overlapSS
 c
 c
+c
+c     for non-exchange integral terms, choose exact or STO
+c
+      exact = .true.
 c     zero out the repulsion energy and partitioning terms
+c
+      ner = 0
+      er = 0.0d0
+      do i = 1, n
+         aer(i) = 0.0d0
+      end do
+      if (nrep .eq. 0)  return
+c
+c     test functions, all evaluated at STO-4G
 c
 c      call testcoulomb()
 c      call testcoulombflip()
@@ -107,12 +139,14 @@ c      call testoverlapsum()
 c      call testNEsumbAb()
 c      call testcoulombsum()
 c      call testexchangesum()
-      ner = 0
-      er = 0.0d0
-      do i = 1, n
-         aer(i) = 0.0d0
-      end do
-      if (nrep .eq. 0)  return
+c
+c     determine pseudo orbital coefficients
+c
+      call solvcoeff
+c
+c     rotate the coefficient components into the global frame
+c
+      call rotcoeff
 c
 c     perform dynamic allocation of some local arrays
 c
@@ -134,6 +168,10 @@ c
          zxri = zpxr(ii)
          dmpi = dmppxr(ii)
          vali = elepxr(ii)
+         cis = rcpxr(1,ii)
+         cix = rcpxr(2,ii)
+         ciy = rcpxr(3,ii)
+         ciz = rcpxr(4,ii)
          usei = use(i)
          muti = mut(i)
 c
@@ -175,18 +213,70 @@ c
                   zxrk = zpxr(kk)
                   dmpk = dmppxr(kk)
                   valk = elepxr(kk)
+                  cks = rcpxr(1,kk)
+                  ckx = rcpxr(2,kk)
+                  cky = rcpxr(3,kk)
+                  ckz = rcpxr(4,kk)
+c
+c     choose orthogonal 2-body coordinates / solve rotation matrix
+c
+                  bk(1) = xr / r
+                  bk(2) = yr / r
+                  bk(3) = zr / r
+                  ind1 = maxloc(abs(bk), dim=1)
+                  ind2 = mod(ind1,3) + 1
+                  ind3 = mod(ind1+1,3) + 1
+                  bi(ind1) = -bk(ind2)
+                  bi(ind2) = bk(ind1)
+                  bi(ind3) = 0.0d0
+                  normi = sqrt(bi(1)**2 + bi(2)**2 + bi(3)**2)
+                  bi(1) = bi(1) / normi
+                  bi(2) = bi(2) / normi
+                  bi(3) = bi(3) / normi
+                  bj(1) = bk(2)*bi(3) - bk(3)*bi(2)
+                  bj(2) = bk(3)*bi(1) - bk(1)*bi(3)
+                  bj(3) = bk(1)*bi(2) - bk(2)*bi(1)
+c
+c     rotate p orbital cofficients to 2-body (prolate spheroid) frame
+c
+                  rcix = bi(1)*cix + bi(2)*ciy + bi(3)*ciz
+                  rciy = bj(1)*cix + bj(2)*ciy + bj(3)*ciz
+                  rciz = bk(1)*cix + bk(2)*ciy + bk(3)*ciz
+                  rckx = bi(1)*ckx + bi(2)*cky + bi(3)*ckz
+                  rcky = bj(1)*ckx + bj(2)*cky + bj(3)*ckz
+                  rckz = bk(1)*ckx + bk(2)*cky + bk(3)*ckz
+                  coeffi = (/ cis, rcix, rciy, rciz /)
+                  coeffk = (/ cks, rckx, rcky, rckz /)
                   valik = vali * valk
-                  call computeInt (dmpi,dmpk,r,r2,xi,yi,zi,xk,yk,zk,
-     &                       intS,intK,intaAb,intbBa,intbAb,intaBa,intJ)
-                  intS2 = intS * intS
-                  termS0 = -valik * intK
-                  termS1 = -intS * (zxri * valk * intaAb
-     &                            + zxrk * vali * intbBa)
-                  termS2 = intS2 * (zxri * valk * intbAb
-     &                            + zxrk * vali * intaBa
-     &                            + valik * intJ)
-                  e = hartree * (termS0 + termS1 + termS2)
-     &                          / (1.0d0 - intS2)
+                  if (xreptyp == "S2R") then
+                     intS = overlapTotal (coeffi, coeffk, dmpi, dmpk,
+     &                                                  0.0d0, r, exact)
+                     intS2 = intS * intS
+                     e = -hartree*(zxri*valk+zxrk*vali)*intS2/r
+     &                                                        *rscale(k)
+                  else if (xreptyp == "H2") then
+                     intS = overlapTotal (coeffi, coeffk, dmpi, dmpk,
+     &                                                  0.0d0, r, exact)
+                     intS2 = intS**2
+                     intJ = coulombTotal (coeffi, coeffk, dmpi, dmpk,
+     &                                                  0.0d0, r, exact)
+                     intaAb = NEaAbTotal (coeffi, coeffk, dmpi, dmpk,
+     &                                                  0.0d0, r, exact)
+                     intbBa = NEaBbTotal (coeffi, coeffk, dmpi, dmpk,
+     &                                                  0.0d0, r, exact)
+                     intbAb = NEbAbTotal (coeffk, dmpk, 0.0d0, r, exact)
+                     intaBa = NEaBaTotal (coeffi, dmpi, 0.0d0, r, exact)
+                     intK = exchangeTotal (coeffi, coeffk, dmpi, dmpk,
+     &                                                         0.0d0, r)
+                     pre = hartree / (1.0d0 - intS2)
+                     termS0 = -valik * intK
+                     termS1 = -intS * (zxri * valk * intaAb
+     &                               + zxrk * vali * intbBa)
+                     termS2 = intS2 * (zxri * valk * intbAb
+     &                               + zxrk * vali * intaBa
+     &                               + valik * intJ)
+                     e = pre * (termS0 + termS1 + termS2)
+                  end if
 c
 c     scale the interaction based on its group membership
 c
@@ -225,6 +315,7 @@ c
             rscale(i15(j,i)) = 1.0d0
          end do
       end do
+      print*, "er: ", er
 c
 c     perform deallocation of some local arrays
 c
@@ -233,122 +324,136 @@ c
       end
 c
 c
-c     ###############################################################
-c     ##                                                           ##
-c     ##  subroutine computeInt  --  exchange repulsion integrals  ##
-c     ##                                                           ##
-c     ###############################################################
+c     ################################################################
+c     ##                                                            ##
+c     ##  subroutine solvcoeff  --  solve for orbital coefficients  ##
+c     ##                                                            ##
+c     ################################################################
 c
 c
-c     "computeIntegrals" computes the six integrals needed for exchange
-c     repulsion calculation
+c     "solvcoeff" finds the coefficients for the pseudo orbital
 c
 c
-      subroutine computeInt (dmpi,dmpk,r,r2,xi,yi,zi,xk,yk,zk,
-     &                       intS,intK,intaAb,intbBa,intbAb,intaBa,intJ)
+      subroutine solvcoeff
+      use mpole
       use xrepel
       implicit none
-      real*8 dmpi,dmpk
-      real*8 r,r2
-      real*8 xi,yi,zi
-      real*8 xk,yk,zk
-      real*8 intS
-      real*8 intK,intJ
-      real*8 intaAb,intbBa
-      real*8 intbAb,intaBa
-      real*8 rho,rho2,rho3
-      real*8 expi,expk
-      real*8 expi2,expk2
-      real*8 expik,expik2
-      real*8 eps,diff
-      real*8 dmpik
-      real*8 dmpi2,dmpk2
-      real*8 rhoi,rhok
-      real*8 tau,tau2
-      real*8 kappa
-      real*8 kappap,kappam
-      real*8 pre1,pre2
-      real*8 term1,term2
-      real*8 SSSS
+      integer ii,k,jj
+      integer ind1,ind2,ind3
+      real*8 cr,cs
+      real*8 pcoeff(3)
+      real*8 ppole(3)
+      real*8 p2p1,p3p1
+      logical l1,l2,l3
 c
 c
-      if (xreptyp .eq. 'DEFAULT') then
+c     determine pseudo orbital coefficients
 c
-c     compute tolerance value for damping exponents
+      do ii = 1, npole
+         do k = 1, 3
+            pcoeff(k) = 0.0d0
+         end do
+         ppole(1) = pole(2,ii)
+         ppole(2) = pole(3,ii)
+         ppole(3) = pole(4,ii)
+         cr = crpxr(ii)
+         l1 = (abs(ppole(1)) < 1.0d-10)
+         l2 = (abs(ppole(2)) < 1.0d-10)
+         l3 = (abs(ppole(3)) < 1.0d-10)
 c
-         eps = 0.001d0
-         diff = abs(dmpi-dmpk)
+c     case for no dipole
 c
-c     treat the case where alpha damping exponents are equal
+         if (l1.and.l2.and.l3) then
+            cs = 1.0d0
+            ind1 = 1
+            ind2 = 2
+            ind3 = 3
 c
-         if (diff .lt. eps) then
-            rho = dmpi * r
-            rho2 = rho * rho
-            rho3 = rho2 * rho
-            expi = exp(-rho)
-            expi2 = expi * expi
-            intS = (1.0d0 + rho + 1.0d0 / 3.0d0 * rho2) * expi
-            intaAb = dmpi * (1.0d0 + rho) * expi
-            intbBa = intaAb
-            intbAb = (1.0d0 - (1.0d0 + rho) * expi2) / r
-            intaBa = intbAb
-            intJ = (1.0d0 - (1.0d0 + 11.0d0/8.0d0 * rho
-     &           + 3.0d0/4.0d0 * rho2 + 1.0d0/6.0d0 * rho3) * expi2) / r
-            intK = SSSS(dmpi,dmpi,0.0d0,r,.true.)
+c     case for p orbital coefficients set to 0
 c
-c     treat the case where alpha damping exponents are not equal
+         else if (cr < 1.0d-10) then
+            cs = 1.0d0
+            ind1 = 1
+            ind2 = 2
+            ind3 = 3
+c
+c     determine normalized coefficients
 c
          else
-            dmpik = (dmpi + dmpk) / 2.0d0
-            dmpi2 = dmpi * dmpi
-            dmpk2 = dmpk * dmpk
-            rhoi = dmpi * r
-            rhok = dmpk * r
-            rho = dmpik * r
-            expi = exp(-rhoi)
-            expk = exp(-rhok)
-            expi2 = expi * expi
-            expk2 = expk * expk
-            tau = (dmpi - dmpk) / (dmpi + dmpk)
-            tau2 = tau * tau
-            kappa = (dmpi2 + dmpk2) / (dmpi2 - dmpk2)
-            kappap = 1.0d0 + kappa
-            kappam = 1.0d0 - kappa
-            pre1 = sqrt(1.0d0 - tau2) / (tau * rho)
-            term1 = -kappam * (2.0d0 * kappap + rhoi) * expi
-            term2 = kappap * (2.0d0 * kappam + rhok) * expk
-            intS = pre1 * (term1 + term2)
-            pre2 = dmpik * (1.0d0 + tau) * pre1
-            term1 = -kappam * expi
-            term2 = (kappam + rhok) * expk
-            intaAb = pre2 * (term1 + term2)
-            pre2 = -dmpik * (1.0d0 - tau) * pre1
-            term1 = -kappap * expk
-            term2 = (kappap + rhoi) * expi
-            intbBa = pre2 * (term1 + term2)
-            intbAb = (1.0d0 - (1.0d0 + rhok) * expk2) / r
-            intaBa = (1.0d0 - (1.0d0 + rhoi) * expi2) / r
-            term1 = -kappam * kappam * (2.0d0 + kappa + rhoi) * expi2
-            term2 = -kappap * kappap * (2.0d0 - kappa + rhok) * expk2
-            intJ = (1.0d0 + (term1 + term2) / 4.0d0) / r
-            intK = SSSS(dmpi,dmpk,0.0d0,r,.true.)
+            cs = 1.0d0 / sqrt(1.0d0 + cr)
+c
+c     determine index for largest absolute dipole component
+c
+            ind1 = maxloc(abs(ppole), dim=1)
+            ind2 = mod(ind1,3) + 1
+            ind3 = mod(ind1+1,3) + 1
+            p2p1 = ppole(ind2) / ppole(ind1)
+            p3p1 = ppole(ind3) / ppole(ind1)
+            pcoeff(ind1) = cs * sqrt(cr / (1.0d0 + p2p1**2 + p3p1**2))
+            if (ppole(ind1) < 0.0d0) then
+               pcoeff(ind1) = -pcoeff(ind1)
+            end if
+            pcoeff(ind2) = pcoeff(ind1) * p2p1
+            pcoeff(ind3) = pcoeff(ind1) * p3p1
          end if
-      else if (xreptyp .eq. 'UNITED ') then
-         dmpik = sqrt(dmpi * dmpk)
-         rho = dmpik * r
-         rho2 = rho * rho
-         rho3 = rho2 * rho
-         expik = exp(-rho)
-         expik2 = expik * expik
-         intS = (1.0d0 + rho + 1.0d0 / 3.0d0 * rho2) * expik
-         intaAb = dmpik * (1.0d0 + rho) * expik
-         intbBa = intaAb
-         intbAb = (1.0d0 - (1.0d0 + rho) * expik2) / r
-         intaBa = intbAb
-         intJ = (1.0d0 - (1.0d0 + 11.0d0/8.0d0 * rho
-     &          + 3.0d0/4.0d0 * rho2 + 1.0d0/6.0d0 * rho3) * expik2) / r
-         intK = SSSS(dmpik,dmpik,0.0d0,r,.true.)
-      end if
+         cpxr(1,ii) = cs
+         cpxr(ind1+1,ii) = pcoeff(ind1)
+         cpxr(ind2+1,ii) = pcoeff(ind2)
+         cpxr(ind3+1,ii) = pcoeff(ind3)
+      end do
+      return
+      end
+c
+c
+c     ############################################################
+c     ##                                                        ##
+c     ##  subroutine rotcoeff  --  rotate orbital coefficients  ##
+c     ##                                                        ##
+c     ############################################################
+c
+c
+c     "rotcoeff" rotates the coefficients for the pseudo orbital
+c     to global coordinates
+c
+c
+      subroutine rotcoeff
+      use mpole
+      use xrepel
+      implicit none
+      integer isite
+      integer i,j,k
+      real*8 a(3,3)
+      real*8 cpole(4)
+      logical planar
+c
+c
+c     rotate pseudo orbital coefficients
+c
+      do isite = 1, npole
+c
+c     determine rotation matrix
+c
+         call rotmat (isite,a,planar)
+c
+c     copy local frame coefficients
+c
+         do i = 1, 4
+            cpole(i) = cpxr(i,isite)
+         end do
+c
+c     s orbital coefficients have the same value in any coordinate frame
+c
+         rcpxr(1,isite) = cpole(1)
+c
+c     rotate the p orbital coefficients to the global coordinate frame
+c
+         do i = 2, 4
+            rcpxr(i,isite) = 0.0d0
+            do j = 2, 4
+               rcpxr(i,isite) = rcpxr(i,isite) + cpole(j)*a(i-1,j-1)
+            end do
+         end do
+      end do
       return
       end
 c
