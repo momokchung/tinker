@@ -362,7 +362,7 @@ c
 c     set default control parameters for repulsion terms
 c
       reptyp = 'PAULI'
-      xreptyp = 'H2'
+      xreptyp = 'S2R'
       stong = 'STO-3G'
       r2scale = 0.0d0
       r3scale = 0.0d0
