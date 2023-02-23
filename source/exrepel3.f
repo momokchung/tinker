@@ -315,7 +315,6 @@ c
             rscale(i15(j,i)) = 1.0d0
          end do
       end do
-      print*, "er: ", er
 c
 c     perform deallocation of some local arrays
 c

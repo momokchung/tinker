@@ -6390,7 +6390,7 @@ c
 c
 c
       diff = abs(a - b)
-      eps = 0.01d0
+      eps = 0.001d0
       zr = z2 - z1
       r = abs(zr)
       if (diff .lt. eps) then
@@ -6449,7 +6449,7 @@ c
 c
 c
       diff = abs(a - b)
-      eps = 0.01d0
+      eps = 0.001d0
       zr = z2 - z1
       r = abs(zr)
       if (diff .lt. eps) then
@@ -6519,7 +6519,7 @@ c
 c
 c
       diff = abs(a - b)
-      eps = 0.01d0
+      eps = 0.001d0
       zr = z2 - z1
       r = abs(zr)
       if (diff .lt. eps) then
@@ -6594,7 +6594,7 @@ c
 c
 c
       diff = abs(a - b)
-      eps = 0.01d0
+      eps = 0.001d0
       zr = z2 - z1
       r = abs(zr)
       if (diff .lt. eps) then

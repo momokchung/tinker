@@ -211,7 +211,7 @@ c
 c     read in boys coefficients
 c
          iboys = freeunit ()
-         open (unit=iboys,file="/Users/moseschung/tmp/f0006.bin",
+         open (unit=iboys,file="/home/kchung25/tinker/tmp/f0006.bin",
      &      form='unformatted',access='stream',status='old',
      &      action='read')
          read (iboys) boysCoeff
