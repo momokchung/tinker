@@ -8183,10 +8183,11 @@ c
 c     "overlapTotal" computes the total overlap integral
 c
 c
-      function overlapTotal (coeff1, coeff2, a, b, z1, z2, exact)
+      function overlapTotal (coeff1, coeff2, a,b, ap,bp, z1, z2, exact)
       implicit none
       real*8 overlapTotal
-      real*8 a,b,z1,z2
+      real*8 a,b,ap,bp
+      real*8 z1,z2
       real*8 cscs,cxcx,cycy
       real*8 czcz,cscz,czcs
       real*8 SS,SPz,PzS
@@ -8207,18 +8208,18 @@ c
       czcs = coeff1(4) * coeff2(1)
       if (exact) then
          SS = overlapSS(a, b, z1, z2)
-         SPz = overlapSPz(a, b, z1, z2)
-         PzS = overlapPzS(a, b, z1, z2)
-         PxPx = overlapPxPx(a, b, z1, z2)
+         SPz = overlapSPz(a, bp, z1, z2)
+         PzS = overlapPzS(ap, b, z1, z2)
+         PxPx = overlapPxPx(ap, bp, z1, z2)
          PyPy = PxPx
-         PzPz = overlapPzPz(a, b, z1, z2)
+         PzPz = overlapPzPz(ap, bp, z1, z2)
       else
          SS = stoOSS(a, b, z1, z2)
-         SPz = stoOSPz(a, b, z1, z2)
-         PzS = stoOPzS(a, b, z1, z2)
-         PxPx = stoOPxPx(a, b, z1, z2)
+         SPz = stoOSPz(a, bp, z1, z2)
+         PzS = stoOPzS(ap, b, z1, z2)
+         PxPx = stoOPxPx(ap, bp, z1, z2)
          PyPy = PxPx
-         PzPz = stoOPzPz(a, b, z1, z2)
+         PzPz = stoOPzPz(ap, bp, z1, z2)
       end if
       overlapTotal = cscs * SS + cxcx * PxPx + cycy * PyPy + czcz * PzPz
      &        + cscz * SPz + czcs * PzS

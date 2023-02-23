@@ -19,6 +19,7 @@ c     zpxr       nuclear charge parameter value at each site
 c     dmppxr     exchange repulsion alpha damping value at each site
 c     elepxr     electron charge parameter value at each site
 c     crpxr      ratio of p/s orbital cofficients at each site
+c     drpxr      ratio of p/s orbital exponents at each site
 c     cpxr       local coefficient for pseudo wavefunction at each site
 c     rcpxr      global coefficient for pseudo wavefunction at each site
 c     stocoeff   coefficients for STO-nG basis
@@ -37,6 +38,7 @@ c
       real*8, allocatable :: dmppxr(:)
       real*8, allocatable :: elepxr(:)
       real*8, allocatable :: crpxr(:)
+      real*8, allocatable :: drpxr(:)
       real*8, allocatable :: cpxr(:,:)
       real*8, allocatable :: rcpxr(:,:)
       real*8, allocatable :: stocoeff(:,:)

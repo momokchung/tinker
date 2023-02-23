@@ -80,6 +80,8 @@ c
       real*8 zxri,zxrk
       real*8 vali,valk,valik
       real*8 dmpi,dmpk
+      real*8 dis,dks
+      real*8 dmpip,dmpkp
       real*8 cis,cks
       real*8 cix,ckx
       real*8 ciy,cky
@@ -168,6 +170,8 @@ c
          zxri = zpxr(ii)
          dmpi = dmppxr(ii)
          vali = elepxr(ii)
+         dis = drpxr(ii)
+         dmpip = dis * dmpi
          cis = rcpxr(1,ii)
          cix = rcpxr(2,ii)
          ciy = rcpxr(3,ii)
@@ -213,6 +217,8 @@ c
                   zxrk = zpxr(kk)
                   dmpk = dmppxr(kk)
                   valk = elepxr(kk)
+                  dks = drpxr(kk)
+                  dmpkp = dks * dmpk
                   cks = rcpxr(1,kk)
                   ckx = rcpxr(2,kk)
                   cky = rcpxr(3,kk)
@@ -250,13 +256,13 @@ c
                   valik = vali * valk
                   if (xreptyp == "S2R") then
                      intS = overlapTotal (coeffi, coeffk, dmpi, dmpk,
-     &                                                  0.0d0, r, exact)
+     &                                    dmpip, dmpkp, 0.0d0, r, exact)
                      intS2 = intS * intS
                      e = -hartree*(zxri*valk+zxrk*vali)*intS2/r
      &                                                        *rscale(k)
                   else if (xreptyp == "H2") then
                      intS = overlapTotal (coeffi, coeffk, dmpi, dmpk,
-     &                                                  0.0d0, r, exact)
+     &                                    dmpip, dmpkp, 0.0d0, r, exact)
                      intS2 = intS**2
                      intJ = coulombTotal (coeffi, coeffk, dmpi, dmpk,
      &                                                  0.0d0, r, exact)
@@ -2372,32 +2378,32 @@ c
       z2 = 1.5
       print*, "Overlap Sum"
       exact = .true.
-      overlap = overlapTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      overlap = overlapTotal(coeff1, coeff2, a, b, a, b, z1, z2, exact)
       print*, "Exact: ", overlap - (-0.0708595303952499d0)
       exact = .false.
-      overlap = overlapTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      overlap = overlapTotal(coeff1, coeff2, a, b, a, b, z1, z2, exact)
       print*, "STO: ", overlap - (-0.07031596688785882d0)
       exact = .true.
-      overlap = overlapTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      overlap = overlapTotal(coeff2, coeff1, b, a, b, a, z1, z2, exact)
       print*, "Exact: ", overlap - (-0.09401698262812486d0)
       exact = .false.
-      overlap = overlapTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      overlap = overlapTotal(coeff2, coeff1, b, a, b, a, z1, z2, exact)
       print*, "STO: ", overlap - (-0.09418355317621996d0)
       print*, "Flip z1 and z2"
       z1 = 1.5
       z2 = -0.5
       print*, "Overlap Sum"
       exact = .true.
-      overlap = overlapTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      overlap = overlapTotal(coeff1, coeff2, a, b, a, b, z1, z2, exact)
       print*, "Exact: ", overlap - (-0.09401698262812484d0)
       exact = .false.
-      overlap = overlapTotal(coeff1, coeff2, a, b, z1, z2, exact)
+      overlap = overlapTotal(coeff1, coeff2, a, b, a, b, z1, z2, exact)
       print*, "STO: ", overlap - (-0.09418355317621999d0)
       exact = .true.
-      overlap = overlapTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      overlap = overlapTotal(coeff2, coeff1, b, a, b, a, z1, z2, exact)
       print*, "Exact: ", overlap - (-0.0708595303952499d0)
       exact = .false.
-      overlap = overlapTotal(coeff2, coeff1, b, a, z1, z2, exact)
+      overlap = overlapTotal(coeff2, coeff1, b, a, b, a, z1, z2, exact)
       print*, "STO: ", overlap - (-0.07031596688785881d0)
       return
       end
