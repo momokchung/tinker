@@ -35,7 +35,7 @@ c
       integer iboys
       integer freeunit
       integer ia,ic,next
-      real*8 zpr,apr,cpr,dpr
+      real*8 zpr,ele,apr,cpr,dpr
       logical header
       character*20 keyword
       character*240 record
@@ -57,12 +57,13 @@ c
          if (keyword(1:11) .eq. 'XREPULSION ') then
             k = 0
             zpr = 0.0d0
+            ele = 0.0d0
             apr = 0.0d0
             cpr = 0.0d0
             dpr = 1.0d0
             call getnumb (record,k,next)
             string = record(next:240)
-            read (string,*,err=10,end=10)  zpr,apr,cpr,dpr
+            read (string,*,err=10,end=10)  zpr,ele,apr,cpr,dpr
    10       continue
             if (k .gt. 0) then
                if (header .and. .not.silent) then
@@ -70,17 +71,18 @@ c
                   write (iout,20)
    20             format (/,' Additional Exchange Repulsion',
      &                       ' Parameters :',
-     &                    //,5x,'Atom Class',15x,'Core',11x,'Damp',
-     &                       8x,'P/S Coeff',8x,'P/S Damp'/)
+     &                    //,5x,'Atom Class',13x,'Core',11x,'Charge',
+     &                       9x,'Damp',11x,'P/S Coeff',6x,'P/S Damp'/)
                end if
                if (k .le. maxclass) then
                   pxrz(k) = zpr
+                  pxrele(k) = -abs(ele)
                   pxrdmp(k) = apr
                   pxrcr(k) = cpr
                   pxrdr(k) = dpr
                   if (.not. silent) then
-                     write (iout,30)  k,zpr,apr,cpr,dpr
-   30                format (6x,i6,7x,2f15.4,f15.3,f15.3)
+                     write (iout,30)  k,zpr,ele,apr,cpr,dpr
+   30                format (6x,i6,7x,5f15.4)
                   end if
                else
                   write (iout,40)
@@ -121,8 +123,8 @@ c
          ic = class(i)
          if (ic .ne. 0) then
             zpxr(i) = pxrz(ic)
+            elepxr(i) = pxrele(ic)
             dmppxr(i) = pxrdmp(ic)
-            elepxr(i) = min(pole(1,i) - zpxr(i), 0.0d0)
             crpxr(i) = pxrcr(ic)
             drpxr(i) = pxrdr(ic)
          end if
@@ -139,11 +141,12 @@ c
          if (keyword(1:11) .eq. 'XREPULSION ') then
             ia = 0
             zpr = 0.0d0
+            ele = 0.0d0
             apr = 0.0d0
             cpr = 0.0d0
             dpr = 1.0d0
             string = record(next:240)
-            read (string,*,err=70,end=70)  ia,zpr,apr,cpr
+            read (string,*,err=70,end=70)  ia,zpr,ele,apr,cpr,dpr
             if (ia.lt.0 .and. ia.ge.-n) then
                ia = -ia
                if (header .and. .not.silent) then
@@ -151,16 +154,16 @@ c
                   write (iout,50)
    50             format (/,' Additional Exchange Repulsion Values',
      &                       ' for Specific Atoms :',
-     &                    //,8x,'Atom',17x,'Core',12x,'Damp',
-     &                       8x,'P/S Coeff',8x,'P/S Damp'/)
+     &                    //,8x,'Atom',16x,'Core',11x,'Charge',9x,
+     &                       'Damp',11x,'P/S Coeff',6x,'P/S Damp'/)
                end if
                if (.not. silent) then
-                  write (iout,60)  ia,zpr,apr,cpr,dpr
-   60             format (6x,i6,7x,2f15.4,f15.3,f15.3)
+                  write (iout,60)  ia,zpr,ele,apr,cpr,dpr
+   60             format (6x,i6,7x,5f15.4)
                end if
                zpxr(ia) = zpr
+               elepxr(ia) = -abs(ele)
                dmppxr(ia) = apr
-               elepxr(ia) = min(pole(1,ia) - zpr, 0.0d0)
                crpxr(ia) = cpr
                drpxr(ia) = dpr
             end if
