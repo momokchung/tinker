@@ -12,7 +12,7 @@ c     ##                                                             ##
 c     #################################################################
 c
 c
-c     "erepel3" calculates the exchange repulsion energy and partitions
+c     "exrepel3" calculates the exchange repulsion energy and partitions
 c     the energy among the atoms
 c
 c     literature reference:
@@ -51,21 +51,25 @@ c
       subroutine exrepel3a
       use action
       use analyz
+      use atomid
       use atoms
       use bound
+      use cell
       use couple
       use energi
       use group
+      use inform
       use inter
+      use iounit
       use molcul
       use mpole
       use mutant
       use repel
       use reppot
       use shunt
-      use xrepel
       use units
       use usage
+      use xrepel
       implicit none
       integer i,j,k
       integer ii,kk
