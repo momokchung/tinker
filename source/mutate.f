@@ -423,7 +423,7 @@ c
          do i = 1, n
             if (mut(i)) then
                shct(i) = shct(i) * elambda
-               radcav(i) = radcav(i) * elambda
+               radcav(i) = radcav(i) * vlambda
                raddsp(i) = raddsp(i) * elambda
                epsdsp(i) = epsdsp(i) * elambda
                cdsp(i) = cdsp(i) * elambda
