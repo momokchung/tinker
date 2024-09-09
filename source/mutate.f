@@ -424,9 +424,9 @@ c
             if (mut(i)) then
                shct(i) = shct(i) * elambda
                radcav(i) = radcav(i) * elambda
-               raddsp(i) = raddsp(i) * elambda
-               epsdsp(i) = epsdsp(i) * elambda
-               cdsp(i) = cdsp(i) * elambda
+               raddsp(i) = raddsp(i) * vlambda
+               epsdsp(i) = epsdsp(i) * vlambda
+               cdsp(i) = cdsp(i) * vlambda
             end if
          end do
       end if
