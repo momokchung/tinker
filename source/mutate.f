@@ -79,6 +79,7 @@ c
       vlambda = 1.0d0
       elambda = 1.0d0
       tlambda = 1.0d0
+      nlambda = 1.0d0
 c
 c     set defaults for vdw coupling type and soft core vdw
 c
@@ -117,6 +118,9 @@ c
          else if (keyword(1:12) .eq. 'TORS-LAMBDA ') then
             string = record(next:240)
             read (string,*,err=30)  tlambda
+         else if (keyword(1:11) .eq. 'NPO-LAMBDA ') then
+            string = record(next:240)
+            read (string,*,err=30)  nlambda
          else if (keyword(1:15) .eq. 'VDW-ANNIHILATE ') then
             vcouple = 1
          else if (keyword(1:7) .eq. 'MUTATE ') then
@@ -193,7 +197,7 @@ c
 c
 c     scale implicit solvation parameter values based on lambda
 c
-      if (elambda.ge.0.0d0 .and. elambda.lt.1.0d0) then
+      if (use_solv) then
          call altsolv
       end if
 c
@@ -214,6 +218,9 @@ c
          write (iout,60)  tlambda
    60    format (' Free Energy Perturbation :',f15.3,
      &              ' Lambda for Torsional Angles')
+         write (iout,70)  nlambda
+   70    format (' Free Energy Perturbation :',f15.3,
+     &              ' Lambda for Implicit Nonpolar')
       end if
 c
 c     perform deallocation of some local arrays
@@ -419,14 +426,20 @@ c
 c
 c     set scaled parameters for implicit solvation models
 c
-      if (use_solv) then
+      if (elambda.ge.0.0d0 .and. elambda.lt.1.0d0) then
          do i = 1, n
             if (mut(i)) then
                shct(i) = shct(i) * elambda
-               radcav(i) = radcav(i) * elambda
-               raddsp(i) = raddsp(i) * elambda
-               epsdsp(i) = epsdsp(i) * elambda
-               cdsp(i) = cdsp(i) * elambda
+            end if
+         end do
+      end if
+      if (nlambda.ge.0.0d0 .and. nlambda.lt.1.0d0) then
+         do i = 1, n
+            if (mut(i)) then
+               radcav(i) = radcav(i) * nlambda
+               raddsp(i) = raddsp(i) * nlambda
+               epsdsp(i) = epsdsp(i) * nlambda
+               cdsp(i) = cdsp(i) * nlambda
             end if
          end do
       end if
