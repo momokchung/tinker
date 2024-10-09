@@ -16,6 +16,7 @@ extern double TINKER_MOD(mutant, lambda);
 extern double TINKER_MOD(mutant, vlambda);
 extern double TINKER_MOD(mutant, elambda);
 extern double TINKER_MOD(mutant, tlambda);
+extern double TINKER_MOD(mutant, nlambda);
 extern double TINKER_MOD(mutant, scexp);
 extern double TINKER_MOD(mutant, scalpha);
 extern int* TINKER_MOD(mutant, mut);
