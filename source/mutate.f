@@ -415,18 +415,20 @@ c
       use solute
       implicit none
       integer i
+      real*8 vlambda3
 c
 c
 c     set scaled parameters for implicit solvation models
 c
+      vlambda3 = vlambda * vlambda * vlambda
       if (use_solv) then
          do i = 1, n
             if (mut(i)) then
                shct(i) = shct(i) * elambda
-               radcav(i) = radcav(i) * vlambda
-               raddsp(i) = raddsp(i) * vlambda
-               epsdsp(i) = epsdsp(i) * vlambda
-               cdsp(i) = cdsp(i) * vlambda
+               radcav(i) = radcav(i) * vlambda3
+               raddsp(i) = raddsp(i) * vlambda3
+               epsdsp(i) = epsdsp(i) * vlambda3
+               cdsp(i) = cdsp(i) * vlambda3
             end if
          end do
       end if
